@@ -3,6 +3,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+//Firebase
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 28
@@ -47,4 +49,11 @@ dependencies {
     // push sdk를 사용하기 위해 필요.
     implementation group: 'com.kakao.sdk', name: 'push', version: project.KAKAO_SDK_VERSION
 
+    //BootPay API
+    implementation 'com.github.bootpay:client_android_java:3.2.43'
+
+    //Firebase
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+    implementation 'com.google.firebase:firebase-database:19.2.0'
+    implementation 'com.google.firebase:firebase-messaging:20.1.0'
 }

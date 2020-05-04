@@ -12,6 +12,8 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        //Firebase
+        classpath 'com.google.gms:google-services:4.3.3'
     }
 }
 
@@ -19,6 +21,9 @@ allprojects {
     repositories {
         google()
         jcenter()
+
+        //BootPay API
+        maven { url 'https://jitpack.io' }
     }
 }
 
