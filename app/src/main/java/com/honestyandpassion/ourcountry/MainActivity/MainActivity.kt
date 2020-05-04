@@ -1,4 +1,4 @@
-package com.honestyandpassion.ourcountry.IntroActivity
+package com.honestyandpassion.ourcountry.MainActivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
