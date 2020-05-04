@@ -1,9 +1,10 @@
-package com.honestyandpassion.ourcountry
+package com.honestyandpassion.ourcountry.IntroActivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.honestyandpassion.ourcountry.R
 
-class SplashActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
