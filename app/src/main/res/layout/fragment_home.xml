@@ -1,14 +1,557 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="1000dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/edit_homesearch"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/custom_progress_bar_horizontal"
+                android:ems="10"
+                android:hint="검색어를 입력해보세요."
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:paddingStart="8dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/colorMdGrey_700"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_homeheader" />
+
+            <ImageButton
+                android:id="@+id/btn_homesearch"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="4dp"
+                android:background="@color/colorMdWhite_1000"
+                android:tint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_homesearch"
+                app:layout_constraintEnd_toEndOf="@+id/edit_homesearch"
+                app:layout_constraintTop_toTopOf="@+id/edit_homesearch"
+                app:srcCompat="@drawable/baseline_search_grey_24" />
+
+            <ImageView
+                android:id="@+id/image_homeheader"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toStartOf="@+id/view21"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/image_header" />
+
+            <LinearLayout
+                android:id="@+id/pagerIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="4dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="4dp"
+                android:paddingBottom="4dp"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="@+id/blogViewPager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+            <TextView
+                android:id="@+id/recentItemTitleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:text="최근등록된상품"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorMdGrey_700"
+                android:textSize="20dp"
+                android:visibility="visible"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/text_recentallview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_category" />
+
+            <TextView
+                android:id="@+id/blogTitleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:animateLayoutChanges="true"
+                android:text="MarketCountry 소식"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorMdGrey_700"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/text_noticeallview"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/featuredCityCardViewBig" />
+
+            <TextView
+                android:id="@+id/text_noticeallview"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="20dp"
+                android:animateLayoutChanges="true"
+                android:gravity="center"
+                android:text="전체보기"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/blogTitleTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/blogTitleTextView"
+                tools:text="전체보기" />
+
+            <TextView
+                android:id="@+id/text_recentallview"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:text="전체보기"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/recentItemTitleTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/recentItemTitleTextView" />
+
+            <!--<androidx.cardview.widget.CardView-->
+            <!--android:id="@+id/itemFromFollowerCardView"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--app:cardElevation="0sp"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/blogViewPager">-->
+
+            <TextView
+                android:id="@+id/categoryTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="8dp"
+                android:text="카테고리"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorMdGrey_700"
+                android:textSize="20dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toStartOf="@+id/text_categoryallview"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_homesearch" />
+
+            <!--</androidx.cardview.widget.CardView>-->
+
+            <TextView
+                android:id="@+id/text_categoryallview"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:text="전체보기"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/categoryTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/categoryTextView" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="원하는 카테고리를 선택해주세요."
+                android:textColor="@color/colorMdGrey_500"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/categoryTextView" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="실시간 등록된 상품입니다."
+                android:textColor="@color/colorMdGrey_500"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recentItemTitleTextView" />
+
+            <TextView
+                android:id="@+id/locationTitleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="16dp"
+                android:text="현재위치"
+                android:textColor="@color/colorMdGrey_700"
+                android:textSize="12dp"
+                android:textAlignment="viewEnd"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_homeheader"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_currentlocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:ellipsize="end"
+                android:gravity="end"
+                android:maxEms="7"
+                android:maxLines="1"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_homeheader"
+                app:layout_constraintTop_toBottomOf="@+id/locationTitleTextView"
+                tools:text="XXXXX XXXX XXXXX" />
+
+            <!--<ImageView-->
+            <!--android:id="@+id/cityImageView"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="300dp"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent"-->
+            <!--app:srcCompat="@drawable/default_image" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/cityNameTextView"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="16dp"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:textColor="@color/text__primary_dark"-->
+            <!--android:textSize="@dimen/font_h7_size"-->
+            <!--app:font='@{"normal"}'-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/shareImageView"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/cityImageView"-->
+            <!--tools:text="TextView" />-->
+
+            <!--<ImageView-->
+            <!--android:id="@+id/shareImageView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="16dp"-->
+            <!--app:layout_constraintBottom_toBottomOf="@+id/cityNameTextView"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="@+id/cityNameTextView"-->
+            <!--app:srcCompat="@android:drawable/ic_menu_share" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/cityDescriptionTextView"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="16dp"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:layout_marginEnd="16dp"-->
+            <!--android:ellipsize="end"-->
+            <!--android:maxLines="4"-->
+            <!--android:textColor="@color/text__primary"-->
+            <!--android:textSize="@dimen/font_body_size"-->
+            <!--app:font='@{"normal"}'-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/cityNameTextView"-->
+            <!--tools:text="TextView" />-->
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/followerConstraintLayout" />
+
+            <View
+                android:id="@+id/view21"
+                android:layout_width="170dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/dot_dot"
+                android:layerType="software"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_currentlocation" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/featuredCityCardViewBig"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:cardElevation="0sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/adView2">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/gradient_orange">
+
+                    <TextView
+                        android:id="@+id/text_popularallview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="20dp"
+                        android:animateLayoutChanges="true"
+                        android:gravity="center"
+                        android:text="전체보기"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12dp"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="@+id/popularTitleTextView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/popularTitleTextView"
+                        tools:text="전체보기" />
+
+                    <TextView
+                        android:id="@+id/popularTitleTextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="8dp"
+                        android:animateLayoutChanges="true"
+                        android:text="인기상품"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/colorMdGrey_700"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/text_popularallview"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textview16"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="최근 주목받는 상품입니다."
+                        android:textColor="@color/colorMdGrey_500"
+                        android:textSize="14dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/popularTitleTextView" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_popularproduct"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="24dp"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="0dp"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textview16"
+                        app:spanCount="1" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/followerConstraintLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/blogViewPager">
+
+                <TextView
+                    android:id="@+id/text_follwerproductallview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="20dp"
+                    android:animateLayoutChanges="true"
+                    android:gravity="center"
+                    android:text="전체보기"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12dp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/followerTitleTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/followerTitleTextView"
+                    tools:text="전체보기" />
+
+                <TextView
+                    android:id="@+id/followerTitleTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:animateLayoutChanges="true"
+                    android:text="팔로워의 상품목록"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorMdGrey_700"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/text_follwerproductallview"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/followerDescTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="팔로워의 상품목록입니다."
+                    android:textColor="@color/colorMdGrey_500"
+                    android:textSize="14dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/followerTitleTextView"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_followerproduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="24dp"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="0dp"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/followerDescTextView"
+                    app:spanCount="1" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingStart="13dp"
+                android:paddingEnd="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView14"
+                app:spanCount="1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_recentproduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingBottom="16dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView10"
+                app:spanCount="1" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/blogViewPager"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/blogTitleTextView" />
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                app:adSize="SMART_BANNER"
+                app:adUnitId="@string/admob_banner_ads_key"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_recentproduct" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
