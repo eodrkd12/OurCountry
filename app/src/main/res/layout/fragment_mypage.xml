@@ -117,10 +117,19 @@
         android:stateListAnimator="@null"
         android:text="내가찜한상품"
         android:textSize="15dp"
-        android:drawableLeft="@drawable/ic_liked"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_edit" />
+
+    <ImageView
+        android:id="@+id/image_liked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_myfav"
+        app:layout_constraintEnd_toEndOf="@+id/btn_myfav"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="@+id/btn_edit"
+        app:layout_constraintTop_toTopOf="@+id/btn_myfav"
+        app:srcCompat="@drawable/ic_liked" />
 
     <Button
         android:id="@+id/btn_option"
@@ -132,6 +141,17 @@
         android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/btn_myfav"
         app:layout_constraintTop_toBottomOf="@+id/btn_following" />
+
+    <ImageView
+        android:id="@+id/image_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_option"
+        app:layout_constraintEnd_toEndOf="@+id/btn_option"
+        app:layout_constraintHorizontal_bias="0.33"
+        app:layout_constraintStart_toEndOf="@+id/btn_myfav"
+        app:layout_constraintTop_toTopOf="@+id/btn_option"
+        app:srcCompat="@drawable/ic_option" />
 
     <View
         android:id="@+id/view4"
