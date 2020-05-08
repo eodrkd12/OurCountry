@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.commit.Adapter.CategoryAdapter
+import com.honestyandpassion.ourcountry.Item.Category
 
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -22,12 +24,16 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_home, container, false)
+        val categoryList = arrayListOf("농산물", "수산물", "축산물", "건강식품", "발효식품")
         // Inflate the layout for this fragment
         var categoryRV:RecyclerView = rootView.findViewById(R.id.rv_category)
 
+
+        Toast.makeText(activity, categoryList.size.toString(), Toast.LENGTH_SHORT).show()
         categoryRV.setHasFixedSize(true)
-        categoryRV.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        categoryRV.adapter = CategoryAdapter(activity!!)
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        categoryRV.layoutManager = LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
+        categoryRV.adapter = CategoryAdapter(activity!!, categoryList)
+
+        return rootView
     }
 }
