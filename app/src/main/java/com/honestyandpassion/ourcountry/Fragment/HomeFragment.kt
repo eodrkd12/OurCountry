@@ -25,11 +25,9 @@ class HomeFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_home, container, false)
         val categoryList = arrayListOf("농산물", "수산물", "축산물", "건강식품", "발효식품")
-        // Inflate the layout for this fragment
         var categoryRV:RecyclerView = rootView.findViewById(R.id.rv_category)
 
 
-        Toast.makeText(activity, categoryList.size.toString(), Toast.LENGTH_SHORT).show()
         categoryRV.setHasFixedSize(true)
         categoryRV.layoutManager = LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
         categoryRV.adapter = CategoryAdapter(activity!!, categoryList)
