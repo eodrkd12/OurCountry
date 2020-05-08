@@ -17,19 +17,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_margin="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:src="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/text_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="TextView"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -38,6 +46,9 @@
                 android:id="@+id/text_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:maxLines="1"
                 android:text="TextView"
                 android:textAlignment="viewStart"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -48,9 +59,18 @@
                 style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_width="116dp"
                 android:layout_height="17dp"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="8dp"
                 app:layout_constraintStart_toEndOf="@+id/text_rating"
                 app:layout_constraintTop_toTopOf="@+id/text_rating" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="TextView"
+                app:layout_constraintStart_toEndOf="@+id/ratingBar"
+                app:layout_constraintTop_toTopOf="@+id/ratingBar" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -58,62 +78,80 @@
 
     <Button
         android:id="@+id/btn_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
+        android:layout_width="136dp"
+        android:layout_height="60dp"
+        android:background="@drawable/mypage_btn_background"
+        android:stateListAnimator="@null"
+        android:text="편집"
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     <Button
         android:id="@+id/btn_follow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
+        android:layout_width="136dp"
+        android:layout_height="60dp"
+        android:background="@drawable/mypage_btn_background"
+        android:stateListAnimator="@null"
+        android:text="팔로워(0)"
+        android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/btn_edit"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     <Button
         android:id="@+id/btn_following"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
+        android:layout_width="137dp"
+        android:layout_height="60dp"
+        android:background="@drawable/mypage_btn_background"
+        android:stateListAnimator="@null"
+        android:text="팔로잉(0)"
+        android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/btn_follow"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     <Button
         android:id="@+id/btn_myfav"
+        android:layout_width="205dp"
+        android:layout_height="60dp"
+        android:background="@drawable/mypage_btn_background"
+        android:stateListAnimator="@null"
+        android:text="내가찜한상품"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_edit" />
+
+    <ImageView
+        android:id="@+id/image_liked"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2" />
+        app:layout_constraintBottom_toBottomOf="@+id/btn_myfav"
+        app:layout_constraintEnd_toEndOf="@+id/btn_myfav"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="@+id/btn_edit"
+        app:layout_constraintTop_toTopOf="@+id/btn_myfav"
+        app:srcCompat="@drawable/ic_liked" />
 
     <Button
         android:id="@+id/btn_option"
+        android:layout_width="205dp"
+        android:layout_height="60dp"
+        android:background="@drawable/mypage_btn_background"
+        android:stateListAnimator="@null"
+        android:text="설정"
+        android:textSize="15dp"
+        app:layout_constraintStart_toEndOf="@+id/btn_myfav"
+        app:layout_constraintTop_toBottomOf="@+id/btn_following" />
+
+    <ImageView
+        android:id="@+id/image_option"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_option"
+        app:layout_constraintEnd_toEndOf="@+id/btn_option"
+        app:layout_constraintHorizontal_bias="0.33"
         app:layout_constraintStart_toEndOf="@+id/btn_myfav"
-        app:layout_constraintTop_toBottomOf="@+id/view2" />
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="3dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_follow" />
-
-    <View
-        android:id="@+id/view3"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_option" />
+        app:layout_constraintTop_toTopOf="@+id/btn_option"
+        app:srcCompat="@drawable/ic_option" />
 
     <View
         android:id="@+id/view4"
@@ -123,13 +161,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_certification" />
+        app:layout_constraintTop_toBottomOf="@+id/text_certification"
+        android:background="#A4A4A4"/>
 
     <View
         android:id="@+id/view5"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -143,7 +182,7 @@
         android:layout_marginTop="10dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view3" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_myfav" />
 
     <TextView
         android:id="@+id/text_certification"
@@ -160,7 +199,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:text="판매목록"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -170,12 +209,20 @@
         android:id="@+id/text_name2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:text="전체보기"
         android:textColor="#DF0101"
-        android:textSize="20dp"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_sell_list"
+        android:layout_width="409dp"
+        android:layout_height="366dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
