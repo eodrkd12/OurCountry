@@ -2,18 +2,24 @@ package com.honestyandpassion.ourcountry.MainActivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.honestyandpassion.ourcountry.Fragment.CategoryFragment
 import com.honestyandpassion.ourcountry.Fragment.HomeFragment
 import com.honestyandpassion.ourcountry.Fragment.MessageFragment
 import com.honestyandpassion.ourcountry.Fragment.MypageFragment
 import com.honestyandpassion.ourcountry.R
+import kotlinx.android.synthetic.main.toolbar_layout.*
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_drawerlayout)
+        setSupportActionBar(main_layout_toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(true)
+
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_main)
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener)
@@ -54,5 +60,19 @@ class MainActivity : AppCompatActivity() {
             }
         }
         false
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        var inflater = getMenuInflater()
+        inflater.inflate(R.menu.menu_drawer, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item!!.itemId) {
+            R.id.nav_home_login -> {
+
+            }
+        }
+        return false
     }
 }
