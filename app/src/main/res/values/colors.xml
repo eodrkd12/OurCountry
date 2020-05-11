@@ -3,6 +3,18 @@
     <color name="colorMain">#D2232A</color>
 
     <color name="colorPrimary">#D2232A</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimaryLight">#DD6367</color>
+    <color name="colorPrimaryDark">#B2160F</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="colorMdGrey_200">#EEEEEE</color>
+    <color name="colorMdGrey_400">#BDBDBD</color>
+    <color name="colorMdGrey_500">#9E9E9E</color>
+    <color name="colorMdGrey_700">#616161</color>
+    <color name="colorMdGrey_900">#212121</color>
+    <color name="colorMdWhite_1000">#FFFFFF</color>
+    <color name="colorMdBlue_600">#1e88e5</color>
+
+    <color name="md_grey_200">#eeeeee</color>
+    <color name="view__primary_line">@color/md_grey_200</color>
 </resources>
