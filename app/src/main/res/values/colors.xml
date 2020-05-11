@@ -11,4 +11,7 @@
     <color name="colorMdGrey_500">#9E9E9E</color>
     <color name="colorMdGrey_700">#616161</color>
     <color name="colorMdWhite_1000">#FFFFFF</color>
+
+    <color name="md_grey_200">#eeeeee</color>
+    <color name="view__primary_line">@color/md_grey_200</color>
 </resources>
