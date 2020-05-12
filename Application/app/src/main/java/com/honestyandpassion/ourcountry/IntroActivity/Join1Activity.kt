@@ -3,6 +3,7 @@ package com.honestyandpassion.ourcountry.IntroActivity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.activity_join1.*
@@ -20,11 +21,23 @@ class Join1Activity : AppCompatActivity() {
             var password=edit_password.text.toString()
 
             VolleyService.emailCheckReq(email,this,{success ->
-                var intent= Intent(this,Join2Activity::class.java)
-                intent.putExtra("eamil",email)
-                intent.putExtra("nickname",nickname)
-                intent.putExtra("password",password)
+                when(success){
+                    "success" -> {
+                        var intent= Intent(this,Join2Activity::class.java)
+                        intent.putExtra("eamil",email)
+                        intent.putExtra("nickname",nickname)
+                        intent.putExtra("password",password)
+                        startActivity(intent)
+                    }
+                    "fail" -> {
+                        Toast.makeText(this,"중복된 이메일입니다.",Toast.LENGTH_SHORT).show()
+                    }
+                }
             })
+        }
+
+        text_back.setOnClickListener {
+            finish()
         }
     }
 }

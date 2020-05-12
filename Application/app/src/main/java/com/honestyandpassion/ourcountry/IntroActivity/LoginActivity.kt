@@ -32,6 +32,11 @@ class LoginActivity : AppCompatActivity() {
             Session.getCurrentSession().checkAndImplicitOpen()
             Session.getCurrentSession().open(AuthType.KAKAO_LOGIN_ALL,this)
         }
+
+        btn_join.setOnClickListener {
+            var intent=Intent(this,Join1Activity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

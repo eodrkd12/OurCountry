@@ -8,7 +8,7 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 
 object VolleyService {
-    val ip="107.180.93.143:3000"
+    val ip="http://107.180.93.143:3000"
 
     fun emailCheckReq(email:String,context: Context,success: (String?) -> Unit){
         var url="${ip}/user/check/email"
@@ -22,9 +22,11 @@ object VolleyService {
             json,
             Response.Listener {
                 Log.d("test","${it}")
+                success("fail")
             },
             Response.ErrorListener {
                 Log.d("test","${it}")
+                if(it is com.android.volley.ParseError) success("success")
             }){
 
         }
