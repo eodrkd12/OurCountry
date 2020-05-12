@@ -2,18 +2,29 @@ package com.honestyandpassion.ourcountry.MainActivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.core.view.GravityCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.honestyandpassion.ourcountry.Fragment.CategoryFragment
 import com.honestyandpassion.ourcountry.Fragment.HomeFragment
 import com.honestyandpassion.ourcountry.Fragment.MessageFragment
 import com.honestyandpassion.ourcountry.Fragment.MypageFragment
 import com.honestyandpassion.ourcountry.R
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main_drawerlayout.*
+import kotlinx.android.synthetic.main.toolbar_layout.*
+
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_drawerlayout)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_menu_grey_24)
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_main)
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener)
@@ -55,4 +66,22 @@ class MainActivity : AppCompatActivity() {
         }
         false
     }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        var inflater = getMenuInflater()
+        inflater.inflate(R.menu.menu_drawer, menu)
+        menu!!.add(0, 0, 0, "알림").setIcon(R.drawable.baseline_menu_grey_24)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item!!.itemId){
+            android.R.id.home->{
+                drawerLayout.openDrawer(GravityCompat.START)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }
