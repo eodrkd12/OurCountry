@@ -56,5 +56,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:19.1.0'
     //원형프로필
     implementation 'de.hdodenhof:circleimageview:3.0.1'
+    //메일
     implementation files('libs/activation.jar')
+    implementation files('libs/additionnal.jar')
+    implementation files('libs/mail.jar')
 }
