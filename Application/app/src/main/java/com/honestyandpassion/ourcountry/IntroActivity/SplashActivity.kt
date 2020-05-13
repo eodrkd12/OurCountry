@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import com.honestyandpassion.ourcountry.Fragment.HomeFragment
 import com.honestyandpassion.ourcountry.MainActivity.MainActivity
+import com.honestyandpassion.ourcountry.MainActivity.RegisterActivity
 import com.honestyandpassion.ourcountry.R
 
 class SplashActivity : AppCompatActivity() {

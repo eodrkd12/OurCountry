@@ -7,6 +7,7 @@
     <color name="colorPrimaryDark">#B2160F</color>
     <color name="colorAccent">#D81B60</color>
 
+    <color name="colorMdGrey_100">#f5f5f5</color>
     <color name="colorMdGrey_200">#EEEEEE</color>
     <color name="colorMdGrey_400">#BDBDBD</color>
     <color name="colorMdGrey_500">#9E9E9E</color>
@@ -14,6 +15,7 @@
     <color name="colorMdGrey_900">#212121</color>
     <color name="colorMdWhite_1000">#FFFFFF</color>
     <color name="colorMdBlue_600">#1e88e5</color>
+    <color name="colorMdRed_800">#c62828</color>
 
     <color name="md_grey_200">#eeeeee</color>
     <color name="view__primary_line">@color/md_grey_200</color>

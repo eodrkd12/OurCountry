@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.HomeFragment">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <EditText
                 android:id="@+id/edit_homesearch"
@@ -101,8 +90,8 @@
                 android:textAlignment="viewStart"
                 android:textColor="@color/colorMdGrey_700"
                 android:textSize="20dp"
-                android:visibility="visible"
                 android:textStyle="bold"
+                android:visibility="visible"
                 app:layout_constraintEnd_toStartOf="@+id/text_recentallview"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_category" />
@@ -237,9 +226,9 @@
                 android:layout_marginTop="36dp"
                 android:layout_marginEnd="16dp"
                 android:text="현재위치"
+                android:textAlignment="viewEnd"
                 android:textColor="@color/colorMdGrey_700"
                 android:textSize="12dp"
-                android:textAlignment="viewEnd"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/image_homeheader"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -548,6 +537,5 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_recentproduct" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
