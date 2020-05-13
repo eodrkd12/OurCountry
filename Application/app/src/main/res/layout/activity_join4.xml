@@ -51,6 +51,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/border"
+        android:editable="false"
         android:ems="10"
         android:hint="은행 선택"
         android:inputType="textPersonName"
