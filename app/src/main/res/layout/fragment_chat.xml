@@ -204,7 +204,7 @@
                 android:layout_height="0dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="colorMdWhite_1000"
+                android:background="@color/colorMdWhite_1000"
                 android:tint="@color/colorMain"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
