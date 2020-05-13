@@ -19,9 +19,9 @@
             android:layout_marginBottom="8dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-            app:layout_constraintEnd_toEndOf="@+id/chatListRecyclerView"
+            app:layout_constraintEnd_toEndOf="@+id/rv_chat"
             app:layout_constraintHorizontal_bias="0.459"
-            app:layout_constraintStart_toStartOf="@+id/chatListRecyclerView"
+            app:layout_constraintStart_toStartOf="@+id/rv_chat"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content">
 
                     <Button
-                        android:id="@+id/offerButton"
+                        android:id="@+id/btn_offer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -73,7 +73,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/priceTextView"
+                        android:id="@+id/text_price"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -81,7 +81,7 @@
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorMdGrey_500"
                         app:layout_constraintStart_toEndOf="@+id/cardView"
-                        app:layout_constraintTop_toBottomOf="@+id/itemTextView"
+                        app:layout_constraintTop_toBottomOf="@+id/text_item_name"
                         tools:text="$100" />
 
                     <TextView
@@ -89,13 +89,13 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/priceTextView"
-                        app:layout_constraintStart_toEndOf="@+id/priceTextView"
-                        app:layout_constraintTop_toTopOf="@+id/priceTextView"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_price"
+                        app:layout_constraintStart_toEndOf="@+id/text_price"
+                        app:layout_constraintTop_toTopOf="@+id/text_price"
                         tools:text="( New )" />
 
                     <TextView
-                        android:id="@+id/soldTextView"
+                        android:id="@+id/text_sold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -116,7 +116,7 @@
                         app:layout_constraintTop_toTopOf="@+id/conditionTextView" />
 
                     <TextView
-                        android:id="@+id/itemTextView"
+                        android:id="@+id/text_item_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -147,7 +147,7 @@
                             android:layout_height="match_parent">
 
                             <ImageView
-                                android:id="@+id/itemImageView"
+                                android:id="@+id/img_item"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:scaleType="centerCrop"
@@ -173,7 +173,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/edit_chating"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
@@ -194,12 +194,12 @@
                 android:textColor="@color/colorMain"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/sendButton"
-                app:layout_constraintStart_toEndOf="@+id/imageButton"
+                app:layout_constraintEnd_toStartOf="@+id/btn_send"
+                app:layout_constraintStart_toEndOf="@+id/btn_cam"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
-                android:id="@+id/sendButton"
+                android:id="@+id/btn_send"
                 android:layout_width="50dp"
                 android:layout_height="0dp"
                 android:layout_marginEnd="8dp"
@@ -208,12 +208,12 @@
                 android:tint="@color/colorMain"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/editText"
+                app:layout_constraintTop_toTopOf="@+id/edit_chating"
                 app:srcCompat="@drawable/baseline_sent_white_24"
                 tools:ignore="NotSibling" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/btn_cam"
                 android:layout_width="40dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
@@ -223,7 +223,7 @@
                 android:tint="@color/colorMdGrey_700"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/editText"
+                app:layout_constraintTop_toTopOf="@+id/edit_chating"
                 app:srcCompat="@drawable/baseline_camera_white_24" />
 
             <View
@@ -232,7 +232,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/editText"
+                app:layout_constraintBottom_toTopOf="@+id/edit_chating"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -241,7 +241,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/chatListRecyclerView"
+            android:id="@+id/rv_chat"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/md_grey_200"
