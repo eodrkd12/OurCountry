@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bnv_main_home"
+        android:icon="@drawable/ic_bnv_home"
+        android:title="Home"
+        />
+
+    <item
+        android:id="@+id/bnv_main_category"
+        android:icon="@drawable/ic_bnv_category"
+        android:title="카테고리"
+        />
+
+    <item
+        android:id="@+id/bnv_main_mypage"
+        android:icon="@drawable/ic_bnv_mypage"
+        android:title="내정보"
+        />
+
+    <item
+        android:id="@+id/bnv_main_message"
+        android:icon="@drawable/ic_bnv_message"
+        android:title="메시지"
+        />
+
+</menu>
