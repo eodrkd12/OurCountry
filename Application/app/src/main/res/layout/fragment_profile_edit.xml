@@ -37,7 +37,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/profileImageView"
+                android:id="@+id/img_profile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="100dp"
@@ -47,18 +47,18 @@
                 app:layout_constraintTop_toTopOf="@+id/userCoverBlurImageView" />
 
             <ImageView
-                android:id="@+id/profileEditImageView"
+                android:id="@+id/img_profile_edit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/rounded_corner_shape"
                 android:src="@android:drawable/ic_menu_edit"
-                app:layout_constraintEnd_toEndOf="@+id/profileImageView"
-                app:layout_constraintTop_toTopOf="@+id/profileImageView"
+                app:layout_constraintEnd_toEndOf="@+id/img_profile"
+                app:layout_constraintTop_toTopOf="@+id/img_profile"
                 app:srcCompat="@android:drawable/ic_menu_edit" />
 
 
             <Button
-                android:id="@+id/saveButton"
+                android:id="@+id/btn_save"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -74,7 +74,7 @@
                 tools:text="Save" />
 
             <Button
-                android:id="@+id/passwordChangeButton"
+                android:id="@+id/btn_password_change"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -85,7 +85,7 @@
                 android:textColor="@color/colorMdWhite_1000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/saveButton"
+                app:layout_constraintTop_toBottomOf="@+id/btn_save"
                 tools:text="Change Password" />
 
             <androidx.cardview.widget.CardView
@@ -98,7 +98,7 @@
                 app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profileImageView">
+                app:layout_constraintTop_toBottomOf="@+id/img_profile">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -122,7 +122,7 @@
                       />
 
                     <EditText
-                        android:id="@+id/userNameEditText"
+                        android:id="@+id/edit_nickname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -143,7 +143,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/text_name" />
 
                     <TextView
-                        android:id="@+id/emailTextView"
+                        android:id="@+id/text-email"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -157,11 +157,11 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/userNameEditText"
+                        app:layout_constraintTop_toBottomOf="@+id/edit_nickname"
                        />
 
                     <EditText
-                        android:id="@+id/userEmailEditText"
+                        android:id="@+id/edit_email"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -179,10 +179,10 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/emailTextView" />
+                        app:layout_constraintTop_toBottomOf="@+id/text-email" />
 
                     <EditText
-                        android:id="@+id/userPhoneEditText"
+                        android:id="@+id/edit_phone"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -200,11 +200,11 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/phoneTextView" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_phone" />
 
 
                     <TextView
-                        android:id="@+id/addressTextView"
+                        android:id="@+id/text_address"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -218,11 +218,11 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/userPhoneEditText"
+                        app:layout_constraintTop_toBottomOf="@+id/edit_phone"
                         tools:text="Address" />
 
                     <EditText
-                        android:id="@+id/userAddressEditText"
+                        android:id="@+id/edit_address"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -240,10 +240,10 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/addressTextView" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_address" />
 
                     <TextView
-                        android:id="@+id/cityTextView"
+                        android:id="@+id/text_city"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -257,11 +257,11 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/userAddressEditText"
+                        app:layout_constraintTop_toBottomOf="@+id/edit_address"
                         tools:text="City" />
 
                     <EditText
-                        android:id="@+id/userCityEditText"
+                        android:id="@+id/edit_city"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -279,10 +279,10 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cityTextView" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_city" />
 
                     <EditText
-                        android:id="@+id/userAboutMeEditText"
+                        android:id="@+id/edit_about"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -303,10 +303,10 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/aboutMeTextView" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_about" />
 
                     <TextView
-                        android:id="@+id/phoneTextView"
+                        android:id="@+id/text_phone"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -320,10 +320,10 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/userEmailEditText" />
+                        app:layout_constraintTop_toBottomOf="@+id/edit_email" />
 
                     <TextView
-                        android:id="@+id/aboutMeTextView"
+                        android:id="@+id/text_about"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -337,7 +337,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/userCityEditText" />
+                        app:layout_constraintTop_toBottomOf="@+id/edit_city" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
