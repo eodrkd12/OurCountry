@@ -31,7 +31,7 @@
                     tools:context="com.marketcountry.psmultistore.ui.user.ProfileFragment">
 
                     <ImageView
-                        android:id="@+id/profileImageView"
+                        android:id="@+id/img_profile"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_marginStart="16dp"
@@ -41,12 +41,12 @@
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:src="@drawable/default_profile"
-                        app:layout_constraintBottom_toTopOf="@+id/editTextView"
+                        app:layout_constraintBottom_toTopOf="@+id/text_edit"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/nameTextView"
+                        android:id="@+id/text_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -60,13 +60,13 @@
                         android:textStyle="bold"
 
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/profileImageView"
+                        app:layout_constraintStart_toEndOf="@+id/img_profile"
                         app:layout_constraintTop_toTopOf="parent"
 
                         tools:text="Name" />
 
                     <TextView
-                        android:id="@+id/overAllRatingTextView"
+                        android:id="@+id/text_allrating"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -75,8 +75,8 @@
                         android:textAlignment="viewStart"
                         android:textColor="#000000"
 
-                        app:layout_constraintStart_toEndOf="@+id/profileImageView"
-                        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+                        app:layout_constraintStart_toEndOf="@+id/img_profile"
+                        app:layout_constraintTop_toBottomOf="@+id/text_name"
 
                         tools:text="OAR" />
 
@@ -89,7 +89,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/overAllRatingTextView" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_allrating" />
 
                     <View
                         android:id="@+id/view15"
@@ -97,9 +97,9 @@
                         android:layout_height="0dp"
                         android:background="@color/view__primary_line"
                         app:layout_constraintBottom_toBottomOf="@+id/view9"
-                        app:layout_constraintEnd_toStartOf="@+id/followUserTextView"
+                        app:layout_constraintEnd_toStartOf="@+id/text_follower"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/editTextView"
+                        app:layout_constraintStart_toEndOf="@+id/text_edit"
                         app:layout_constraintTop_toTopOf="@+id/view8"
                         app:layout_constraintVertical_bias="0.0" />
 
@@ -109,9 +109,9 @@
                         android:layout_height="0dp"
                         android:background="@color/view__primary_line"
                         app:layout_constraintBottom_toBottomOf="@+id/view9"
-                        app:layout_constraintEnd_toStartOf="@+id/followingUserTextView"
+                        app:layout_constraintEnd_toStartOf="@+id/text_following"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/followUserTextView"
+                        app:layout_constraintStart_toEndOf="@+id/text_follower"
                         app:layout_constraintTop_toTopOf="@+id/view8"
                         app:layout_constraintVertical_bias="0.0" />
 
@@ -129,7 +129,7 @@
 
 
                     <TextView
-                        android:id="@+id/editTextView"
+                        android:id="@+id/text_edit"
                         android:layout_width="117dp"
                         android:layout_height="0dp"
                         android:layout_weight="3"
@@ -143,7 +143,7 @@
                         app:layout_constraintTop_toTopOf="@+id/view8" />
 
                     <TextView
-                        android:id="@+id/followUserTextView"
+                        android:id="@+id/text_follower"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_weight="3"
@@ -156,7 +156,7 @@
                         app:layout_constraintTop_toTopOf="@+id/view8" />
 
                     <TextView
-                        android:id="@+id/followingUserTextView"
+                        android:id="@+id/text_following"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_weight="3"
@@ -170,7 +170,7 @@
                         app:layout_constraintTop_toTopOf="@+id/view8" />
 
                     <TextView
-                        android:id="@+id/joinedDateTitleTextView"
+                        android:id="@+id/text_join"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -183,14 +183,14 @@
                         app:layout_constraintTop_toBottomOf="@+id/view13" />
 
                     <TextView
-                        android:id="@+id/joinedDateTextView"
+                        android:id="@+id/text_joindate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="16dp"
                         android:textColor="#000000"
 
-                        app:layout_constraintStart_toEndOf="@+id/joinedDateTitleTextView"
+                        app:layout_constraintStart_toEndOf="@+id/text_join"
                         app:layout_constraintTop_toBottomOf="@+id/view13"
 
                         tools:text="JoinedDate" />
@@ -240,10 +240,10 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/seeAllTextView" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_see_all" />
 
                     <TextView
-                        android:id="@+id/historyTextView"
+                        android:id="@+id/text_history"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -253,12 +253,12 @@
                         android:text="판매목록"
                         android:textColor="#000000"
                         app:layout_constraintBottom_toBottomOf="@+id/view6"
-                        app:layout_constraintEnd_toStartOf="@+id/seeAllTextView"
+                        app:layout_constraintEnd_toStartOf="@+id/text_see_all"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/view3" />
 
                     <TextView
-                        android:id="@+id/seeAllTextView"
+                        android:id="@+id/text_see_all"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -292,7 +292,7 @@
                             app:srcCompat="@drawable/like" />
 
                         <TextView
-                            android:id="@+id/favouriteTextView"
+                            android:id="@+id/text_fav"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_marginStart="8dp"
@@ -331,7 +331,7 @@
                             app:srcCompat="@drawable/ic_setting" />
 
                         <TextView
-                            android:id="@+id/settingTextView"
+                            android:id="@+id/text_setting"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_marginStart="8dp"
@@ -346,30 +346,30 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <RatingBar
-                        android:id="@+id/ratingBarInformation"
+                        android:id="@+id/ratingstar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         style="@style/Widget.AppCompat.RatingBar.Small"
                         android:focusable="true"
                         android:numStars="5"
-                        app:layout_constraintBottom_toBottomOf="@+id/overAllRatingTextView"
-                        app:layout_constraintStart_toEndOf="@+id/overAllRatingTextView"
-                        app:layout_constraintTop_toTopOf="@+id/overAllRatingTextView" />
+                        app:layout_constraintBottom_toBottomOf="@+id/text_allrating"
+                        app:layout_constraintStart_toEndOf="@+id/text_allrating"
+                        app:layout_constraintTop_toTopOf="@+id/text_allrating" />
 
                     <TextView
-                        android:id="@+id/ratingCountTextView"
+                        android:id="@+id/text_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         tools:text="Rcount"
 
-                        app:layout_constraintBottom_toBottomOf="@+id/ratingBarInformation"
-                        app:layout_constraintStart_toEndOf="@+id/ratingBarInformation"
-                        app:layout_constraintTop_toTopOf="@+id/ratingBarInformation" />
+                        app:layout_constraintBottom_toBottomOf="@+id/ratingstar"
+                        app:layout_constraintStart_toEndOf="@+id/ratingstar"
+                        app:layout_constraintTop_toTopOf="@+id/ratingstar" />
 
                     <TextView
-                        android:id="@+id/textView15"
+                        android:id="@+id/text_verified"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -379,7 +379,7 @@
                         android:text="인증되었다는걸까?"
                         android:textColor="#000000"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/joinedDateTitleTextView" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_join" />
 
                     <TextView
                         android:id="@+id/deactivateTextView"
@@ -391,7 +391,7 @@
 
                         android:textColor="@color/colorMain"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_verified" />
 
                     <ImageView
                         android:id="@+id/facebookImage"
@@ -399,9 +399,9 @@
                         android:layout_height="24dp"
                         android:layout_marginStart="8dp"
                         android:tint="@color/colorMdGrey_700"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView15"
-                        app:layout_constraintStart_toEndOf="@+id/textView15"
-                        app:layout_constraintTop_toTopOf="@+id/textView15"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_verified"
+                        app:layout_constraintStart_toEndOf="@+id/text_verified"
+                        app:layout_constraintTop_toTopOf="@+id/text_verified"
                         app:srcCompat="@drawable/baseline_facebook_grey_24" />
 
                     <ImageView
@@ -442,7 +442,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/user_own_item_list"
+                android:id="@+id/rv_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -518,7 +518,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/user_own_item_list" />
+                app:layout_constraintTop_toBottomOf="@+id/rv_list" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

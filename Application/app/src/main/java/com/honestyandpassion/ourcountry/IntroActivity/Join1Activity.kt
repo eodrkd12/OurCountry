@@ -24,7 +24,7 @@ class Join1Activity : AppCompatActivity() {
                 when(success){
                     "success" -> {
                         var intent= Intent(this,Join2Activity::class.java)
-                        intent.putExtra("eamil",email)
+                        intent.putExtra("email",email)
                         intent.putExtra("nickname",nickname)
                         intent.putExtra("password",password)
                         startActivity(intent)
@@ -39,5 +39,10 @@ class Join1Activity : AppCompatActivity() {
         text_back.setOnClickListener {
             finish()
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 }
