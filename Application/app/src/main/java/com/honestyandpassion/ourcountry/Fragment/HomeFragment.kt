@@ -31,8 +31,6 @@ class HomeFragment : Fragment() {
 
 
 
-        VolleyService.testReq(activity!!, {success->})
-        Toast.makeText(activity!!," 시발", Toast.LENGTH_SHORT).show()
         categoryRV.setHasFixedSize(true)
         categoryRV.layoutManager = LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
         categoryRV.adapter = CategoryAdapter(activity!!, categoryList)

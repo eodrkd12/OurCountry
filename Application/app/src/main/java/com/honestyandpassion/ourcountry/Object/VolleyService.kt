@@ -36,11 +36,10 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
-    fun registerProductReq(userId: String, registerTitle:String, productCategory:String, productSubCategory:String, productType:String, productStatus:String, productBrand:String, productPrice:String, sellerStore:Int, registerContent:String, tradeOption:String, sellerAddress:String, registerDate: Date, registerLike:Int, registerView:Int, context: Context, success: (JSONObject?) -> Unit){
-        var url="${ip}/register"
+    fun registerProductReq(userId:String, registerTitle:String, productCategory:String, productSubCategory:String, productType:String, productStatus:String, productBrand:String, productPrice:String, sellerStore:Int, registerContent:String, tradeOption:String, sellerAddress:String, registerDate:Date, registerLike: Int, registerView : Int, context:Context, success: (JSONObject?) ->Unit) {
+        var url = "${ip}/register/insert"
 
-
-        var json=JSONObject()
+        var json = JSONObject()
         json.put("user_id", userId)
         json.put("register_title", registerTitle)
         json.put("product_category", productCategory)
@@ -57,6 +56,26 @@ object VolleyService {
         json.put("register_like", registerLike)
         json.put("register_view", registerView)
 
+        var request=object : JsonObjectRequest(
+            Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+
+            }){
+
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+
+    fun testReq(context: Context,success: (JSONObject?) -> Unit){
+        var url="${ip}/user/login"
+
+        var json=JSONObject()
 
         var request=object : JsonObjectRequest(
             Method.POST,
@@ -72,6 +91,8 @@ object VolleyService {
 
         Volley.newRequestQueue(context).add(request)
     }
+
+
     fun loginReq(id: String, pw: String, context: Context, success: (JSONObject) -> Unit) {
         val url = "${ip}/user/login"
 
@@ -129,24 +150,6 @@ object VolleyService {
 
             }) {
         }
-    fun testReq(context: Context, success: (JSONObject) -> Unit){
-        var url = "${ip}/register"
-
-        var json = JSONObject()
-        var request=object : JsonObjectRequest(
-            Method.POST,
-            url,
-            json,
-            Response.Listener {
-                success(it)
-            },
-            Response.ErrorListener {
-            }){
-
-        }
-
-        Volley.newRequestQueue(context).add(request)
     }
-
 
 }
