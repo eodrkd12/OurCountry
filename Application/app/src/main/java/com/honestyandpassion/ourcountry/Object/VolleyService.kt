@@ -109,6 +109,24 @@ object VolleyService {
         //요청을 보내는 부분
         Volley.newRequestQueue(context).add(request)
     }
+    fun testReq(context: Context, success: (JSONObject) -> Unit){
+        var url = "${ip}/register"
+
+        var json = JSONObject()
+        var request=object : JsonObjectRequest(
+            Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+            }){
+
+        }
+
+        Volley.newRequestQueue(context).add(request)
+    }
 
 
 }

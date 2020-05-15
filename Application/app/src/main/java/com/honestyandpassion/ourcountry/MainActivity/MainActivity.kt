@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.GravityCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -13,10 +14,12 @@ import com.honestyandpassion.ourcountry.Fragment.CategoryFragment
 import com.honestyandpassion.ourcountry.Fragment.HomeFragment
 import com.honestyandpassion.ourcountry.Fragment.MessageFragment
 import com.honestyandpassion.ourcountry.Fragment.MypageFragment
+import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main_drawerlayout.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -39,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_register.setOnClickListener {
+
             var intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
