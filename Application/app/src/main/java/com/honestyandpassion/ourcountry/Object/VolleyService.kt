@@ -109,8 +109,8 @@ object VolleyService {
         //요청을 보내는 부분
         Volley.newRequestQueue(context).add(request)
     }
-    fun edit_user(id:String,nickname:String,phone:String,about:String,address:String, context:Context, success: (JSONObject?) -> Unit) {
-        var url = "${ip}/user/update/edit_user"
+    fun editUserReq(id:String, nickname:String, phone:String, about:String, address:String, context:Context, success: (JSONObject?) -> Unit) {
+        var url = "${ip}/user/update/editUserReq"
 
         var jsonObject = JSONObject()
         jsonObject.put("id", id)
@@ -124,27 +124,12 @@ object VolleyService {
             url,
             jsonObject,
             Response.Listener {
+                success(it)
             },
             Response.ErrorListener {
 
             }) {
         }
-    fun testReq(context: Context, success: (JSONObject) -> Unit){
-        var url = "${ip}/register"
-
-        var json = JSONObject()
-        var request=object : JsonObjectRequest(
-            Method.POST,
-            url,
-            json,
-            Response.Listener {
-                success(it)
-            },
-            Response.ErrorListener {
-            }){
-
-        }
-
         Volley.newRequestQueue(context).add(request)
     }
 

@@ -29,10 +29,6 @@ class HomeFragment : Fragment() {
         val categoryList = arrayListOf("농산물", "수산물", "축산물", "건강식품", "발효식품")
         var categoryRV:RecyclerView = rootView.findViewById(R.id.rv_category)
 
-
-
-        VolleyService.testReq(activity!!, {success->})
-        Toast.makeText(activity!!," 시발", Toast.LENGTH_SHORT).show()
         categoryRV.setHasFixedSize(true)
         categoryRV.layoutManager = LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
         categoryRV.adapter = CategoryAdapter(activity!!, categoryList)

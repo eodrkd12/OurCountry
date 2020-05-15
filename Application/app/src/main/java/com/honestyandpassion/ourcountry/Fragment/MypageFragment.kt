@@ -22,14 +22,12 @@ class MypageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_mypage, container, false)
-        var editText : TextView = rootView.findViewById(R.id.text_edit)
+        var btnEdit : TextView = rootView.findViewById(R.id.text_edit)
 
 
-        editText.setOnClickListener {
-            activity?.let{
-                val intent = Intent(context, EditProfileActivity::class.java)
-                startActivity(intent)
-            }
+        btnEdit.setOnClickListener {
+            var intent = Intent(activity, EditProfileActivity::class.java)
+            startActivity(intent)
         }
          return rootView
 
