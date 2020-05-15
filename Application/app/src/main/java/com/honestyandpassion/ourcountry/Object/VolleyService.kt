@@ -6,6 +6,9 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 object VolleyService {
     val ip="http://107.180.93.143:3000"
@@ -61,6 +64,37 @@ object VolleyService {
                     result.put("code", 1)
                 }
                 success(result)
+            }
+        ) {
+            override fun getBodyContentType(): String {
+                return "application/json"
+            }
+        }
+        //요청을 보내는 부분
+        Volley.newRequestQueue(context).add(request)
+    }
+    fun joinReq(id: String, password: String, nickname:String, userType:String, userBank:String, userAccount:String, context: Context, success: (JSONObject) -> Unit) {
+        val url = "${ip}/user/join"
+
+        val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
+        val joinDate = current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        val json = JSONObject()
+        json.put("id", id)
+        json.put("password",password)
+        json.put("nickname",nickname)
+        json.put("user_type",userType)
+        json.put("user_bank",userBank)
+        json.put("user_account",userAccount)
+        json.put("user_join_date",joinDate)
+
+        var request = object : JsonObjectRequest(Method.POST
+            , url
+            , json
+            , Response.Listener {
+                success(it)
+            }
+            , Response.ErrorListener {
+
             }
         ) {
             override fun getBodyContentType(): String {
