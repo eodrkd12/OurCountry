@@ -12,9 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.commit.Adapter.CategoryAdapter
 import com.honestyandpassion.ourcountry.Item.Category
+import com.honestyandpassion.ourcountry.Object.VolleyService
 
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.util.*
 
 class HomeFragment : Fragment() {
 
@@ -28,6 +30,7 @@ class HomeFragment : Fragment() {
         var categoryRV:RecyclerView = rootView.findViewById(R.id.rv_category)
 
 
+        VolleyService.registerProductReq("sdfsfd", "ddd", "asd", "asd", "asd", "asd", "asd", "asd", 1, "asd", "asd", "1asd", Calendar.getInstance().getTime(),0, 0, activity!!, {success->} )
         categoryRV.setHasFixedSize(true)
         categoryRV.layoutManager = LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
         categoryRV.adapter = CategoryAdapter(activity!!, categoryList)
