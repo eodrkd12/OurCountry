@@ -13,6 +13,8 @@ class Join4Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_join4)
 
+        grid_bank.bringToFront()
+
         edit_bank.setOnClickListener {
             grid_bank.visibility= View.VISIBLE
         }

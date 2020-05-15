@@ -68,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
                         UserInfo.ADDRESS=user.getString("user_address")
                         UserInfo.IMAGE=user.getString("user_image")
                         UserInfo.POINT=user.getInt("user_point")
-                        UserInfo.RATING=user.getDouble("user_rating") as Float
+                        UserInfo.RATING=user.getDouble("user_rating").toFloat()
                         UserInfo.JOINDATE=user.getString("user_join_date")
                         UserInfo.ACCOUNT=user.getString("user_account")
 
