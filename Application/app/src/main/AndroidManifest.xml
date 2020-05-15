@@ -13,18 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".IntroActivity.Join4Activity">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
-        </activity>
+        <activity android:name=".IntroActivity.SelectSubCategoryActivity"></activity>
+        <activity android:name=".IntroActivity.SelectCategoryActivity" />
+        <activity android:name=".IntroActivity.Join4Activity" />
         <activity android:name=".IntroActivity.Join3Activity" />
         <activity android:name=".IntroActivity.Join2Activity" />
         <activity android:name=".IntroActivity.Join1Activity" />
         <activity android:name=".IntroActivity.KakaoSignUpActivity" />
-        <activity android:name=".MainActivity.RegisterActivity"></activity>
+        <activity android:name=".MainActivity.RegisterActivity" />
         <activity android:name=".IntroActivity.SettingActivity" />
         <activity android:name=".MainActivity.ProductActivity" />
         <activity android:name=".MainActivity.SubCategoryActivity" />
