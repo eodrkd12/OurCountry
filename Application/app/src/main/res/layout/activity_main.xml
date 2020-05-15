@@ -32,7 +32,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
-        android:layout_marginBottom="?attr/actionBarSize"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,8 +43,6 @@
                 android:id="@+id/frame_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:layout_marginBottom="?attr/actionBarSize"
                 tools:context="MainActivity"
                 tools:layout_editor_absoluteY="673dp"
                 tools:showIn="@layout/activity_main">

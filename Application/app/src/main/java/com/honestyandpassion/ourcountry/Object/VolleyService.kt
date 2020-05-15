@@ -9,6 +9,8 @@ import org.json.JSONObject
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import java.time.LocalDateTime
+import java.util.*
 
 object VolleyService {
     val ip="http://107.180.93.143:3000"
@@ -30,6 +32,43 @@ object VolleyService {
             Response.ErrorListener {
                 Log.d("test","${it}")
                 if(it is com.android.volley.ParseError) success("success")
+            }){
+
+        }
+
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun registerProductReq(userId: String, registerTitle:String, productCategory:String, productSubCategory:String, productType:String, productStatus:String, productBrand:String, productPrice:String, sellerStore:Int, registerContent:String, tradeOption:String, sellerAddress:String, registerDate: Date, registerLike:Int, registerView:Int, context: Context, success: (JSONObject?) -> Unit){
+        var url="${ip}/register"
+
+
+        var json=JSONObject()
+        json.put("user_id", userId)
+        json.put("register_title", registerTitle)
+        json.put("product_category", productCategory)
+        json.put("product_subcategory", productSubCategory)
+        json.put("product_type", productType)
+        json.put("product_status", productStatus)
+        json.put("product_brand", productBrand)
+        json.put("product_price", productPrice)
+        json.put("seller_store", sellerStore)
+        json.put("register_content", registerContent)
+        json.put("trade_option", tradeOption)
+        json.put("seller_address", sellerAddress)
+        json.put("register_date", registerDate)
+        json.put("register_like", registerLike)
+        json.put("register_view", registerView)
+
+
+        var request=object : JsonObjectRequest(
+            Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
             }){
 
         }
@@ -102,6 +141,42 @@ object VolleyService {
             }
         }
         //요청을 보내는 부분
+    fun edit_user(id:String,nickname:String,phone:String,about:String,address:String, context:Context, success: (JSONObject?) -> Unit) {
+        var url = "${ip}/user/update/edit_user"
+
+        var jsonObject = JSONObject()
+        jsonObject.put("id", id)
+        jsonObject.put("nickname", nickname)
+        jsonObject.put("phone", phone)
+        jsonObject.put("about", about)
+        jsonObject.put("address", address)
+
+        var request = object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+            },
+            Response.ErrorListener {
+
+            }) {
+        }
+    fun testReq(context: Context, success: (JSONObject) -> Unit){
+        var url = "${ip}/register"
+
+        var json = JSONObject()
+        var request=object : JsonObjectRequest(
+            Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+            }){
+
+        }
+
         Volley.newRequestQueue(context).add(request)
     }
 

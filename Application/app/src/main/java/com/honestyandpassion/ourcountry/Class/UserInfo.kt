@@ -17,6 +17,8 @@ class UserInfo : Application() {
         var RATING : Float=0.0f
         var JOINDATE : String=""
         var ACCOUNT : String=""
+        var ABOUT: String =""
+        var BANK:String=""
 
     }
 }
