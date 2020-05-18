@@ -19,6 +19,9 @@ class Join4Activity : AppCompatActivity() {
         var nickname=intent.getStringExtra("nickname")
         var password=intent.getStringExtra("password")
         var userType=intent.getStringExtra("user_type")
+        var image=intent.getStringExtra("image")
+        var phone=intent.getStringExtra("phone")
+        var loginType=intent.getStringExtra("login_type")
 
         var bankList=resources.getStringArray(R.array.array_bank)
 
@@ -39,7 +42,7 @@ class Join4Activity : AppCompatActivity() {
 
         btn_next.setOnClickListener {
             //계좌인증 필요
-            VolleyService.joinReq(email,password,nickname,userType,edit_bank.text.toString(),edit_account.text.toString(),this,{success ->
+            VolleyService.joinReq(email,password,loginType,nickname,userType,image,phone,edit_bank.text.toString(),edit_account.text.toString(),this,{success ->
                 var intent= Intent(this,LoginActivity::class.java)
 
                 startActivity(intent)
