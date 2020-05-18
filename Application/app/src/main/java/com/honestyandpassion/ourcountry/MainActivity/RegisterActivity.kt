@@ -129,6 +129,7 @@ class RegisterActivity : AppCompatActivity() {
             {
                 VolleyService.registerProductReq("asd", edit_registertitle.text.toString(), text_selectcategory.text.toString() , text_selectsubcategory.text.toString(), productType, productStatus, edit_registerbrand.text.toString(), edit_registerprice.text.toString(), sellerStore, edit_registerinfo.text.toString(), tradeOption, edit_registeraddress.text.toString(), registerDate, 0, 0, this, { success->})
                 Toast.makeText(this, "등록완료", Toast.LENGTH_SHORT).show()
+                finish()
             }
 
         }
