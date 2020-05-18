@@ -34,6 +34,9 @@ class Join2Activity : AppCompatActivity() {
                 intent.putExtra("email",email)
                 intent.putExtra("nickname",nickname)
                 intent.putExtra("password",password)
+                intent.putExtra("image","")
+                intent.putExtra("phone","")
+                intent.putExtra("login_type","email")
                 startActivity(intent)
                 text_mismatch.visibility=View.GONE
             }
