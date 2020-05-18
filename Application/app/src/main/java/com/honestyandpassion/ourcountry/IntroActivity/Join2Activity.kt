@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import com.example.commit.Class.GMailSender
+import com.honestyandpassion.ourcountry.Class.GMailSender
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.activity_join2.*
 
@@ -76,7 +76,7 @@ class Join2Activity : AppCompatActivity() {
             for(i in 0..5){
                 code += (0..9).random().toString()
             }
-            var mailSender=GMailSender("eodrkd12@gmail.com","dnflwlq12!",code)
+            var mailSender= GMailSender("eodrkd12@gmail.com","dnflwlq12!",code)
             mailSender.sendMail(
                 "우리 시골 이메일 인증"
                 , "안녕하세요.\n" +

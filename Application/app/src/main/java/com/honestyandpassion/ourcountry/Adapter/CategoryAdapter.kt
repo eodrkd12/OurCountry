@@ -1,4 +1,4 @@
-package com.example.commit.Adapter
+package com.honestyandpassion.ourcountry.Adapter
 
 import android.content.Context
 import android.content.Intent

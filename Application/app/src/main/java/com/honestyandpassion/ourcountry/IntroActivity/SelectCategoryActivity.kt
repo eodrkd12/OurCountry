@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.commit.Adapter.SelectCategoryAdapter
+import com.honestyandpassion.ourcountry.Adapter.SelectCategoryAdapter
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.activity_select_category.*
 
