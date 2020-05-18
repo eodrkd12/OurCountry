@@ -126,9 +126,6 @@ object VolleyService {
                 success(result)
             }
         ) {
-            override fun getBodyContentType(): String {
-                return "application/json"
-            }
         }
         //요청을 보내는 부분
         Volley.newRequestQueue(context).add(request)
