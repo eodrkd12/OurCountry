@@ -12,7 +12,7 @@ import android.widget.GridView
 import android.widget.TextView
 
 
-class BankAdapter(val context: Context, val bankList: ArrayList<String>) : BaseAdapter() {
+class BankAdapter(val context: Context, val bankList: Array<String>) : BaseAdapter() {
 
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {

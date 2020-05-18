@@ -6,6 +6,9 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.time.LocalDateTime
 import java.util.*
 
@@ -127,8 +130,37 @@ object VolleyService {
         //요청을 보내는 부분
         Volley.newRequestQueue(context).add(request)
     }
-    fun edit_user(id:String,nickname:String,phone:String,about:String,address:String, context:Context, success: (JSONObject?) -> Unit) {
-        var url = "${ip}/user/update/edit_user"
+ 
+    fun joinReq(id: String, password: String, nickname:String, userType:String, userBank:String, userAccount:String, context: Context, success: (JSONObject) -> Unit) {
+        val url = "${ip}/user/join"
+
+        val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
+        val joinDate = current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        val json = JSONObject()
+        json.put("id", id)
+        json.put("password",password)
+        json.put("nickname",nickname)
+        json.put("user_type",userType)
+        json.put("user_bank",userBank)
+        json.put("user_account",userAccount)
+        json.put("user_join_date",joinDate)
+
+        var request = object : JsonObjectRequest(Method.POST
+            , url
+            , json
+            , Response.Listener {
+                success(it)
+            }
+            , Response.ErrorListener {
+
+            }
+        ) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+        //요청을 보내는 부분
+      fun editUserReq(id:String, nickname:String, phone:String, about:String, address:String, context:Context, success: (JSONObject?) -> Unit) {
+        var url = "${ip}/user/update/editUserReq"
 
         var jsonObject = JSONObject()
         jsonObject.put("id", id)
@@ -142,11 +174,13 @@ object VolleyService {
             url,
             jsonObject,
             Response.Listener {
+                success(it)
             },
             Response.ErrorListener {
 
             }) {
         }
+        Volley.newRequestQueue(context).add(request)
     }
 
 }

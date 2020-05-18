@@ -27,7 +27,7 @@ class EditProfileActivity:AppCompatActivity() {
             var about =edit_about.text.toString()
             var address = edit_address.text.toString()
 
-        VolleyService.edit_user(id,nickname,phone,about,address,this,{success->
+        VolleyService.editUserReq(id,nickname,phone,about,address,this,{ success->
 
             UserInfo.NICKNAME=nickname
             UserInfo.PHONE=phone
@@ -48,6 +48,7 @@ class EditProfileActivity:AppCompatActivity() {
             edit_phone.setText(UserInfo.PHONE)
             edit_address.setText(UserInfo.ADDRESS)
             edit_about.setText(UserInfo.ABOUT)
+
 
         })
 
