@@ -19,7 +19,8 @@ import com.honestyandpassion.ourcountry.MainActivity.MainActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
+import android.widget.Toast
+import com.honestyandpassion.ourcountry.Object.VolleyService
 
 
 class KakaoSignUpActivity : AppCompatActivity() {
@@ -42,7 +43,16 @@ class KakaoSignUpActivity : AppCompatActivity() {
                 var image=account.profile.profileImageUrl
                 var nickname=account.profile.nickname
 
-
+                VolleyService.emailCheckReq(email,this@KakaoSignUpActivity,{success ->
+                    when(success){
+                        "success" -> {
+                            //회원가입
+                        }
+                        "fail" -> {
+                            //로그인
+                        }
+                    }
+                })
             }
 
             override fun onSessionClosed(errorResult: ErrorResult?) {
