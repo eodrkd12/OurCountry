@@ -1,4 +1,4 @@
-package com.example.commit.Class
+package com.honestyandpassion.ourcountry.Class
 
 import java.io.ByteArrayInputStream
 import java.io.IOException

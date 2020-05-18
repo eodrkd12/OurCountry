@@ -10,7 +10,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.commit.Adapter.CategoryAdapter
+import com.honestyandpassion.ourcountry.Adapter.CategoryAdapter
+
 import com.honestyandpassion.ourcountry.Item.Category
 import com.honestyandpassion.ourcountry.Object.VolleyService
 
