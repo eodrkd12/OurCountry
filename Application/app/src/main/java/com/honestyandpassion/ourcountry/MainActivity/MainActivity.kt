@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import com.honestyandpassion.ourcountry.Fragment.CategoryFragment
 import com.honestyandpassion.ourcountry.Fragment.HomeFragment
 import com.honestyandpassion.ourcountry.Fragment.MessageFragment
@@ -26,7 +27,7 @@ import kotlinx.android.synthetic.main.toolbar_layout.*
 import java.util.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_menu_grey_24)
+
 
         initLocation()
 
@@ -89,7 +91,7 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         var inflater = getMenuInflater()
-        inflater.inflate(R.menu.menu_drawer, menu)
+        inflater.inflate(R.menu.menu_alart, menu)
         menu!!.add(0, 0, 0, "알림").setIcon(R.drawable.baseline_menu_grey_24)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
 
@@ -104,8 +106,20 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+//네비게이션 안 아이템 클릭시 (수정 중)
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.nav_home->{
+                var intent = Intent(this, HomeFragment::class.java)
+                startActivity(intent)
+            }
+        }
+        return false
+    }
 
-    private  fun initLocation() {
+
+            private  fun initLocation() {
+
         if (ActivityCompat.checkSelfPermission(
                 this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -124,7 +138,7 @@ class MainActivity : AppCompatActivity() {
             }else{
                 Toast.makeText(this,"${Location.latitude} , ${Location.longitude}",Toast.LENGTH_SHORT).show()
             }
-        }
+    }
             .addOnFailureListener{
 
             }
