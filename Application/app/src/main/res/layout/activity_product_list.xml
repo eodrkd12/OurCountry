@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity.SubCategoryActivity">
+    tools:context=".MainActivity.ProductListActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_subcategory"
+        android:id="@+id/toolbar_productlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -16,15 +16,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_subcategory"
+        android:id="@+id/rv_productlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="12dp"
-        android:paddingTop="12dp"
-        android:paddingEnd="12dp"
-        android:paddingBottom="12dp"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_subcategory" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_productlist" />
 </androidx.constraintlayout.widget.ConstraintLayout>

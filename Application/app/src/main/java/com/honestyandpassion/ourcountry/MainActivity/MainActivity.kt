@@ -1,6 +1,10 @@
 package com.honestyandpassion.ourcountry.MainActivity
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
@@ -30,23 +34,28 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    var test : Drawable ? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_drawerlayout)
         setSupportActionBar(toolbar_main)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_menu_grey_24)
+
 
         initLocation()
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_main)
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener)
 
+        test  = getResources().getDrawable(R.drawable.baseline_menu_grey_24)
+        supportActionBar?.setHomeAsUpIndicator(test)
+
         if (savedInstanceState == null) {
             val fragment = HomeFragment()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
+            supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
         }
 
         btn_register.setOnClickListener {
@@ -62,28 +71,37 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val fragment = HomeFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-                btn_register.visibility = View.VISIBLE
-
+                btn_register.visibility= View.VISIBLE
+                supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
+                test!!.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_category -> {
                 val fragment = CategoryFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
+                supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
+                test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+                supportActionBar?.setTitle("카테고리")
+                toolbar_main.setTitleTextColor(Color.WHITE)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_mypage -> {
                 val fragment = MypageFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-                btn_register.visibility = View.INVISIBLE
+                btn_register.visibility= View.INVISIBLE
+                supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
+                test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_message -> {
                 val fragment = MessageFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-                btn_register.visibility = View.INVISIBLE
+                btn_register.visibility= View.INVISIBLE
+                supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
+                test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -107,6 +125,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         return super.onOptionsItemSelected(item)
     }
+
 
     override fun onResume() {
         super.onResume()

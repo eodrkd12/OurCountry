@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="drawablegrain">
+        <item>@drawable/icon_fruit</item>
+        <item>@drawable/icon_nuts</item>
+        <item>@drawable/icon_rice</item>
+        <item>@drawable/icon_vegetable</item>
+        <item>@drawable/icon_dried_fruit</item>
+    </array>
+
+    <array name="drawableaquatic">
+        <item>@drawable/icon_dried_fish</item>
+        <item>@drawable/icon_fish</item>
+        <item>@drawable/icon_salted_seafood</item>
+        <item>@drawable/icon_seafood</item>
+        <item>@drawable/icon_seaweed</item>
+    </array>
+
+    <array name="drawablehealth">
+        <item>@drawable/icon_chinese_medicine</item>
+        <item>@drawable/icon_fruit_juice</item>
+        <item>@drawable/icon_ginseng</item>
+        <item>@drawable/icon_health_juice</item>
+        <item>@drawable/icon_health_powder</item>
+        <item>@drawable/icon_honey</item>
+    </array>
+
+    <array name="drawablemeat">
+        <item>@drawable/icon_chicken</item>
+        <item>@drawable/icon_cow</item>
+        <item>@drawable/icon_egg</item>
+        <item>@drawable/icon_etc_meat</item>
+        <item>@drawable/icon_pig</item>
+    </array>
+
+    <array name="drawablefermented">
+        <item>@drawable/icon_red_pepper_paste</item>
+        <item>@drawable/icon_soy</item>
+        <item>@drawable/icon_soy_bean_paste</item>
+    </array>
+
+
+</resources>

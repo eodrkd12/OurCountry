@@ -137,6 +137,7 @@ object VolleyService {
                 success(result)
             }
             , Response.ErrorListener {
+                Log.d("test",it.message)
                 if (it is com.android.volley.TimeoutError) {
                     Log.d("test", "TimeoutError")
                     result.put("code", 0)
