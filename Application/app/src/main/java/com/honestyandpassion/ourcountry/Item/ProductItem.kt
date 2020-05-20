@@ -1,5 +1,7 @@
 package com.honestyandpassion.ourcountry.Item
 
+import android.graphics.Bitmap
+
 data class Product(
     val registerId: Int?,
     val userId: String?,
@@ -17,5 +19,6 @@ data class Product(
     val registerDate: String?,
     val registerLike: Int?,
     val registerView: Int?,
-    val userNickname: String?
+    val userNickname: String?,
+    val imageArray: ArrayList<Bitmap>?
 )

@@ -1,7 +1,6 @@
 package com.honestyandpassion.ourcountry.MainActivity
 
 import android.app.Dialog
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
@@ -10,25 +9,22 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.honestyandpassion.ourcountry.Class.UserInfo
+import com.honestyandpassion.ourcountry.Fragment.HomeFragment
 import com.honestyandpassion.ourcountry.IntroActivity.SelectCategoryActivity
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.dialog_imagechange.*
-import org.json.JSONObject
 import java.io.FileNotFoundException
 import java.io.IOException
-import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 import kotlin.collections.ArrayList
 
 class RegisterActivity : AppCompatActivity() {
@@ -115,13 +111,12 @@ class RegisterActivity : AppCompatActivity() {
             if (check_tradeoption2.isChecked == true) tradeOption += check_tradeoption1.text
             if (check_tradeoption3.isChecked == true) tradeOption += check_tradeoption1.text
 
-            if (edit_registertitle.text.toString() == "" || edit_registertitle.text.toString() == null) {
+            if(insertArray.size==0){
+                Toast.makeText(this, "상품 이미지를 등록해주세요.",Toast.LENGTH_SHORT).show()
+            }
+            else if (edit_registertitle.text.toString() == "" || edit_registertitle.text.toString() == null) {
                 Toast.makeText(this, "제목을 확인해주세요.", Toast.LENGTH_SHORT).show()
             }
-            /*else if(image_insert1.drawable==resources.getDrawable(R.drawable.default_image))
-            {
-                Toast.makeText(this, "이미지를 확인해주세요.", Toast.LENGTH_SHORT).show()
-            }*/
             else if (text_selectcategory.text == "설정해주세요.") {
                 Toast.makeText(this, "카테고리를 선택해주세요.", Toast.LENGTH_SHORT).show()
             } else if (text_selectsubcategory.text == "설정해주세요.") {
@@ -141,7 +136,7 @@ class RegisterActivity : AppCompatActivity() {
                 val registerDate =
                     current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
                 VolleyService.registerProductReq(
-                    "asd",
+                    UserInfo.ID,
                     edit_registertitle.text.toString(),
                     text_selectcategory.text.toString(),
                     text_selectsubcategory.text.toString(),
@@ -156,6 +151,7 @@ class RegisterActivity : AppCompatActivity() {
                     registerDate,
                     0,
                     0,
+                    UserInfo.NICKNAME,
                     this,
                     { success ->
                         var jsonObject = success
@@ -164,10 +160,16 @@ class RegisterActivity : AppCompatActivity() {
                         for (i in 0..insertArray.size - 1) {
                             var bitmap =
                                 ((imageArray[i].drawable as Drawable) as BitmapDrawable).bitmap
-                            VolleyService.insertImageReq(registerId, registerTitle, bitmap, this)
+                            VolleyService.insertImageReq(registerId, registerTitle, bitmap, this,{success ->
+                                var handler=HomeFragment.HANDLER
+                                var msg=handler!!.obtainMessage()
+                                msg.what=0
+                                handler.sendMessage(msg)
+                            })
                         }
                     })
                 Toast.makeText(this, "등록완료", Toast.LENGTH_SHORT).show()
+
                 finish()
             }
         }
@@ -187,7 +189,7 @@ class RegisterActivity : AppCompatActivity() {
             imageArray[i].setOnClickListener {
                 imageView = it as ImageView
                 insertArray.add(imageView!!)
-                var imageChangeDialog = layoutInflater.inflate(R.layout.dialog_imagechange, null)
+                var imageChangeDialog = layoutInflater.inflate(R.layout.dialog_imageupload, null)
                 var dialog = Dialog(this)
                 dialog.setContentView(imageChangeDialog)
 

@@ -40,8 +40,8 @@ class SplashActivity : AppCompatActivity() {
                 val notificationManager =
                     getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 val notificationChannel = NotificationChannel(
-                    "fcm_uniting",
-                    "fcm_uniting",
+                    "fcm_ourcountry",
+                    "fcm_ourcountry",
                     NotificationManager.IMPORTANCE_DEFAULT
                 )
                 notificationChannel.description = "uniting fcm channel"

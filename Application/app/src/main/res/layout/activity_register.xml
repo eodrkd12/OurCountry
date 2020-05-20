@@ -20,10 +20,9 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
         android:fillViewport="true"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="117dp">
+        tools:layout_editor_absoluteX="47dp"
+        tools:layout_editor_absoluteY="-341dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -280,14 +279,14 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:background="@drawable/custom_progress_bar_horizontal"
+                android:ems="10"
+                android:hint="제목을 입력하세요."
+                android:inputType="textPersonName"
                 android:paddingStart="12dp"
                 android:paddingTop="8dp"
                 android:paddingEnd="12dp"
                 android:paddingBottom="8dp"
-                android:background="@drawable/custom_progress_bar_horizontal"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="제목을 입력하세요."
                 android:textSize="14dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -515,24 +514,24 @@
                     android:id="@+id/radio_statusoption2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/colorPrimary"
                     android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimary"
                     android:text="가공식품 " />
 
                 <RadioButton
                     android:id="@+id/radio_statusoption3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/colorPrimary"
                     android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimary"
                     android:text="새상품 " />
 
                 <RadioButton
                     android:id="@+id/radio_statusoption4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/colorPrimary"
                     android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimary"
                     android:text="중고 " />
             </RadioGroup>
 
@@ -657,8 +656,8 @@
                 android:background="@drawable/custom_progress_bar_horizontal"
                 android:ems="10"
                 android:gravity="top"
-                android:paddingLeft="10dp"
                 android:inputType="textPersonName"
+                android:paddingLeft="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView23" />
@@ -670,8 +669,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="거래옵션"
-                android:textSize="16dp"
                 android:textColor="@color/colorMdGrey_700"
+                android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edit_registerinfo" />
 
@@ -743,11 +742,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
                 android:background="@drawable/custom_progress_bar_horizontal"
                 android:ems="10"
                 android:inputType="textPersonName"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView27" />
@@ -760,8 +759,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:text="상품등록"
                 android:background="@color/colorPrimary"
+                android:text="상품등록"
                 android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintCircleRadius="16dp"
