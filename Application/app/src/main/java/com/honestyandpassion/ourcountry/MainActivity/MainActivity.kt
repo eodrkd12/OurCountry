@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.GravityCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.Fragment.CategoryFragment
 import com.honestyandpassion.ourcountry.Fragment.HomeFragment
 import com.honestyandpassion.ourcountry.Fragment.MessageFragment
@@ -97,5 +98,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(UserInfo.TYPE=="seller") btn_register.visibility=View.VISIBLE
+        else btn_register.visibility=View.GONE
     }
 }

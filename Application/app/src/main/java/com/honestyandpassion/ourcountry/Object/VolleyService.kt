@@ -1,6 +1,7 @@
 package com.honestyandpassion.ourcountry.Object
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -9,8 +10,6 @@ import org.json.JSONObject
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
-import java.time.LocalDateTime
-import java.util.*
 
 object VolleyService {
     val ip = "http://107.180.93.143:3000"
@@ -52,7 +51,7 @@ object VolleyService {
         registerContent: String,
         tradeOption: String,
         sellerAddress: String,
-        registerDate: Date,
+        registerDate: String,
         registerLike: Int,
         registerView: Int,
         context: Context,
@@ -242,6 +241,49 @@ object VolleyService {
 
             }) {
 
+        }
+
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun sendFCMReq(roomId: String, title: String, content: String, context: Context) {
+
+        var url = "${ip}/chat_room/fcm/send"
+
+        var json = JSONObject()
+        json.put("topic", roomId)
+        json.put("content", content)
+        json.put("title",title)
+
+        var request = object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+            },
+            Response.ErrorListener {
+            }) {
+        }
+
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun insertImageReq(registerId: Int, registerTitle: String, image: Bitmap, context: Context){
+        var url = "${ip}/register/insert/image"
+
+        var stringImage = ImageManager.BitmapToString(image)
+
+        var json = JSONObject()
+        json.put("register_id", registerId)
+        json.put("register_title", registerTitle)
+        json.put("image", stringImage)
+
+        var request = object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+            },
+            Response.ErrorListener {
+            }) {
         }
 
         Volley.newRequestQueue(context).add(request)
