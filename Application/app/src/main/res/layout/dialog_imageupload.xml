@@ -44,7 +44,7 @@
                 android:layout_weight="1"
                 android:background="#00000000"
                 android:gravity="center"
-                android:text="프로필 사진 촬영"
+                android:text="상품 사진 촬영"
                 android:textColor="#000000"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"

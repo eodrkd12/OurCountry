@@ -137,7 +137,7 @@ object VolleyService {
                 success(result)
             }
             , Response.ErrorListener {
-                Log.d("test",it.message)
+                Log.d("test",it.toString())
                 if (it is com.android.volley.TimeoutError) {
                     Log.d("test", "TimeoutError")
                     result.put("code", 0)
@@ -272,7 +272,7 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
-    fun insertImageReq(registerId: Int, registerTitle: String, image: Bitmap, context: Context){
+    fun insertImageReq(registerId: Int, registerTitle: String, image: Bitmap, context: Context,success:(Unit?)->Unit){
         var url = "${ip}/register/insert/image"
 
         var stringImage = ImageManager.BitmapToString(image)
@@ -286,6 +286,7 @@ object VolleyService {
             url,
             json,
             Response.Listener {
+                success(null)
             },
             Response.ErrorListener {
             }) {
@@ -327,5 +328,29 @@ object VolleyService {
         }
 
         Volley.newRequestQueue(context).add(request)
+    }
+
+    fun getProductImageReq(registerId: Int, context: Context, success: (JSONArray?) -> Unit) {
+        var url = "${ip}/register/image"
+
+        var json = JSONObject()
+        json.put("register_id", registerId)
+
+        var array=JSONArray()
+        array.put(json)
+
+        var request = object : JsonArrayRequest(Method.POST,
+            url,
+            array,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+
+            }) {
+
+        }
+        Volley.newRequestQueue(context).add(request)
+
     }
 }

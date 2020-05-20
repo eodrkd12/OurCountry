@@ -23,15 +23,39 @@ router.post('/insert', function(req, res, next){
   var registerDate=req.body.register_date
   var registerLike=req.body.register_like
   var registerView=req.body.register_view
+  var userNicknmae=req.body.user_nickname
 
   db_register.register_product(userId, registerTitle, productCategory, productSubCategory, productType, productStatus, productBrand, productPrice, sellerStore, 
-    registerContent, tradeOption, sellerAddress, registerDate, registerLike, registerView)
+    registerContent, tradeOption, sellerAddress, registerDate, registerLike, registerView, userNickname)
 
   db_register.get_register(userId,registerTitle,registerDate,function(err,result){
     if(err) console.log(err)
     else res.send(result[0])
   })
 
+})
+
+router.post('/image',function(req,res,next){
+  var registerId=req.body[0].register_id
+	
+	db_register.get_image(registerId,function(err,result){
+		if(err) console.log(err)
+		else{
+      var array=new Array()
+      for(var i in result){
+        var object=new Object()
+        object.image_id=result[i].image_id
+        object.register_id=result[i].register_id
+        object.register_title=result[i].register_title
+        const buf=result[i].product_image
+        var str=buf.toString()
+        object.product_image=str
+
+        array.push(object)
+      }
+			res.send(array)
+		}
+	})
 })
 
 router.post('/insert/image', function(req,res,next){

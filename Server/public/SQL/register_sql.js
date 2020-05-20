@@ -2,9 +2,9 @@ var pool=require('../../config/db_config');
 
 module.exports=function(){
     return {
-        register_product : function(userId, registerTitle, productCategory, productSubCategory, productType, productStatus, productBrand, productPrice, sellerStore, registerContent, tradeOption, sellerAddress, registerDate, registerLike, registerView){
+        register_product : function(userId, registerTitle, productCategory, productSubCategory, productType, productStatus, productBrand, productPrice, sellerStore, registerContent, tradeOption, sellerAddress, registerDate, registerLike, registerView, userNickname){
             pool.getConnection(function(err, con){
-                var sql=`insert into Register(user_id,register_title,product_category,product_subcategory,product_type,product_status,product_brand,product_price,seller_store,register_content,trade_option,seller_address,register_date,register_like,register_view) values('${userId}', '${registerTitle}', '${productCategory}', '${productSubCategory}', '${productType}', '${productStatus}', '${productBrand}', '${productPrice}', ${sellerStore}, '${registerContent}', '${tradeOption}', '${sellerAddress}', '${registerDate}', 0, 0)`
+                var sql=`insert into Register(user_id,register_title,product_category,product_subcategory,product_type,product_status,product_brand,product_price,seller_store,register_content,trade_option,seller_address,register_date,register_like,register_view,user_nickname) values('${userId}', '${registerTitle}', '${productCategory}', '${productSubCategory}', '${productType}', '${productStatus}', '${productBrand}', '${productPrice}', ${sellerStore}, '${registerContent}', '${tradeOption}', '${sellerAddress}', '${registerDate}', 0, 0,'${userNickname}')`
                 con.query(sql, function(err, result, fields){
                     con.release()
                     if(err) console.log(err)
@@ -19,6 +19,16 @@ module.exports=function(){
                     con.release()
                     if(err) callback(err)
                     else callback(null,result)
+                })
+            })
+        },
+        get_image : function(registerId,callback){
+            pool.getConnection(function(err,con){
+                var sql=`select * from image where register_id='${regitserId}'`
+                con.query(sql,function(err,result,fields){
+                    con.release()
+                    if(err) callback(err)
+                    else callback(nul,result)
                 })
             })
         },
