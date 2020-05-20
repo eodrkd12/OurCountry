@@ -6,6 +6,8 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -30,6 +32,7 @@ import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main_drawerlayout.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 import java.util.*
 
@@ -39,6 +42,7 @@ class MainActivity : AppCompatActivity(){
 
     var test : Drawable ? = null
     var bottomNavigationView : BottomNavigationView? = null
+    var list: List<Address>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,9 +51,6 @@ class MainActivity : AppCompatActivity(){
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
-
-        initLocation()
 
         bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_main)
         bottomNavigationView!!.setOnNavigationItemSelectedListener(navListener)
@@ -202,39 +203,12 @@ class MainActivity : AppCompatActivity(){
         if(UserInfo.TYPE=="seller") btn_register.visibility=View.VISIBLE
         else btn_register.visibility=View.GONE
     }
-    //뒤로가기버튼 드로어 닫기 안됌 
+    //뒤로가기버튼 드로어 닫기 안됌
     override fun onBackPressed() {
         if(drawerLayout.isDrawerOpen(GravityCompat.START)){
             drawerLayout.closeDrawers()
         }else{
             super.onBackPressed()
         }
-    }
-
-    private  fun initLocation() {
-
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
-        var fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
-        fusedLocationClient.lastLocation.addOnSuccessListener {Location->
-            if(Location == null){
-                Toast.makeText(this,"null",Toast.LENGTH_SHORT).show()
-            }else{
-                Toast.makeText(this,"${Location.latitude} , ${Location.longitude}",Toast.LENGTH_SHORT).show()
-            }
-    }
-            .addOnFailureListener{
-
-            }
-
     }
 }
