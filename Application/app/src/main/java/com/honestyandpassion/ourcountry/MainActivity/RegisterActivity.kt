@@ -1,29 +1,57 @@
 package com.honestyandpassion.ourcountry.MainActivity
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.MenuItem
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.honestyandpassion.ourcountry.IntroActivity.SelectCategoryActivity
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.dialog_imagechange.*
+import org.json.JSONObject
+import java.io.FileNotFoundException
+import java.io.IOException
 import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.collections.ArrayList
 
 class RegisterActivity : AppCompatActivity() {
 
-    var productType : String = ""
+    val PICK_FROM_CAMERA = 0
+    val PICK_FROM_ALBUM = 1
+    val CROP_FROM_CAMERA = 2
+    val CROP_FROM_ALBUM = 3
+
+    var imageCaptureUri: Uri? = null
+
+    var productType: String = ""
     var productStatus: String = ""
     var tradeOption: String = ""
     var sellerStore: Int = 0
 
-    companion object{
-        var categoryText : TextView?= null
-        var subCategoryText : TextView? = null
+    var imageArray = ArrayList<ImageView>()
+    var insertArray = ArrayList<ImageView>()
+    var imageView: ImageView? = null
+
+    companion object {
+        var categoryText: TextView? = null
+        var subCategoryText: TextView? = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,22 +61,21 @@ class RegisterActivity : AppCompatActivity() {
         categoryText = findViewById(R.id.text_selectcategory)
         subCategoryText = findViewById(R.id.text_selectsubcategory)
 
-        var registerDate : Date = Calendar.getInstance().getTime()
-
-        var toolbar: androidx.appcompat.widget.Toolbar = findViewById(com.honestyandpassion.ourcountry.R.id.toolbar_register)
+        var toolbar: androidx.appcompat.widget.Toolbar =
+            findViewById(com.honestyandpassion.ourcountry.R.id.toolbar_register)
         setSupportActionBar(toolbar)
 
         supportActionBar?.setDisplayShowCustomEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setTitle("상품 등록")
 
-        layout_selectcategory.setOnClickListener{
+        layout_selectcategory.setOnClickListener {
             var intent = Intent(this, SelectCategoryActivity::class.java)
             startActivity(intent)
         }
 
-        radiogroup_producttype.setOnCheckedChangeListener {radioGroup, i ->
-            when(i) {
+        radiogroup_producttype.setOnCheckedChangeListener { radioGroup, i ->
+            when (i) {
                 R.id.radio_typeoption1 -> productType = "산지직송"
                 R.id.radio_typeoption2 -> productType = "팝니다"
                 R.id.radio_typeoption3 -> productType = "삽니다"
@@ -57,16 +84,16 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
-        radiogroup_tradeoption.setOnCheckedChangeListener {radioGroup, i ->
-            when(i) {
+        radiogroup_tradeoption.setOnCheckedChangeListener { radioGroup, i ->
+            when (i) {
                 R.id.check_tradeoption1 -> tradeOption = "택배"
                 R.id.check_tradeoption2 -> tradeOption = "무료배송"
                 R.id.check_tradeoption3 -> tradeOption = "직거래"
             }
         }
 
-        radiogroup_productstatus.setOnCheckedChangeListener {radioGroup, i ->
-            when(i) {
+        radiogroup_productstatus.setOnCheckedChangeListener { radioGroup, i ->
+            when (i) {
                 R.id.radio_statusoption1 -> productStatus = "신선식품"
                 R.id.radio_statusoption2 -> productStatus = "가공식품"
                 R.id.radio_statusoption3 -> productStatus = "새상품"
@@ -76,70 +103,159 @@ class RegisterActivity : AppCompatActivity() {
 
 
         check_store.setOnCheckedChangeListener { compoundButton, b ->
-            if(b) {
+            if (b) {
                 sellerStore = 1
-            }
-            else{
+            } else {
                 sellerStore = 0
             }
         }
 
         btn_registercomplete.setOnClickListener {
-            if(check_tradeoption1.isChecked == true) tradeOption += check_tradeoption1.text
-            if(check_tradeoption2.isChecked == true) tradeOption += check_tradeoption1.text
-            if(check_tradeoption3.isChecked == true) tradeOption += check_tradeoption1.text
+            if (check_tradeoption1.isChecked == true) tradeOption += check_tradeoption1.text
+            if (check_tradeoption2.isChecked == true) tradeOption += check_tradeoption1.text
+            if (check_tradeoption3.isChecked == true) tradeOption += check_tradeoption1.text
 
-            if(edit_registertitle.text.toString() == "" || edit_registertitle.text.toString() == null)
-            {
+            if (edit_registertitle.text.toString() == "" || edit_registertitle.text.toString() == null) {
                 Toast.makeText(this, "제목을 확인해주세요.", Toast.LENGTH_SHORT).show()
             }
             /*else if(image_insert1.drawable==resources.getDrawable(R.drawable.default_image))
             {
                 Toast.makeText(this, "이미지를 확인해주세요.", Toast.LENGTH_SHORT).show()
             }*/
-            else if(text_selectcategory.text == "설정해주세요.")
-            {
+            else if (text_selectcategory.text == "설정해주세요.") {
                 Toast.makeText(this, "카테고리를 선택해주세요.", Toast.LENGTH_SHORT).show()
-            }
-            else if(text_selectsubcategory.text == "설정해주세요.")
-            {
+            } else if (text_selectsubcategory.text == "설정해주세요.") {
                 Toast.makeText(this, "하위 카테고리를 선택해주세요.", Toast.LENGTH_SHORT).show()
-            }
-            else if(productType == "")
-            {
+            } else if (productType == "") {
                 Toast.makeText(this, "상품유형을 선택해주세요.", Toast.LENGTH_SHORT).show()
-            }
-            else if(productStatus == "")
-            {
+            } else if (productStatus == "") {
                 Toast.makeText(this, "상품상태를 선택해주세요.", Toast.LENGTH_SHORT).show()
-            }
-            else if(edit_registerprice.text.toString() == "")
-            {
+            } else if (edit_registerprice.text.toString() == "") {
                 Toast.makeText(this, "가격을 확인해주세요.", Toast.LENGTH_SHORT).show()
-            }
-            else if(edit_registerinfo.text.toString() == "")
-            {
+            } else if (edit_registerinfo.text.toString() == "") {
                 Toast.makeText(this, "상세정보를 확인해주세요.", Toast.LENGTH_SHORT).show()
-            }
-            else if(tradeOption == "")
-            {
+            } else if (tradeOption == "") {
                 Toast.makeText(this, "거래유형을 선택해주세요.", Toast.LENGTH_SHORT).show()
-            }
-            else
-            {
-                VolleyService.registerProductReq("asd", edit_registertitle.text.toString(), text_selectcategory.text.toString() , text_selectsubcategory.text.toString(), productType, productStatus, edit_registerbrand.text.toString(), edit_registerprice.text.toString(), sellerStore, edit_registerinfo.text.toString(), tradeOption, edit_registeraddress.text.toString(), registerDate, 0, 0, this, { success->})
+            } else {
+                val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
+                val registerDate =
+                    current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                VolleyService.registerProductReq(
+                    "asd",
+                    edit_registertitle.text.toString(),
+                    text_selectcategory.text.toString(),
+                    text_selectsubcategory.text.toString(),
+                    productType,
+                    productStatus,
+                    edit_registerbrand.text.toString(),
+                    edit_registerprice.text.toString(),
+                    sellerStore,
+                    edit_registerinfo.text.toString(),
+                    tradeOption,
+                    edit_registeraddress.text.toString(),
+                    registerDate,
+                    0,
+                    0,
+                    this,
+                    { success ->
+                        var jsonObject = success
+                        var registerId = jsonObject!!.getInt("register_id")
+                        var registerTitle = jsonObject!!.getString("register_title")
+                        for (i in 0..insertArray.size - 1) {
+                            var bitmap =
+                                ((imageArray[i].drawable as Drawable) as BitmapDrawable).bitmap
+                            VolleyService.insertImageReq(registerId, registerTitle, bitmap, this)
+                        }
+                    })
                 Toast.makeText(this, "등록완료", Toast.LENGTH_SHORT).show()
                 finish()
             }
+        }
 
+        imageArray.add(image_insert1)
+        imageArray.add(image_insert2)
+        imageArray.add(image_insert3)
+        imageArray.add(image_insert4)
+        imageArray.add(image_insert5)
+        imageArray.add(image_insert6)
+        imageArray.add(image_insert7)
+        imageArray.add(image_insert8)
+        imageArray.add(image_insert9)
+        imageArray.add(image_insert10)
+
+        for (i in 0..imageArray.size - 1) {
+            imageArray[i].setOnClickListener {
+                imageView = it as ImageView
+                insertArray.add(imageView!!)
+                var imageChangeDialog = layoutInflater.inflate(R.layout.dialog_imagechange, null)
+                var dialog = Dialog(this)
+                dialog.setContentView(imageChangeDialog)
+
+                var btnCancel = imageChangeDialog.findViewById<Button>(R.id.btn_imagechangecancel)
+                var btnAlbum =
+                    imageChangeDialog.findViewById<Button>(R.id.btn_changeimage_from_phone)
+                var btnCam = imageChangeDialog.findViewById<Button>(R.id.btn_changeimage_from_cam)
+
+                btnAlbum.setOnClickListener({
+                    //이미지변경버튼
+                    var albumIntent = Intent(Intent.ACTION_PICK)
+                    albumIntent.setType(MediaStore.Images.Media.CONTENT_TYPE)
+                    startActivityForResult(albumIntent, PICK_FROM_ALBUM)
+                    dialog.dismiss()
+                })
+                btnCam.setOnClickListener({
+                    var cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    startActivityForResult(cameraIntent, PICK_FROM_CAMERA)
+                    dialog.dismiss()
+                })
+                btnCancel.setOnClickListener({
+                    //취소버튼
+                    dialog.dismiss()
+                })
+                dialog!!.show()
+            }
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item!!.itemId)
-        {
-            android.R.id.home-> finish()
+        when (item!!.itemId) {
+            android.R.id.home -> finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data == null) {
+            return
+        }
+
+        when (requestCode) {
+            PICK_FROM_CAMERA -> {
+                val imageBitmap = data!!.extras.get("data") as Bitmap
+                imageView!!.setImageBitmap(imageBitmap)
+            }
+            PICK_FROM_ALBUM -> {
+                imageCaptureUri = data!!.data
+
+                try {
+                    val imageBitmap =
+                        MediaStore.Images.Media.getBitmap(this.contentResolver, imageCaptureUri)
+                    imageView!!.setImageBitmap(imageBitmap)
+                } catch (e: FileNotFoundException) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace()
+                } catch (e: IOException) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace()
+                }
+            }
+            CROP_FROM_CAMERA -> {
+
+            }
+            CROP_FROM_ALBUM -> {
+
+            }
+        }
     }
 }

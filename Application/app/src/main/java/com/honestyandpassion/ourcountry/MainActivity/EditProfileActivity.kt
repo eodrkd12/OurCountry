@@ -2,16 +2,21 @@ package com.honestyandpassion.ourcountry.MainActivity
 
 import android.content.Context
 import android.os.Bundle
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.activity_profile_edit.*
+import kr.co.bootpay.Bootpay.finish
 
 class EditProfileActivity:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_edit)
+      //  setSupportActionBar(toolbar)
+      //  supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         edit_nickname.setText(UserInfo.NICKNAME)
         edit_email.setText(UserInfo.ID)
@@ -49,9 +54,21 @@ class EditProfileActivity:AppCompatActivity() {
             edit_address.setText(UserInfo.ADDRESS)
             edit_about.setText(UserInfo.ABOUT)
 
+            Toast.makeText(this, "내 정보가 변경되었습니다.",Toast.LENGTH_SHORT).show()
 
         })
 
         }
+
+
+        }
+
+/*override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    when (item!!.itemId) {
+        android.R.id.home -> {
+            finish()
+        }
     }
+    return false
+    }*/
 }

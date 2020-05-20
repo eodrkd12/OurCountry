@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
 
     <application
         android:name=".Class.OurCountry"
@@ -15,6 +18,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".MainActivity.ProductListActivity"></activity>
+        <activity android:name=".MainActivity.ChatActivity"></activity>
         <activity android:name=".IntroActivity.SelectSubCategoryActivity" />
         <activity android:name=".IntroActivity.SelectCategoryActivity" />
         <activity android:name=".IntroActivity.Join4Activity" />
@@ -45,5 +49,6 @@
             </intent-filter>
         </activity>
     </application>
+
 
 </manifest>

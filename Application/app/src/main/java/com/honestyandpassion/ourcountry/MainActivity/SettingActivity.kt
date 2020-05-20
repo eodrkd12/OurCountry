@@ -23,12 +23,11 @@ class SettingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(com.honestyandpassion.ourcountry.R.layout.activity_setting)
 
-        var toolbar: androidx.appcompat.widget.Toolbar = findViewById(com.honestyandpassion.ourcountry.R.id.toolbar_setting)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar_setting)
 
         supportActionBar?.setDisplayShowCustomEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setTitle("설정")
+        //supportActionBar?.setTitle()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

@@ -6,7 +6,7 @@ module.exports=function(){
             pool.getConnection(function(err,con){
                 if(err) console.log(err)
                 else{
-                    var sql=`select * from test`;
+                    var sql=`select * from user`;
                     con.query(sql,function(err,result,field){
                         con.release();
                         if(err)return;
