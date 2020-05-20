@@ -65,10 +65,7 @@ class SelectCategoryAdapter(val context: Context, val categoryList:ArrayList<Str
                 (context as Activity).finish()
             }
         }
-
     }
-
-
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view){
         fun bindItems(data: String) {
@@ -82,5 +79,4 @@ class SelectCategoryAdapter(val context: Context, val categoryList:ArrayList<Str
         intent.putExtra("categoryType", categoryType)
         context.startActivity(intent)
     }
-
 }

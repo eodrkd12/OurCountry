@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".IntroActivity.SelectSubCategoryActivity"></activity>
+        <activity android:name=".MainActivity.ProductListActivity"></activity>
+        <activity android:name=".IntroActivity.SelectSubCategoryActivity" />
         <activity android:name=".IntroActivity.SelectCategoryActivity" />
         <activity android:name=".IntroActivity.Join4Activity" />
         <activity android:name=".IntroActivity.Join3Activity" />
@@ -27,7 +28,8 @@
         <activity android:name=".MainActivity.SubCategoryActivity" />
         <activity android:name=".MainActivity.MainActivity" />
         <activity android:name=".IntroActivity.LoginActivity" />
-        <activity android:name=".MainActivity.EditProfileActivity"/>
+        <activity android:name=".MainActivity.EditProfileActivity" />
+
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />

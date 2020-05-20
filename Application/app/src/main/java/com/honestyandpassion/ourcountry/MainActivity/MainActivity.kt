@@ -1,6 +1,10 @@
 package com.honestyandpassion.ourcountry.MainActivity
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -9,6 +13,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.GravityCompat
+import androidx.core.view.forEach
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.honestyandpassion.ourcountry.Fragment.CategoryFragment
 import com.honestyandpassion.ourcountry.Fragment.HomeFragment
@@ -23,6 +28,7 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
+    var test : Drawable ? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,15 +36,19 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar_main)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_menu_grey_24)
+
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_main)
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener)
+
+        test  = getResources().getDrawable(R.drawable.baseline_menu_grey_24)
+        supportActionBar?.setHomeAsUpIndicator(test)
 
         if (savedInstanceState == null) {
             val fragment = HomeFragment()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
+            supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
         }
 
         btn_register.setOnClickListener {
@@ -55,13 +65,18 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
                 btn_register.visibility= View.VISIBLE
-
+                supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
+                test!!.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_category -> {
                 val fragment = CategoryFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
+                supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
+                test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+                supportActionBar?.setTitle("카테고리")
+                toolbar_main.setTitleTextColor(Color.WHITE)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_mypage -> {
@@ -69,6 +84,8 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
                 btn_register.visibility= View.INVISIBLE
+                supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
+                test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_message -> {
@@ -76,6 +93,8 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
                 btn_register.visibility= View.INVISIBLE
+                supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
+                test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -98,4 +117,6 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+
 }
