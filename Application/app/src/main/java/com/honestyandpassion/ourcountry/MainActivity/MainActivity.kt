@@ -202,8 +202,16 @@ class MainActivity : AppCompatActivity(){
         if(UserInfo.TYPE=="seller") btn_register.visibility=View.VISIBLE
         else btn_register.visibility=View.GONE
     }
+    //뒤로가기버튼 드로어 닫기 안됌 
+    override fun onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawers()
+        }else{
+            super.onBackPressed()
+        }
+    }
 
-            private  fun initLocation() {
+    private  fun initLocation() {
 
         if (ActivityCompat.checkSelfPermission(
                 this,
