@@ -14,6 +14,7 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.MainActivity.MainActivity
@@ -59,6 +60,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                     3 -> {
                         var user=success.getJSONObject("user")
+                        Log.d("test",user.toString())
                         UserInfo.ID=user.getString("user_id")
                         UserInfo.PW=user.getString("user_pw")
                         UserInfo.LOGIN_TYPE=user.getString("user_login_type")
