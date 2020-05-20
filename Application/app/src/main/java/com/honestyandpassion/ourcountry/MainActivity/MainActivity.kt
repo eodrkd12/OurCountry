@@ -20,6 +20,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.google.android.material.navigation.NavigationView
+import com.honestyandpassion.ourcountry.Class.DialogMsg
 import com.honestyandpassion.ourcountry.Fragment.CategoryFragment
 import com.honestyandpassion.ourcountry.Fragment.HomeFragment
 import com.honestyandpassion.ourcountry.Fragment.MessageFragment
@@ -35,15 +36,17 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
 
+    var dialogMsg: DialogMsg? = null
     var test : Drawable ? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        dialogMsg = DialogMsg(this)
+
         setContentView(R.layout.activity_main_drawerlayout)
         setSupportActionBar(toolbar_main)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-
 
         initLocation()
 
@@ -61,10 +64,14 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         }
 
         btn_register.setOnClickListener {
-
             var intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onBackPressed() {
+        dialogMsg!!.showDialog("확인", "취소", "확인", "정말로 종료 하시겠습니까?")
+        dialogMsg!!.show()
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
