@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -20,6 +21,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.honestyandpassion.ourcountry.Fragment.CategoryFragment
 import com.honestyandpassion.ourcountry.Fragment.HomeFragment
 import com.honestyandpassion.ourcountry.Fragment.MessageFragment
@@ -33,9 +35,11 @@ import java.util.*
 
 
 
-class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(){
 
     var test : Drawable ? = null
+    var bottomNavigationView : BottomNavigationView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_drawerlayout)
@@ -47,8 +51,9 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
         initLocation()
 
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_main)
-        bottomNavigationView.setOnNavigationItemSelectedListener(navListener)
+        bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_main)
+        bottomNavigationView!!.setOnNavigationItemSelectedListener(navListener)
+        navigation_view.setNavigationItemSelectedListener(drawListener)
 
         test  = getResources().getDrawable(R.drawable.baseline_menu_grey_24)
         supportActionBar?.setHomeAsUpIndicator(test)
@@ -65,6 +70,70 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             var intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
+    }
+    //네비게이션 드로어 클릭이벤트 넣어야함
+    private  val  drawListener=NavigationView.OnNavigationItemSelectedListener{
+        bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_main)
+        when(it.itemId){
+            R.id.nav_home->{
+               val fragment = HomeFragment()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
+                supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
+                test!!.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
+                btn_register.visibility= View.VISIBLE
+                bottomNavigationView!!.menu.findItem(R.id.bnv_main_home).setChecked(true)
+                drawerLayout.closeDrawers()
+
+            }
+            R.id.nav_category->{
+                val fragment = CategoryFragment()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
+                supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
+                test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+                supportActionBar?.setTitle("카테고리")
+                btn_register.visibility= View.INVISIBLE
+                toolbar_main.setTitleTextColor(Color.WHITE)
+                bottomNavigationView!!.menu.findItem(R.id.bnv_main_category).setChecked(true)
+                drawerLayout.closeDrawers()
+
+            }
+            R.id.nav_latest->{
+                drawerLayout.closeDrawers()
+            }
+            R.id.nav_popular->{
+                drawerLayout.closeDrawers()
+            }
+            R.id.nav_profile->{
+                val fragment = MypageFragment()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
+                btn_register.visibility= View.INVISIBLE
+                supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
+                test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+                bottomNavigationView!!.menu.findItem(R.id.bnv_main_mypage).setChecked(true)
+                drawerLayout.closeDrawers()
+            }
+            R.id.nav_language->{
+                drawerLayout.closeDrawers()
+            }
+            R.id.nav_contact_us->{
+                drawerLayout.closeDrawers()
+            }
+            R.id.nav_setting->{
+                drawerLayout.closeDrawers()
+            }
+            R.id.nav_privacy_policy->{
+                drawerLayout.closeDrawers()
+            }
+            R.id.nav_rate_this_app->{
+                drawerLayout.closeDrawers()
+            }
+
+
+        }
+        false
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
@@ -133,17 +202,6 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         if(UserInfo.TYPE=="seller") btn_register.visibility=View.VISIBLE
         else btn_register.visibility=View.GONE
     }
-//네비게이션 안 아이템 클릭시 (수정 중)
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.nav_home->{
-                var intent = Intent(this, HomeFragment::class.java)
-                startActivity(intent)
-            }
-        }
-        return false
-    }
-
 
             private  fun initLocation() {
 
