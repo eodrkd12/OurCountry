@@ -1,6 +1,8 @@
 package com.honestyandpassion.ourcountry.MainActivity
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -8,9 +10,12 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.honestyandpassion.ourcountry.Class.UserInfo
+import com.google.android.material.navigation.NavigationView
 import com.honestyandpassion.ourcountry.Fragment.CategoryFragment
 import com.honestyandpassion.ourcountry.Fragment.HomeFragment
 import com.honestyandpassion.ourcountry.Fragment.MessageFragment
@@ -23,7 +28,7 @@ import kotlinx.android.synthetic.main.toolbar_layout.*
 import java.util.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +37,9 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_menu_grey_24)
+
+
+        initLocation()
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_main)
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener)
@@ -84,7 +92,7 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         var inflater = getMenuInflater()
-        inflater.inflate(R.menu.menu_drawer, menu)
+        inflater.inflate(R.menu.menu_alart, menu)
         menu!!.add(0, 0, 0, "알림").setIcon(R.drawable.baseline_menu_grey_24)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
 
@@ -104,5 +112,43 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         if(UserInfo.TYPE=="seller") btn_register.visibility=View.VISIBLE
         else btn_register.visibility=View.GONE
+    }
+//네비게이션 안 아이템 클릭시 (수정 중)
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.nav_home->{
+                var intent = Intent(this, HomeFragment::class.java)
+                startActivity(intent)
+            }
+        }
+        return false
+    }
+
+
+            private  fun initLocation() {
+
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+        var fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationClient.lastLocation.addOnSuccessListener {Location->
+            if(Location == null){
+                Toast.makeText(this,"null",Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this,"${Location.latitude} , ${Location.longitude}",Toast.LENGTH_SHORT).show()
+            }
+    }
+            .addOnFailureListener{
+
+            }
+
     }
 }
