@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.toolbar_layout.*
 import java.util.*
 
 
-class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_menu_grey_24)
-
 
         initLocation()
 
@@ -63,7 +62,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                 val fragment = HomeFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-                btn_register.visibility= View.VISIBLE
+                btn_register.visibility = View.VISIBLE
 
                 return@OnNavigationItemSelectedListener true
             }
@@ -77,31 +76,32 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                 val fragment = MypageFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-                btn_register.visibility= View.INVISIBLE
+                btn_register.visibility = View.INVISIBLE
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_message -> {
                 val fragment = MessageFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-                btn_register.visibility= View.INVISIBLE
+                btn_register.visibility = View.INVISIBLE
                 return@OnNavigationItemSelectedListener true
             }
         }
         false
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         var inflater = getMenuInflater()
         inflater.inflate(R.menu.menu_alart, menu)
         menu!!.add(0, 0, 0, "알림").setIcon(R.drawable.baseline_menu_grey_24)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
 
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item!!.itemId){
-            android.R.id.home->{
+        when (item!!.itemId) {
+            android.R.id.home -> {
                 drawerLayout.openDrawer(GravityCompat.START)
             }
         }
@@ -110,13 +110,14 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
     override fun onResume() {
         super.onResume()
-        if(UserInfo.TYPE=="seller") btn_register.visibility=View.VISIBLE
-        else btn_register.visibility=View.GONE
+        if (UserInfo.TYPE == "seller") btn_register.visibility = View.VISIBLE
+        else btn_register.visibility = View.GONE
     }
-//네비게이션 안 아이템 클릭시 (수정 중)
+
+    //네비게이션 안 아이템 클릭시 (수정 중)
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.nav_home->{
+        when (item.itemId) {
+            R.id.nav_home -> {
                 var intent = Intent(this, HomeFragment::class.java)
                 startActivity(intent)
             }
@@ -124,8 +125,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         return false
     }
 
-
-            private  fun initLocation() {
+    private fun initLocation() {
 
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -138,17 +138,20 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         ) {
             return
         }
-        var fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
-        fusedLocationClient.lastLocation.addOnSuccessListener {Location->
-            if(Location == null){
-                Toast.makeText(this,"null",Toast.LENGTH_SHORT).show()
-            }else{
-                Toast.makeText(this,"${Location.latitude} , ${Location.longitude}",Toast.LENGTH_SHORT).show()
+        var fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationClient.lastLocation.addOnSuccessListener { Location ->
+            if (Location == null) {
+                Toast.makeText(this, "null", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    this,
+                    "${Location.latitude} , ${Location.longitude}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-    }
-            .addOnFailureListener{
+        }.addOnFailureListener {
 
-            }
+        }
 
     }
 }

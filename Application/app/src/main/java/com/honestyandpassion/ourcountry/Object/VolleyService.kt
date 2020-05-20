@@ -4,8 +4,10 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
 import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import org.json.JSONArray
 import org.json.JSONObject
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -54,6 +56,7 @@ object VolleyService {
         registerDate: String,
         registerLike: Int,
         registerView: Int,
+        userNickname: String,
         context: Context,
         success: (JSONObject?) -> Unit
     ) {
@@ -75,6 +78,7 @@ object VolleyService {
         json.put("register_date", registerDate)
         json.put("register_like", registerLike)
         json.put("register_view", registerView)
+        json.put("user_nickname",userNickname)
 
         var request = object : JsonObjectRequest(
             Method.POST,
@@ -281,6 +285,41 @@ object VolleyService {
             url,
             json,
             Response.Listener {
+            },
+            Response.ErrorListener {
+            }) {
+        }
+
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun recentRegisterReq(context: Context, success: (JSONArray?) -> Unit){
+        var url = "${ip}/register/recent"
+
+        var array = JSONArray()
+
+        var request = object : JsonArrayRequest(Method.POST,
+            url,
+            array,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+            }) {
+        }
+
+        Volley.newRequestQueue(context).add(request)
+    }
+    fun popularRegisterReq(context: Context, success: (JSONArray?) -> Unit){
+        var url = "${ip}/register/popular"
+
+        var array = JSONArray()
+
+        var request = object : JsonArrayRequest(Method.POST,
+            url,
+            array,
+            Response.Listener {
+                success(it)
             },
             Response.ErrorListener {
             }) {

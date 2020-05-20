@@ -16,6 +16,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.IntroActivity.SelectCategoryActivity
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.R
@@ -141,7 +142,7 @@ class RegisterActivity : AppCompatActivity() {
                 val registerDate =
                     current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
                 VolleyService.registerProductReq(
-                    "asd",
+                    UserInfo.ID,
                     edit_registertitle.text.toString(),
                     text_selectcategory.text.toString(),
                     text_selectsubcategory.text.toString(),
@@ -156,6 +157,7 @@ class RegisterActivity : AppCompatActivity() {
                     registerDate,
                     0,
                     0,
+                    UserInfo.NICKNAME,
                     this,
                     { success ->
                         var jsonObject = success

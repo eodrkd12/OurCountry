@@ -15,17 +15,37 @@ module.exports=function(){
         get_register : function(userId,registerTitle,registerDate,callback){
             pool.getConnection(function(err,con){
                 var sql=`select * from Register where user_id='${userId}' and register_title='${registerTitle}' and register_date='${registerDate}'`
-                con.query(sql, function(err,con){
+                con.query(sql, function(err,result,fields){
                     con.release()
                     if(err) callback(err)
                     else callback(null,result)
                 })
             })
         },
-        insert_image : function(registerId,productName,image,callback){
+        insert_image : function(registerId,registerTitle,image,callback){
             pool.getConnection(function(err,con){
-                var sql=`insert into Image(register_id,product_name,product_image) values(${registerId},'${productName}','${image}')`
-                con.query(sql, function(err,con){
+                var sql=`insert into image(register_id,register_title,product_image) values(${registerId},'${registerTitle}','${image}')`
+                con.query(sql, function(err,result,fields){
+                    con.release()
+                    if(err) callback(err)
+                    else callback(null,result)
+                })
+            })
+        },
+        get_register_recent:function(callback){
+            pool.getConnection(function(err,con){
+                var sql=`select * from Register order by register_date desc`
+                con.query(sql, function(err,result,fields){
+                    con.release()
+                    if(err) callback(err)
+                    else callback(null,result)
+                })
+            })
+        },
+        get_register_popular:function(callback){
+            pool.getConnection(function(err,con){
+                var sql=`select * from Register order by register_like desc`
+                con.query(sql, function(err,result,fields){
                     con.release()
                     if(err) callback(err)
                     else callback(null,result)

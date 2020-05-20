@@ -36,16 +36,30 @@ router.post('/insert', function(req, res, next){
 
 router.post('/insert/image', function(req,res,next){
   var registerId=req.body.register_id
-  var productName=req.body.product_name
+  var registerTitle=req.body.register_title
   var image=req.body.image
 
-  db_register.insert_image(registerId,productName,image,function(err,result){
+  db_register.insert_image(registerId,registerTitle,image,function(err,result){
     if(err) console.log(err)
     else {
       var object=new Object()
       object.result="success"
       res.send(object)
     }
+  })
+})
+
+router.post('/recent',function(req,res,next){
+  db_register.get_register_recent(function(err,result){
+    if(err) console.log(err)
+    else res.send(result)
+  })
+})
+
+router.post('/popular',function(req,res,next){
+  db_register.get_register_popular(function(err,result){
+    if(err) console.log(err)
+    else res.send(result)
   })
 })
 
