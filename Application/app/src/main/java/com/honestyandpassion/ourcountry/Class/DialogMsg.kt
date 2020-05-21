@@ -51,7 +51,7 @@ class DialogMsg(activity: Activity) {
 
         dialogAccept!!.setOnClickListener{
             context!!.moveTaskToBack(true)
-            context!!.finishAndRemoveTask()						// 액티비티 종료 + 태스크 리스트에서 지우기
+            context!!.finishAndRemoveTask()
             android.os.Process.killProcess(android.os.Process.myPid())
         }
 

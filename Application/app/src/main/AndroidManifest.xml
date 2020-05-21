@@ -5,8 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".Class.OurCountry"
@@ -17,8 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MainActivity.ProductListActivity"></activity>
-        <activity android:name=".MainActivity.ChatActivity"></activity>
+        <activity android:name=".MainActivity.SearchActivity"></activity>
+        <activity android:name=".MainActivity.ProductListActivity" />
+        <activity android:name=".MainActivity.ChatActivity" />
         <activity android:name=".IntroActivity.SelectSubCategoryActivity" />
         <activity android:name=".IntroActivity.SelectCategoryActivity" />
         <activity android:name=".IntroActivity.Join4Activity" />
@@ -40,6 +40,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
@@ -53,8 +54,6 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
 
-
-
         <service
             android:name=".Class.MyFirebaseMessagingService"
             android:exported="false">
@@ -63,6 +62,5 @@
             </intent-filter>
         </service>
     </application>
-
 
 </manifest>

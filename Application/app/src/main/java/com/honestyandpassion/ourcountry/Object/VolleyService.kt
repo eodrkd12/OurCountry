@@ -348,9 +348,28 @@ object VolleyService {
             Response.ErrorListener {
 
             }) {
-
         }
         Volley.newRequestQueue(context).add(request)
+    }
 
+    fun searchRegisterReq(searchText:String, context: Context, success: (JSONArray?) -> Unit){
+        var url = "${ip}/register/search"
+
+        var json = JSONObject()
+        json.put("searchText", searchText)
+
+        var array = JSONArray()
+
+        var request = object : JsonArrayRequest(Method.POST,
+            url,
+            array,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+            }) {
+        }
+
+        Volley.newRequestQueue(context).add(request)
     }
 }
