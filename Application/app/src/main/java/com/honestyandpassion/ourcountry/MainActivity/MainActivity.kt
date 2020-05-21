@@ -62,8 +62,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        initLocation()
-
         bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_main)
         bottomNavigationView!!.setOnNavigationItemSelectedListener(navListener)
         navigation_view.setNavigationItemSelectedListener(drawListener)
