@@ -45,12 +45,11 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity() {
 
     var dialogMsg: DialogMsg? = null
     var test: Drawable? = null
     var bottomNavigationView: BottomNavigationView? = null
-    var list: List<Address>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -228,43 +227,4 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return super.onOptionsItemSelected(item)
     }
 
-    //네비게이션 안 아이템 클릭시 (수정 중)
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_home -> {
-                var intent = Intent(this, HomeFragment::class.java)
-                startActivity(intent)
-            }
-        }
-        return false
-    }
-
-    private fun initLocation() {
-
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
-        var fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        fusedLocationClient.lastLocation.addOnSuccessListener { Location ->
-            if (Location == null) {
-                Toast.makeText(this, "null", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(
-                    this,
-                    "${Location.latitude} , ${Location.longitude}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }.addOnFailureListener {
-
-        }
-    }
 }
