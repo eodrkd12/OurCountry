@@ -141,7 +141,7 @@ class HomeFragment : Fragment() {
 
         return rootView
     }
-    private  fun initLocation() {
+    private fun initLocation() {
 
         if (ActivityCompat.checkSelfPermission(
                 activity!!,
@@ -160,15 +160,14 @@ class HomeFragment : Fragment() {
                 Toast.makeText(activity,"null", Toast.LENGTH_SHORT).show()
             }else{
                 var geocoder = Geocoder(activity)
-               var list=geocoder.getFromLocation(location.latitude,location.longitude,1)
+               var list=geocoder.getFromLocation(location.latitude,location.longitude,10)
                 var finallist= list!!.get(0).getAddressLine(0).split(" ")
                 text_currentlocation.text=finallist.get(1)+" "+finallist.get(2)+" "+finallist.get(3)
-
             }
         }
             .addOnFailureListener{
 
-            }
+        }
 
     }
 

@@ -45,12 +45,11 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity() {
 
     var dialogMsg: DialogMsg? = null
-    var test : Drawable ? = null
-    var bottomNavigationView : BottomNavigationView? = null
-    var list: List<Address>? = null
+    var test: Drawable? = null
+    var bottomNavigationView: BottomNavigationView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +65,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bottomNavigationView!!.setOnNavigationItemSelectedListener(navListener)
         navigation_view.setNavigationItemSelectedListener(drawListener)
 
-        test  = getResources().getDrawable(R.drawable.baseline_menu_grey_24)
+        test = getResources().getDrawable(R.drawable.baseline_menu_grey_24)
         supportActionBar?.setHomeAsUpIndicator(test)
 
         if (savedInstanceState == null) {
@@ -81,63 +80,64 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(intent)
         }
     }
+
     //네비게이션 드로어 클릭이벤트 넣어야함
-    private  val  drawListener=NavigationView.OnNavigationItemSelectedListener{
+    private val drawListener = NavigationView.OnNavigationItemSelectedListener {
         bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_main)
-        when(it.itemId){
-            R.id.nav_home->{
-               val fragment = HomeFragment()
+        when (it.itemId) {
+            R.id.nav_home -> {
+                val fragment = HomeFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
                 test!!.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
-                btn_register.visibility= View.VISIBLE
+                btn_register.visibility = View.VISIBLE
                 bottomNavigationView!!.menu.findItem(R.id.bnv_main_home).setChecked(true)
                 drawerLayout.closeDrawers()
 
             }
-            R.id.nav_category->{
+            R.id.nav_category -> {
                 val fragment = CategoryFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 supportActionBar?.setTitle("카테고리")
-                btn_register.visibility= View.INVISIBLE
+                btn_register.visibility = View.INVISIBLE
                 toolbar_main.setTitleTextColor(Color.WHITE)
                 bottomNavigationView!!.menu.findItem(R.id.bnv_main_category).setChecked(true)
                 drawerLayout.closeDrawers()
 
             }
-            R.id.nav_latest->{
+            R.id.nav_latest -> {
                 drawerLayout.closeDrawers()
             }
-            R.id.nav_popular->{
+            R.id.nav_popular -> {
                 drawerLayout.closeDrawers()
             }
-            R.id.nav_profile->{
+            R.id.nav_profile -> {
                 val fragment = MypageFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-                btn_register.visibility= View.INVISIBLE
+                btn_register.visibility = View.INVISIBLE
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 bottomNavigationView!!.menu.findItem(R.id.bnv_main_mypage).setChecked(true)
                 drawerLayout.closeDrawers()
             }
-            R.id.nav_language->{
+            R.id.nav_language -> {
                 drawerLayout.closeDrawers()
             }
-            R.id.nav_contact_us->{
+            R.id.nav_contact_us -> {
                 drawerLayout.closeDrawers()
             }
-            R.id.nav_setting->{
+            R.id.nav_setting -> {
                 drawerLayout.closeDrawers()
             }
-            R.id.nav_privacy_policy->{
+            R.id.nav_privacy_policy -> {
                 drawerLayout.closeDrawers()
             }
-            R.id.nav_rate_this_app->{
+            R.id.nav_rate_this_app -> {
                 drawerLayout.closeDrawers()
             }
 
@@ -151,25 +151,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (UserInfo.TYPE == "seller") btn_register.visibility = View.VISIBLE
         else btn_register.visibility = View.GONE
 
-
+        //홈프래그먼트 새로고침
+        var handler=HomeFragment.HANDLER
+        var msg=handler!!.obtainMessage()
+        msg.what=0
+        handler.sendMessage(msg)
     }
 
     override fun onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawers()
-        }else{
+        } else {
             dialogMsg!!.showDialog("확인", "취소", "확인", "정말로 종료 하시겠습니까?")
             dialogMsg!!.show()
         }
     }
-
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
         when (it.itemId) {
             R.id.bnv_main_home -> {
                 val fragment = HomeFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-                btn_register.visibility= View.VISIBLE
+                btn_register.visibility = View.VISIBLE
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
                 test!!.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
                 return@OnNavigationItemSelectedListener true
@@ -188,7 +191,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val fragment = MypageFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-                btn_register.visibility= View.INVISIBLE
+                btn_register.visibility = View.INVISIBLE
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 return@OnNavigationItemSelectedListener true
@@ -197,7 +200,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val fragment = MessageFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-                btn_register.visibility= View.INVISIBLE
+                btn_register.visibility = View.INVISIBLE
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 return@OnNavigationItemSelectedListener true
@@ -223,18 +226,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         return super.onOptionsItemSelected(item)
     }
-
-    //네비게이션 안 아이템 클릭시 (수정 중)
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_home -> {
-                var intent = Intent(this, HomeFragment::class.java)
-                startActivity(intent)
-            }
-        }
-        return false
-    }
-
-
 
 }
