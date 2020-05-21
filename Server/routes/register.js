@@ -88,7 +88,7 @@ router.post('/popular',function(req,res,next){
 })
 
 router.post('/search', function(req, res, next){
-  db_register.get_register_search(function(err, result){
+  db_register.get_register_search(searchText, function(err, result){
     if(err) console.log(err)
     else res.send(result)
   })

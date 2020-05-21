@@ -5,12 +5,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 
-public abstract class ToolbarSetting :
-    AppCompatActivity() {
-    var toolbar : Toolbar? = null
-    var titleText: String? = null
-    var context: Activity? = null
-
+public abstract class ToolbarSetting : AppCompatActivity() {
     fun toolbarBinding(toolbar : Toolbar, titleText: String) : Toolbar{
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowCustomEnabled(true)

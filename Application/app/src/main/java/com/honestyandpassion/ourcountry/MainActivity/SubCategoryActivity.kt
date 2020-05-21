@@ -5,10 +5,11 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.recyclerview.widget.GridLayoutManager
 import com.honestyandpassion.ourcountry.Adapter.SubCategoryAdapter
+import com.honestyandpassion.ourcountry.Class.ToolbarSetting
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.activity_sub_category.*
 
-class SubCategoryActivity : AppCompatActivity() {
+class SubCategoryActivity : ToolbarSetting() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,14 +23,8 @@ class SubCategoryActivity : AppCompatActivity() {
         val meatList = arrayListOf("닭/오리고기", "쇠고기", "알류", "기타육류", "돼지고기")
         val fermentedList = arrayListOf("고추장/된장", "메주/간장", "청국장/쌈장")
 
-
-
-        var toolbar: androidx.appcompat.widget.Toolbar = findViewById(com.honestyandpassion.ourcountry.R.id.toolbar_subcategory)
-        setSupportActionBar(toolbar)
-
-        supportActionBar?.setDisplayShowCustomEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setTitle(categoryType)
+        var toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar_subcategory)
+        toolbarBinding(toolbar, categoryType)
 
         if(categoryType=="농산물")
         {
@@ -52,14 +47,6 @@ class SubCategoryActivity : AppCompatActivity() {
             rvSetting(fermentedList, categoryType)
         }
 
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item!!.itemId)
-        {
-            android.R.id.home-> finish()
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     fun rvSetting(categoryList:ArrayList<String>, categoryType:String) {

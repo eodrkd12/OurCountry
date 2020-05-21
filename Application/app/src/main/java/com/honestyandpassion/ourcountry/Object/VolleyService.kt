@@ -359,6 +359,7 @@ object VolleyService {
         json.put("searchText", searchText)
 
         var array = JSONArray()
+        array.put(json)
 
         var request = object : JsonArrayRequest(Method.POST,
             url,
@@ -369,7 +370,6 @@ object VolleyService {
             Response.ErrorListener {
             }) {
         }
-
         Volley.newRequestQueue(context).add(request)
     }
 }
