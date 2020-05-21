@@ -14,9 +14,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.location.LocationServices
 import com.google.firebase.messaging.FirebaseMessaging
 import com.honestyandpassion.ourcountry.Adapter.CategoryAdapter
 import com.honestyandpassion.ourcountry.Adapter.ProductAdapter
@@ -141,7 +143,7 @@ class HomeFragment : Fragment() {
         ) {
             return
         }
-        var fusedLocationClient=LocationServices.getFusedLocationProviderClient(activity!!)
+        var fusedLocationClient= LocationServices.getFusedLocationProviderClient(activity!!)
         fusedLocationClient.lastLocation.addOnSuccessListener {location->
             if(location == null){
                 Toast.makeText(activity,"null", Toast.LENGTH_SHORT).show()

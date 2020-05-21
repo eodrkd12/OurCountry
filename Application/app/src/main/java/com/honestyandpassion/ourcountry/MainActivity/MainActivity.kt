@@ -62,8 +62,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        initLocation()
-
         bottomNavigationView = findViewById<BottomNavigationView>(R.id.bnv_main)
         bottomNavigationView!!.setOnNavigationItemSelectedListener(navListener)
         navigation_view.setNavigationItemSelectedListener(drawListener)
@@ -157,8 +155,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onBackPressed() {
-        dialogMsg!!.showDialog("확인", "취소", "확인", "정말로 종료 하시겠습니까?")
-        dialogMsg!!.show()
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawers()
+        }else{
+            dialogMsg!!.showDialog("확인", "취소", "확인", "정말로 종료 하시겠습니까?")
+            dialogMsg!!.show()
+        }
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
@@ -233,46 +235,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return false
     }
 
-    private fun initLocation() {
-
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
-        var fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        fusedLocationClient.lastLocation.addOnSuccessListener { Location ->
-            if (Location == null) {
-                Toast.makeText(this, "null", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(
-                    this,
-                    "${Location.latitude} , ${Location.longitude}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }.addOnFailureListener {
-
-        }
 
 
-    override fun onResume() {
-        super.onResume()
-        if(UserInfo.TYPE=="seller") btn_register.visibility=View.VISIBLE
-        else btn_register.visibility=View.GONE
-    }
-    //뒤로가기버튼 드로어 닫기 안됌
-    override fun onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-            drawerLayout.closeDrawers()
-        }else{
-            super.onBackPressed()
-        }
-    }
 }
