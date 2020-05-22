@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.honestyandpassion.ourcountry.Adapter.ProductAdapter
+import com.honestyandpassion.ourcountry.Adapter.SearchProductAdapter
 import com.honestyandpassion.ourcountry.Class.ToolbarSetting
 import com.honestyandpassion.ourcountry.Item.Product
 import com.honestyandpassion.ourcountry.Object.VolleyService
@@ -31,8 +32,6 @@ class SearchActivity : ToolbarSetting() {
         var toolbar : Toolbar = findViewById(R.id.toolbar_search)
         var intent = intent
         var searchText: String = intent.getStringExtra("searchText")
-
-        var width = rv_searchlist.height / 2
 
         toolbarBinding(toolbar, searchText)
 
@@ -65,7 +64,7 @@ class SearchActivity : ToolbarSetting() {
             rv_searchlist.setHasFixedSize(true)
             rv_searchlist.layoutManager=
                 GridLayoutManager(this, 2)
-            rv_searchlist.adapter= ProductAdapter(this, searchList)
+            rv_searchlist.adapter= SearchProductAdapter(this, searchList)
         })
     }
 }
