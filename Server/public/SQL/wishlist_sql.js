@@ -22,6 +22,16 @@ module.exports=function(){
                 })
             })
         },
+        check_wishlist : function(registerId, userId, callback){
+            pool.getConnection(function(err, con){
+                var sql=`select * from Wishlist where register_id=${registerId} and user_id='${userId}'`
+                con.query(sql, function(err, result, fields){
+                    con.release()
+                    if(err) console.log(err)
+                    else callback(null, result)
+                })
+            })
+        },
         pool: pool
     }
 };

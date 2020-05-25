@@ -4,17 +4,28 @@ import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageButton
+import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.honestyandpassion.ourcountry.Adapter.ProductImagePagerAdapter
+import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.Item.Product
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.R
+import com.like.LikeButton
 import kotlinx.android.synthetic.main.activity_product.*
 import org.json.JSONObject
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import com.like.OnLikeListener
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 class ProductActivity : AppCompatActivity() {
 
@@ -30,7 +41,7 @@ class ProductActivity : AppCompatActivity() {
 
         pager_product_image.adapter=ProductImagePagerAdapter(this,imageList!!)
 
-        text_productprice.setText(product.productPrice)
+        text_productprice.setText(product.productPrice+"원")
         text_registertitle.setText(product.registerTitle)
         var registerDate = product.registerDate!!.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
         text_registerdate.setText(registerDate.split('T')[0])
@@ -73,6 +84,43 @@ class ProductActivity : AppCompatActivity() {
                 "phone" -> {
                     text_sellercertification.setText("휴대폰 인증 계정")
                 }
+            }
+        })
+
+        VolleyService.checkWishlistReq(product.registerId!!, UserInfo.ID, this, {success->
+            if(success!!.getInt("count") == 1) {
+                btn_favorite.setLiked(true)
+            }
+            else {
+                btn_favorite.setLiked(false)
+            }
+        })
+
+        btn_favorite.setOnLikeListener(object : OnLikeListener {
+            override fun liked(likeButton: LikeButton) {
+                VolleyService.insertWishlistReq(product.registerId!!, UserInfo.ID, this@ProductActivity, {success->
+                    if(success == "success")
+                    {
+                        likeButton.setLikeDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.heart_on, null))
+                        Toast.makeText(this@ProductActivity, "위시리스트에 등록되었습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    else{
+                        Toast.makeText(this@ProductActivity, "통신오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+
+            override fun unLiked(likeButton: LikeButton) {
+                VolleyService.deleteWishlistReq(product.registerId!!, UserInfo.ID, this@ProductActivity, {success->
+                    if(success == "success")
+                    {
+                        likeButton.setLikeDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.heart_off, null))
+                        Toast.makeText(this@ProductActivity, "위시리스트에서 제거되었습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    else{
+                        Toast.makeText(this@ProductActivity, "통신오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                })
             }
         })
     }

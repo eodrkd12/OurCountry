@@ -373,4 +373,61 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
+    fun insertWishlistReq(registerId:Int, userId:String, context: Context, success: (String?)->Unit) {
+        var url = "${ip}/wishlist/insert"
+
+        var json = JSONObject()
+        json.put("register_id", registerId)
+        json.put("user_id", userId)
+
+        var request = object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it.getString("result"))
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun deleteWishlistReq(registerId:Int, userId:String, context: Context, success: (String?)->Unit) {
+        var url = "${ip}/wishlist/delete"
+
+        var json = JSONObject()
+        json.put("register_id", registerId)
+        json.put("user_id", userId)
+
+        var request = object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it.getString("result"))
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun checkWishlistReq(registerId:Int, userId:String, context: Context, success: (JSONObject?)->Unit) {
+        var url = "${ip}/wishlist/check"
+
+        var json = JSONObject()
+        json.put("register_id", registerId)
+        json.put("user_id", userId)
+
+        var request = object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
 }

@@ -115,8 +115,9 @@
                     android:id="@+id/text_likecount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="5dp"
                     android:text="좋아요수"
+                    android:textColor="@color/colorMdBlue_400"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView4"
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
                     app:layout_constraintTop_toTopOf="@+id/imageView4" />
@@ -622,7 +623,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.like.LikeButton
-                android:id="@+id/image_favorite"
+                android:id="@+id/btn_favorite"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginStart="8dp"
@@ -646,15 +647,14 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-            android:id="@+id/btn_call"
+            android:id="@+id/btn_chat"
             android:layout_width="70dp"
             android:layout_height="35dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/rounded_corner_shape_button"
-            android:drawableStart="@drawable/baseline_phone_grey_24"
-            android:text="전화"
+            android:text="채팅"
             android:textColor="@color/colorMdWhite_1000"
             app:drawableTint="@color/colorMdWhite_1000"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -662,7 +662,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/btn_chat"
+            android:id="@+id/btn_purchase"
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_marginStart="16dp"
@@ -670,11 +670,11 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/rounded_corner_shape_button"
-            android:text="채팅"
+            android:text="구매"
             android:textColor="@color/colorMdWhite_1000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_call"
+            app:layout_constraintStart_toEndOf="@+id/btn_chat"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button

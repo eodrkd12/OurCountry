@@ -17,6 +17,7 @@
     <color name="colorMdGrey_900">#212121</color>
     <color name="colorMdWhite_1000">#FFFFFF</color>
     <color name="colorMdBlue_300">#64B5F6</color>
+    <color name="colorMdBlue_400">#42A5F5</color>
     <color name="colorMdBlue_600">#1e88e5</color>
     <color name="colorMdRed_600">#e53935</color>
     <color name="colorMdRed_800">#c62828</color>
