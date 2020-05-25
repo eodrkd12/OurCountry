@@ -1,6 +1,7 @@
 package com.honestyandpassion.ourcountry.Fragment
 
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.content.pm.PackageManager
 import android.location.Geocoder
@@ -13,6 +14,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 
@@ -23,6 +26,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.honestyandpassion.ourcountry.Adapter.CategoryAdapter
 import com.honestyandpassion.ourcountry.Adapter.ProductAdapter
 import com.honestyandpassion.ourcountry.Item.Product
+import com.honestyandpassion.ourcountry.MainActivity.SearchActivity
 import com.honestyandpassion.ourcountry.Object.VolleyService
 
 import com.honestyandpassion.ourcountry.R
@@ -49,12 +53,20 @@ class HomeFragment : Fragment() {
         var categoryRV:RecyclerView = rootView.findViewById(R.id.rv_category)
         var recentProductRV:RecyclerView=rootView.findViewById(R.id.rv_recentproduct)
         var popularProductRV:RecyclerView=rootView.findViewById(R.id.rv_popularproduct)
+        var searchBtn: ImageButton = rootView.findViewById(R.id.btn_homesearch)
 
         initLocation()
 
         categoryRV.setHasFixedSize(true)
         categoryRV.layoutManager = LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
         categoryRV.adapter = CategoryAdapter(activity!!, categoryList)
+
+        searchBtn.setOnClickListener {
+            var intent = Intent(activity!!, SearchActivity::class.java)
+            intent.putExtra("searchText", edit_homesearch.text.toString())
+            startActivity(intent)
+        }
+
 
         VolleyService.recentRegisterReq(activity!!,{ success ->
             recentProductArrayList.clear()
@@ -129,7 +141,7 @@ class HomeFragment : Fragment() {
 
         return rootView
     }
-    private  fun initLocation() {
+    private fun initLocation() {
 
         if (ActivityCompat.checkSelfPermission(
                 activity!!,
@@ -148,15 +160,14 @@ class HomeFragment : Fragment() {
                 Toast.makeText(activity,"null", Toast.LENGTH_SHORT).show()
             }else{
                 var geocoder = Geocoder(activity)
-               var list=geocoder.getFromLocation(location.latitude,location.longitude,1)
+               var list=geocoder.getFromLocation(location.latitude,location.longitude,10)
                 var finallist= list!!.get(0).getAddressLine(0).split(" ")
                 text_currentlocation.text=finallist.get(1)+" "+finallist.get(2)+" "+finallist.get(3)
-
             }
         }
             .addOnFailureListener{
 
-            }
+        }
 
     }
 

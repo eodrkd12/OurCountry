@@ -14,27 +14,18 @@ import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.MenuItem
 import androidx.core.view.GravityCompat
+import com.honestyandpassion.ourcountry.Class.ToolbarSetting
 import kotlinx.android.synthetic.main.activity_setting.*
 
 
-class SettingActivity : AppCompatActivity() {
+class SettingActivity : ToolbarSetting() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.honestyandpassion.ourcountry.R.layout.activity_setting)
 
-        setSupportActionBar(toolbar_setting)
-
-        supportActionBar?.setDisplayShowCustomEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        //supportActionBar?.setTitle()
+        var toolbar: androidx.appcompat.widget.Toolbar = findViewById(com.honestyandpassion.ourcountry.R.id.toolbar_setting)
+        toolbarBinding(toolbar, "설정")
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item!!.itemId)
-        {
-            R.id.home-> finish()
-        }
-        return super.onOptionsItemSelected(item)
-    }
 }

@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.honestyandpassion.ourcountry.Class.ToolbarSetting
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.Fragment.HomeFragment
 import com.honestyandpassion.ourcountry.IntroActivity.SelectCategoryActivity
@@ -27,7 +28,7 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.collections.ArrayList
 
-class RegisterActivity : AppCompatActivity() {
+class RegisterActivity : ToolbarSetting() {
 
     val PICK_FROM_CAMERA = 0
     val PICK_FROM_ALBUM = 1
@@ -57,13 +58,8 @@ class RegisterActivity : AppCompatActivity() {
         categoryText = findViewById(R.id.text_selectcategory)
         subCategoryText = findViewById(R.id.text_selectsubcategory)
 
-        var toolbar: androidx.appcompat.widget.Toolbar =
-            findViewById(com.honestyandpassion.ourcountry.R.id.toolbar_register)
-        setSupportActionBar(toolbar)
-
-        supportActionBar?.setDisplayShowCustomEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setTitle("상품 등록")
+        var toolbar: androidx.appcompat.widget.Toolbar = findViewById(com.honestyandpassion.ourcountry.R.id.toolbar_register)
+        toolbarBinding(toolbar, "상품등록")
 
         layout_selectcategory.setOnClickListener {
             var intent = Intent(this, SelectCategoryActivity::class.java)
@@ -217,13 +213,6 @@ class RegisterActivity : AppCompatActivity() {
                 dialog!!.show()
             }
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item!!.itemId) {
-            android.R.id.home -> finish()
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

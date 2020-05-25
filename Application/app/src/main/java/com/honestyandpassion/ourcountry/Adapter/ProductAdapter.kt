@@ -1,7 +1,9 @@
 package com.honestyandpassion.ourcountry.Adapter
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -51,6 +53,12 @@ class ProductAdapter(val context: Context, val productList:ArrayList<Product>) :
             }
             startActivity(context, intent, null)
         }
+
+        /*var displayMetrics: DisplayMetrics = DisplayMetrics()
+        (holder.itemView.getContext() as Activity).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics) // 화면의 가로길이를 구함
+        var width = displayMetrics.widthPixels / 2
+        holder.itemView.getLayoutParams().width = width
+        holder.itemView.requestLayout()*/
     }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view){

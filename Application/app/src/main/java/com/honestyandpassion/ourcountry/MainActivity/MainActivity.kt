@@ -20,6 +20,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -43,19 +44,26 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 import org.json.JSONObject
 import java.util.*
+import java.util.jar.Manifest
 import kotlin.collections.ArrayList
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity() {
 
     var dialogMsg: DialogMsg? = null
     var test: Drawable? = null
     var bottomNavigationView: BottomNavigationView? = null
-    var list: List<Address>? = null
+
+    private  val PermissinCode =100
+
+    private val requiredPermission = arrayOf(
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        checkPermissions()
         dialogMsg = DialogMsg(this)
 
         setContentView(R.layout.activity_main_drawerlayout)
@@ -82,6 +90,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(intent)
         }
     }
+
+    private fun checkPermissions(){
+        val rejectedPermissionList = ArrayList<String>()
+
+        for(permission in requiredPermission){
+            if(ContextCompat.checkSelfPermission(this,permission)!=PackageManager.PERMISSION_GRANTED) {
+                rejectedPermissionList.add(permission)
+            }
+        }
+        if(rejectedPermissionList.isNotEmpty()){
+            val array = arrayOfNulls<String>(rejectedPermissionList.size)
+            ActivityCompat.requestPermissions(this,rejectedPermissionList.toArray(array),PermissinCode)
+        }
+    }
+
 
     //네비게이션 드로어 클릭이벤트 넣어야함
     private val drawListener = NavigationView.OnNavigationItemSelectedListener {
@@ -230,43 +253,4 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return super.onOptionsItemSelected(item)
     }
 
-    //네비게이션 안 아이템 클릭시 (수정 중)
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_home -> {
-                var intent = Intent(this, HomeFragment::class.java)
-                startActivity(intent)
-            }
-        }
-        return false
-    }
-
-    private fun initLocation() {
-
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
-        var fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        fusedLocationClient.lastLocation.addOnSuccessListener { Location ->
-            if (Location == null) {
-                Toast.makeText(this, "null", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(
-                    this,
-                    "${Location.latitude} , ${Location.longitude}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }.addOnFailureListener {
-
-        }
-    }
 }

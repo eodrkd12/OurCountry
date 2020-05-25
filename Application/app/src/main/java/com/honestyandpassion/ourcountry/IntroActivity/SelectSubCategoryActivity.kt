@@ -7,10 +7,11 @@ import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.honestyandpassion.ourcountry.Adapter.SelectCategoryAdapter
+import com.honestyandpassion.ourcountry.Class.ToolbarSetting
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.activity_select_sub_category.*
 
-class SelectSubCategoryActivity : AppCompatActivity() {
+class SelectSubCategoryActivity : ToolbarSetting() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,19 +49,7 @@ class SelectSubCategoryActivity : AppCompatActivity() {
 
 
         var toolbar: androidx.appcompat.widget.Toolbar = findViewById(com.honestyandpassion.ourcountry.R.id.toolbar_selectsubcategory)
-        setSupportActionBar(toolbar)
-
-        supportActionBar?.setDisplayShowCustomEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setTitle("하위 카테고리를 선택해주세요.")
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item!!.itemId)
-        {
-            android.R.id.home-> finish()
-        }
-        return super.onOptionsItemSelected(item)
+        toolbarBinding(toolbar, "하위 카테고리를 선택 해주세요.")
     }
 
     fun subCategoryRv(categoryList:ArrayList<String>) {

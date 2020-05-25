@@ -62,6 +62,16 @@ module.exports=function(){
                 })
             })
         },
+        get_register_search:function(searchText, callback){
+            pool.getConnection(function(err, con){
+                var sql=`select * from Register where register_title like '%${searchText}%'`
+                con.query(sql, function(err, result, fields){
+                    con.release()
+                    if(err) callback(err)
+                    else callback(null, result)
+                })
+            })
+        },
         pool: pool
     }
 };
