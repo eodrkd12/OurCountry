@@ -229,7 +229,7 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
-    fun myInfoReq(id: String, context: Context, success: (String?) -> Unit){
+    fun myInfoReq(id: String, context: Context, success: (JSONObject?) -> Unit){
         var url="${ip}/user/my"
 
         var jsonObject=JSONObject()
@@ -240,7 +240,7 @@ object VolleyService {
             url,
             jsonObject,
             Response.Listener {
-
+                success(it)
             },
             Response.ErrorListener {
 
@@ -353,4 +353,5 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
 
     }
+
 }

@@ -56,7 +56,6 @@ class HomeFragment : Fragment() {
         categoryRV.layoutManager = LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
         categoryRV.adapter = CategoryAdapter(activity!!, categoryList)
 
-
         VolleyService.recentRegisterReq(activity!!,{ success ->
             recentProductArrayList.clear()
             var array=success

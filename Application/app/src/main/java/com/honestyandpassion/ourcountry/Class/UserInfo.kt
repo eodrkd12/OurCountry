@@ -19,6 +19,7 @@ class UserInfo : Application() {
         var ACCOUNT : String=""
         var ABOUT: String =""
         var BANK:String=""
-
+        var RATING_AVERAGE:Float=0.0f
+        var RATING_COUNT:Int=0
     }
 }

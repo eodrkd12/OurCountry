@@ -35,15 +35,13 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/baseline_back_white_with_grey_bg_24" />
 
-            <ImageView
-                android:id="@+id/image_productheader"
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/pager_product_image"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/screen_background_dark_transparent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_productinfo"
@@ -70,7 +68,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/text_productname"
+                    android:id="@+id/text_registertitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -90,11 +88,11 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_productname"
+                    app:layout_constraintTop_toBottomOf="@+id/text_registertitle"
                     app:srcCompat="@drawable/baseline_time_grey_24" />
 
                 <TextView
-                    android:id="@+id/text_enrolldate"
+                    android:id="@+id/text_registerdate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -109,7 +107,7 @@
                     android:layout_height="24dp"
                     android:layout_marginStart="16dp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                    app:layout_constraintStart_toEndOf="@+id/text_enrolldate"
+                    app:layout_constraintStart_toEndOf="@+id/text_registerdate"
                     app:layout_constraintTop_toTopOf="@+id/imageView3"
                     app:srcCompat="@drawable/baseline_fav_like_grey_24" />
 
@@ -154,7 +152,7 @@
                     app:srcCompat="@drawable/baseline_condition_grey_24" />
 
                 <TextView
-                    android:id="@+id/text_brandnew"
+                    android:id="@+id/text_productstatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -169,7 +167,7 @@
                     android:layout_height="24dp"
                     android:layout_marginStart="16dp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView6"
-                    app:layout_constraintStart_toEndOf="@+id/text_brandnew"
+                    app:layout_constraintStart_toEndOf="@+id/text_productstatus"
                     app:layout_constraintTop_toTopOf="@+id/imageView6"
                     app:srcCompat="@drawable/baseline_brand_grey_24" />
 
@@ -204,33 +202,13 @@
                     app:layout_constraintTop_toTopOf="@+id/imageView8" />
 
                 <ImageView
-                    android:id="@+id/imageView9"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView8"
-                    app:srcCompat="@drawable/baseline_hightlight_grey_24" />
-
-                <TextView
-                    android:id="@+id/text_producthighlightinfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="상품주요정보"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView9"
-                    app:layout_constraintStart_toEndOf="@+id/imageView9"
-                    app:layout_constraintTop_toTopOf="@+id/imageView9" />
-
-                <ImageView
                     android:id="@+id/imageView10"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="20dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView9"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView8"
                     app:srcCompat="@drawable/baseline_item_type_grey_24" />
 
                 <TextView
@@ -256,7 +234,7 @@
                     app:srcCompat="@drawable/baseline_info_grey_24" />
 
                 <TextView
-                    android:id="@+id/text_productinfo"
+                    android:id="@+id/text_registercontent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -342,7 +320,7 @@
                         app:srcCompat="@drawable/default_profile" />
 
                     <TextView
-                        android:id="@+id/text_sellername"
+                        android:id="@+id/text_sellernickname"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -355,7 +333,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/text_sellerrating"
+                        android:id="@+id/text_sellerratingaverage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -363,7 +341,7 @@
                         android:text="0.0"
                         android:textColor="@color/colorMdGrey_700"
                         app:layout_constraintStart_toEndOf="@+id/image_sellerimage"
-                        app:layout_constraintTop_toBottomOf="@+id/text_sellername" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_sellernickname" />
 
                     <RatingBar
                         android:id="@+id/rating_seller"
@@ -371,9 +349,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_sellerrating"
-                        app:layout_constraintStart_toEndOf="@+id/text_sellerrating"
-                        app:layout_constraintTop_toTopOf="@+id/text_sellerrating" />
+                        app:layout_constraintBottom_toBottomOf="@+id/text_sellerratingaverage"
+                        app:layout_constraintStart_toEndOf="@+id/text_sellerratingaverage"
+                        app:layout_constraintTop_toTopOf="@+id/text_sellerratingaverage" />
 
                     <TextView
                         android:id="@+id/text_ratingcount"
@@ -383,9 +361,9 @@
                         android:text="(0)"
                         android:textColor="@color/colorMdGrey_700"
                         android:textSize="14dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_sellerrating"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_sellerratingaverage"
                         app:layout_constraintStart_toEndOf="@+id/rating_seller"
-                        app:layout_constraintTop_toTopOf="@+id/text_sellerrating" />
+                        app:layout_constraintTop_toTopOf="@+id/text_sellerratingaverage" />
 
                     <ImageView
                         android:id="@+id/imageView15"
@@ -394,7 +372,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="12dp"
                         app:layout_constraintStart_toEndOf="@+id/image_sellerimage"
-                        app:layout_constraintTop_toBottomOf="@+id/text_sellerrating"
+                        app:layout_constraintTop_toBottomOf="@+id/text_sellerratingaverage"
                         app:srcCompat="@drawable/phone" />
 
                     <TextView
@@ -438,36 +416,6 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/image_sellerimage"
                         app:layout_constraintTop_toBottomOf="@+id/text_sellersignupdate" />
-
-                    <ImageView
-                        android:id="@+id/image_facebook"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginStart="16dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_sellercertification"
-                        app:layout_constraintStart_toEndOf="@+id/text_sellercertification"
-                        app:layout_constraintTop_toTopOf="@+id/text_sellercertification"
-                        app:srcCompat="@drawable/baseline_facebook_grey_24" />
-
-                    <ImageView
-                        android:id="@+id/image_mail"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginStart="8dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_sellercertification"
-                        app:layout_constraintStart_toEndOf="@+id/image_facebook"
-                        app:layout_constraintTop_toTopOf="@+id/text_sellercertification"
-                        app:srcCompat="@drawable/baseline_mail" />
-
-                    <ImageView
-                        android:id="@+id/image_phone"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginStart="8dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_sellercertification"
-                        app:layout_constraintStart_toEndOf="@+id/image_mail"
-                        app:layout_constraintTop_toTopOf="@+id/text_sellercertification"
-                        app:srcCompat="@drawable/phone" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -624,7 +572,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/view3">
 
                         <TextView
-                            android:id="@+id/text_tradetype"
+                            android:id="@+id/text_tradeoption"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
@@ -645,9 +593,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            app:layout_constraintBottom_toBottomOf="@+id/text_tradetype"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_tradeoption"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/text_tradetype"
+                            app:layout_constraintTop_toTopOf="@+id/text_tradeoption"
                             app:srcCompat="@drawable/baseline_location_grey_24" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
