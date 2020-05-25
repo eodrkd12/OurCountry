@@ -72,6 +72,16 @@ module.exports=function(){
                 })
             })
         },
+        add_register_like:function(registerId, callback){
+            pool.getConnection(function(err, con){
+                var sql=`update register set register_like=register_like+1 where register_id=${registerId}`
+                con.query(sql, function(err, result, fields){
+                    con.release()
+                    if(err) callback(err)
+                    else callback(null, result)
+                })
+            })  
+        },
         pool: pool
     }
 };
