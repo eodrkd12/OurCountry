@@ -1,5 +1,6 @@
 package com.honestyandpassion.ourcountry.MainActivity
 
+import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.util.Log
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.honestyandpassion.ourcountry.Adapter.ProductImagePagerAdapter
+import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.Item.Product
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.R
@@ -75,5 +77,23 @@ class ProductActivity : AppCompatActivity() {
                 }
             }
         })
+
+        btn_chat.setOnClickListener {
+            var maker= UserInfo.ID
+            var partner = product.userId
+            val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
+            val roomDate = current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+
+            VolleyService.createRoomReq(maker,partner,roomDate,product.registerTitle!!,this,{success ->
+                var intent= Intent(this,ChatActivity::class.java)
+                intent.putExtra("room_id",success!!.getInt("room_id"))
+                intent.putExtra("maker",success!!.getString("maker"))
+                intent.putExtra("partner",success!!.getString("partner"))
+                intent.putExtra("room_date",success!!.getString("room_date"))
+                intent.putExtra("room_title",success!!.getString("room_title"))
+                startActivity(intent)
+                finish()
+            })
+        }
     }
 }

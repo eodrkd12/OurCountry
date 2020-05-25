@@ -3,12 +3,14 @@ package com.honestyandpassion.ourcountry.Object
 import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
+import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
 import org.json.JSONObject
+import java.lang.reflect.Method
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -370,6 +372,51 @@ object VolleyService {
             Response.ErrorListener {
             }) {
         }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun createRoomReq(maker: String, partner: String?, roomDate: String?,registerTitle: String, context: Context, success:(JSONObject?) -> Unit) {
+        var url="${ip}/chat_room"
+
+        var json=JSONObject()
+        json.put("maker",maker)
+        json.put("partner",partner)
+        json.put("room_date",roomDate)
+        json.put("room_title",registerTitle)
+
+        var request = object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+                Log.d("test",it.toString())
+                success(it)
+            },
+            Response.ErrorListener {
+                Log.d("test",it.toString())
+            }) {
+        }
+
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun getMyChatRoomReq(id: String, context: Context, success: (JSONArray) -> Unit) {
+        var url="${ip}/chat_room/my_room"
+
+        var json=JSONObject()
+        json.put("user_id",id)
+
+        var request=object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+
+            },
+            Response.ErrorListener {
+
+            }){
+
+        }
+
         Volley.newRequestQueue(context).add(request)
     }
 

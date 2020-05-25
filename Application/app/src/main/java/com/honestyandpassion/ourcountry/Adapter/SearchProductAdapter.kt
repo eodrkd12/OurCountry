@@ -35,9 +35,9 @@ class SearchProductAdapter(val context: Context, val productList:ArrayList<Produ
                 var json=array[i] as JSONObject
                 Log.d("test",json.toString())
                 var bitmap=ImageManager.StringToBitmap(json.getString("product_image"))
-                productList.get(position).imageArray!!.add(bitmap!!)
+                productList.get(position).imageList!!.add(bitmap!!)
             }
-            holder.itemView.image_productimage.setImageBitmap(productList.get(position).imageArray!![0])
+            holder.itemView.image_productimage.setImageBitmap(productList.get(position).imageList!![0])
         })
 
 

@@ -128,9 +128,9 @@ class RegisterActivity : ToolbarSetting() {
             } else if (tradeOption == "") {
                 Toast.makeText(this, "거래유형을 선택해주세요.", Toast.LENGTH_SHORT).show()
             } else {
-                val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
-                val registerDate =
-                    current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                    val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
+                    val registerDate =
+                        current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
                 VolleyService.registerProductReq(
                     UserInfo.ID,
                     edit_registertitle.text.toString(),
