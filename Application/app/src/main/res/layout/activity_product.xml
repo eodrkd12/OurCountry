@@ -673,6 +673,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <com.like.LikeButton
+                android:id="@+id/image_favorite"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:anim_scale_factor="2"
+                app:circle_end_color="@color/colorMdRed_600"
+                app:circle_start_color="@color/colorMdWhite_1000"
+                app:dots_primary_color="@color/colorMdGreen_600"
+                app:dots_secondary_color="@color/colorMdBlue_300"
+                app:icon_size="20dp"
+                app:icon_type="heart"
+                app:is_enabled="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:like_drawable="@drawable/heart_on"
+                app:unlike_drawable="@drawable/heart_off"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
