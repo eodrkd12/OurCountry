@@ -90,6 +90,8 @@ class SplashActivity : AppCompatActivity() {
                         UserInfo.JOINDATE=user.getString("user_join_date")
                         UserInfo.ACCOUNT=user.getString("user_account")
                         UserInfo.ABOUT=user.getString("user_about")
+                        UserInfo.RATING_AVERAGE=user.getDouble("user_rating_average").toFloat()
+                        UserInfo.RATING_COUNT=user.getInt("user_rating_count")
 
 
                         var pref=this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
@@ -103,10 +105,12 @@ class SplashActivity : AppCompatActivity() {
                             .putString("ADDRESS",UserInfo.ADDRESS)
                             .putString("IMAGE",UserInfo.IMAGE)
                             .putInt("POINT",UserInfo.POINT)
-                            .putFloat("RATING",UserInfo.RATING as Float)
+                            .putFloat("RATING",UserInfo.RATING)
                             .putString("JOINDATE",UserInfo.JOINDATE)
                             .putString("ACCOUNT",UserInfo.ACCOUNT)
                             .putString("ABOUT",UserInfo.ABOUT)
+                            .putFloat("RATING_AVERAGE",UserInfo.RATING_AVERAGE)
+                            .putInt("RATING_COUNT",UserInfo.RATING_COUNT)
                             .apply()
 
                         Handler().postDelayed({

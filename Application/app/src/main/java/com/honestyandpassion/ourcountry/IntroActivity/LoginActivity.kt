@@ -74,6 +74,8 @@ class LoginActivity : AppCompatActivity() {
                         UserInfo.JOINDATE=user.getString("user_join_date")
                         UserInfo.ACCOUNT=user.getString("user_account")
                         UserInfo.ABOUT=user.getString("user_about")
+                        UserInfo.RATING_AVERAGE=user.getDouble("user_rating_average").toFloat()
+                        UserInfo.RATING_COUNT=user.getInt("user_rating_count")
 
                       //  VolleyService.insertTokenReq(UserInfo.NICKNAME,token,this)
 
@@ -92,6 +94,8 @@ class LoginActivity : AppCompatActivity() {
                             .putString("JOINDATE",UserInfo.JOINDATE)
                             .putString("ACCOUNT",UserInfo.ACCOUNT)
                             .putString("ABOUT",UserInfo.ABOUT)
+                            .putFloat("RATING_AVERAGE",UserInfo.RATING_AVERAGE)
+                            .putInt("RATING_COUNT",UserInfo.RATING_COUNT)
                             .apply()
 
                         var intent:Intent=Intent(this,MainActivity::class.java)

@@ -13,6 +13,7 @@ import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -172,14 +173,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        Log.d("test",UserInfo.TYPE)
         if (UserInfo.TYPE == "seller") btn_register.visibility = View.VISIBLE
         else btn_register.visibility = View.GONE
 
         //홈프래그먼트 새로고침
-        var handler=HomeFragment.HANDLER
+        /*var handler=HomeFragment.HANDLER
         var msg=handler!!.obtainMessage()
         msg.what=0
-        handler.sendMessage(msg)
+        handler.sendMessage(msg)*/
     }
 
     override fun onBackPressed() {
