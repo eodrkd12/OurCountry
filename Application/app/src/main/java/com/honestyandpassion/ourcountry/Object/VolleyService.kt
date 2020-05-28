@@ -205,6 +205,7 @@ object VolleyService {
         phone: String,
         about: String,
         address: String,
+        userType: String,
         context: Context,
         success: (JSONObject?) -> Unit
     ) {
@@ -216,6 +217,7 @@ object VolleyService {
         jsonObject.put("phone", phone)
         jsonObject.put("about", about)
         jsonObject.put("address", address)
+        jsonObject.put("user_type", userType)
 
         var request = object : JsonObjectRequest(
             Method.POST,
