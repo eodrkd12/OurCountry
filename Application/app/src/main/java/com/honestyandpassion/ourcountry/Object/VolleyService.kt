@@ -519,4 +519,28 @@ object VolleyService {
         }
         Volley.newRequestQueue(context).add(request)
     }
+
+    fun getSubCategoryProductReq(subCategory: String, context: Context, success: (JSONArray) -> Unit) {
+        var url="${ip}/register/subcategory"
+
+        var json=JSONObject()
+        json.put("product_subcategory", subCategory)
+
+        var array = JSONArray()
+        array.put(json)
+
+        var request=object : JsonArrayRequest(Method.POST,
+            url,
+            array,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+
+            }){
+
+        }
+
+        Volley.newRequestQueue(context).add(request)
+    }
 }

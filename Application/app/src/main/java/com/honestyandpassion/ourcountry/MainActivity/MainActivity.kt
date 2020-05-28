@@ -35,6 +35,7 @@ import com.honestyandpassion.ourcountry.Fragment.CategoryFragment
 import com.honestyandpassion.ourcountry.Fragment.HomeFragment
 import com.honestyandpassion.ourcountry.Fragment.MessageFragment
 import com.honestyandpassion.ourcountry.Fragment.MypageFragment
+import com.honestyandpassion.ourcountry.IntroActivity.SettingActivity
 import com.honestyandpassion.ourcountry.Item.Product
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.R
@@ -52,6 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     var dialogMsg: DialogMsg? = null
     var test: Drawable? = null
+    var bell:Drawable?=null
     var bottomNavigationView: BottomNavigationView? = null
 
     private  val PermissinCode =100
@@ -77,6 +79,9 @@ class MainActivity : AppCompatActivity() {
 
         test = getResources().getDrawable(R.drawable.baseline_menu_grey_24)
         supportActionBar?.setHomeAsUpIndicator(test)
+
+
+        bell = getResources().getDrawable(R.drawable.baseline_noti_white_24)
 
         if (savedInstanceState == null) {
             val fragment = HomeFragment()
@@ -116,6 +121,8 @@ class MainActivity : AppCompatActivity() {
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
                 test!!.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
+                toolbar_main.overflowIcon?.setColorFilter(Color.parseColor("#000000"),PorterDuff.Mode.SRC_ATOP)
+
                 btn_register.visibility = View.VISIBLE
                 bottomNavigationView!!.menu.findItem(R.id.bnv_main_home).setChecked(true)
                 drawerLayout.closeDrawers()
@@ -127,6 +134,7 @@ class MainActivity : AppCompatActivity() {
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+                toolbar_main.overflowIcon?.setColorFilter(Color.parseColor("#000000"),PorterDuff.Mode.SRC_ATOP)
                 supportActionBar?.setTitle("카테고리")
                 btn_register.visibility = View.INVISIBLE
                 toolbar_main.setTitleTextColor(Color.WHITE)
@@ -135,9 +143,15 @@ class MainActivity : AppCompatActivity() {
 
             }
             R.id.nav_latest -> {
+                var intent = Intent(this, ProductAllViewActivity::class.java)
+                intent.putExtra("clickedText", "최근등록된상품")
+                startActivity(intent)
                 drawerLayout.closeDrawers()
             }
             R.id.nav_popular -> {
+                var intent = Intent(this, ProductAllViewActivity::class.java)
+                intent.putExtra("clickedText", "인기상품")
+                startActivity(intent)
                 drawerLayout.closeDrawers()
             }
             R.id.nav_profile -> {
@@ -147,6 +161,7 @@ class MainActivity : AppCompatActivity() {
                 btn_register.visibility = View.INVISIBLE
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+                toolbar_main.overflowIcon?.setColorFilter(Color.parseColor("#000000"),PorterDuff.Mode.SRC_ATOP)
                 bottomNavigationView!!.menu.findItem(R.id.bnv_main_mypage).setChecked(true)
                 drawerLayout.closeDrawers()
             }
@@ -157,6 +172,8 @@ class MainActivity : AppCompatActivity() {
                 drawerLayout.closeDrawers()
             }
             R.id.nav_setting -> {
+                var intent = Intent(this,SettingActivity::class.java)
+                startActivity(intent)
                 drawerLayout.closeDrawers()
             }
             R.id.nav_privacy_policy -> {
@@ -201,6 +218,8 @@ class MainActivity : AppCompatActivity() {
                 btn_register.visibility = View.VISIBLE
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
                 test!!.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
+                toolbar_main.overflowIcon?.setColorFilter(Color.parseColor("#000000"),PorterDuff.Mode.SRC_ATOP)
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_category -> {
@@ -209,6 +228,7 @@ class MainActivity : AppCompatActivity() {
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+                toolbar_main.overflowIcon?.setColorFilter(Color.parseColor("#000000"),PorterDuff.Mode.SRC_ATOP)
                 supportActionBar?.setTitle("카테고리")
                 toolbar_main.setTitleTextColor(Color.WHITE)
                 return@OnNavigationItemSelectedListener true
@@ -220,6 +240,7 @@ class MainActivity : AppCompatActivity() {
                 btn_register.visibility = View.INVISIBLE
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+                toolbar_main.overflowIcon?.setColorFilter(Color.parseColor("#000000"),PorterDuff.Mode.SRC_ATOP)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_message -> {
@@ -229,6 +250,7 @@ class MainActivity : AppCompatActivity() {
                 btn_register.visibility = View.INVISIBLE
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+                toolbar_main.overflowIcon?.setColorFilter(Color.parseColor("#000000"),PorterDuff.Mode.SRC_ATOP)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -238,8 +260,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         var inflater = getMenuInflater()
         inflater.inflate(R.menu.menu_alart, menu)
-        menu!!.add(0, 0, 0, "알림").setIcon(R.drawable.baseline_menu_grey_24)
+        menu!!.add(0, 0, 0, "알림").setIcon(R.drawable.baseline_noti_white_24)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+
 
         return super.onCreateOptionsMenu(menu)
     }
