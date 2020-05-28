@@ -31,11 +31,11 @@ class ChatActivity : AppCompatActivity() {
         roomId = intent.getIntExtra("room_id",0).toString()
         title = intent.getStringExtra("title")
 
-        /*FirebaseMessaging.getInstance().subscribeToTopic(roomId!!)
+        FirebaseMessaging.getInstance().subscribeToTopic(roomId!!)
             .addOnCompleteListener {
                 var msg = "${roomId} subscribe success"
                 if (!it.isSuccessful) msg = "${roomId} subscribe fail"
-            }*/
+            }
 
         setChatting()
     }
@@ -82,8 +82,6 @@ class ChatActivity : AppCompatActivity() {
                 val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
                 val noon = current.format(DateTimeFormatter.ofPattern("a"))
                 var formatter: DateTimeFormatter? = null
-
-                Log.d("uniting", noon)
 
                 if (noon == "PM")
                     formatter = DateTimeFormatter.ofPattern("오후 hh:mm")

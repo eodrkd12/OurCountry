@@ -20,13 +20,13 @@ class ChatRoomAdapter(val context: Context, val chatRoomList:ArrayList<ChatRoomI
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatRoomAdapter.ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_category, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_chat_room, parent, false)
         return ViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: ChatRoomAdapter.ViewHolder, position: Int) {
         var chatRoom=chatRoomList[position]
-        holder.view.text_title.setText(chatRoom.roomTitle)
+        holder.itemView.text_title.setText(chatRoom.roomTitle)
 
         holder.view.setOnClickListener {
             var intent=Intent(context,ChatActivity::class.java)

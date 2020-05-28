@@ -405,14 +405,18 @@ object VolleyService {
         var json=JSONObject()
         json.put("user_id",id)
 
-        var request=object : JsonObjectRequest(Method.POST,
-            url,
-            json,
-            Response.Listener {
+        var array=JSONArray()
+        array.put(json)
 
+        var request=object : JsonArrayRequest(Method.POST,
+            url,
+            array,
+            Response.Listener {
+                Log.d("test",it.toString())
+                success(it)
             },
             Response.ErrorListener {
-
+                Log.d("test",it.toString())
             }){
 
         }
@@ -470,6 +474,45 @@ object VolleyService {
             json,
             Response.Listener {
                 success(it)
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun insertTokenReq(id: String, token: String?, context: Context) {
+        var url = "${ip}/user/insert/token"
+
+        var jsonObject = JSONObject()
+        jsonObject.put("id", id)
+        jsonObject.put("token",token)
+
+        var request = object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun removeToken(id: String, context: Context) {
+        var url = "${ip}/user/remove/token"
+
+        var jsonObject = JSONObject()
+        jsonObject.put("id", id)
+
+        var request = object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+
             },
             Response.ErrorListener {
             }) {

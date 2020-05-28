@@ -16,6 +16,7 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import com.google.firebase.iid.FirebaseInstanceId
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.MainActivity.MainActivity
 import com.honestyandpassion.ourcountry.Object.VolleyService
@@ -59,8 +60,8 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this,"ID / PW를 확인해주세요.",Toast.LENGTH_SHORT).show()
                     }
                     3 -> {
+                        var token= FirebaseInstanceId.getInstance().token
                         var user=success.getJSONObject("user")
-                        Log.d("test",user.toString())
                         UserInfo.ID=user.getString("user_id")
                         UserInfo.PW=user.getString("user_pw")
                         UserInfo.LOGIN_TYPE=user.getString("user_login_type")
@@ -76,8 +77,7 @@ class LoginActivity : AppCompatActivity() {
                         UserInfo.ABOUT=user.getString("user_about")
                         UserInfo.RATING_AVERAGE=user.getDouble("user_rating_average").toFloat()
                         UserInfo.RATING_COUNT=user.getInt("user_rating_count")
-
-                      //  VolleyService.insertTokenReq(UserInfo.NICKNAME,token,this)
+                        UserInfo.TOKEN=token!!
 
                         var pref=this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
                         var editor=pref.edit()
@@ -96,6 +96,7 @@ class LoginActivity : AppCompatActivity() {
                             .putString("ABOUT",UserInfo.ABOUT)
                             .putFloat("RATING_AVERAGE",UserInfo.RATING_AVERAGE)
                             .putInt("RATING_COUNT",UserInfo.RATING_COUNT)
+                            .putString("TOKEN",UserInfo.TOKEN)
                             .apply()
 
                         var intent:Intent=Intent(this,MainActivity::class.java)

@@ -21,6 +21,7 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.widget.Toast
+import com.google.firebase.iid.FirebaseInstanceId
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.Object.VolleyService
 
@@ -72,6 +73,8 @@ class KakaoSignUpActivity : AppCompatActivity() {
                                         Toast.makeText(this@KakaoSignUpActivity,"ID / PW를 확인해주세요.",Toast.LENGTH_SHORT).show()
                                     }
                                     3 -> {
+                                        var token= FirebaseInstanceId.getInstance().token
+                                        VolleyService.insertTokenReq(UserInfo.ID,token,this@KakaoSignUpActivity)
                                         var user=success.getJSONObject("user")
                                         UserInfo.ID=user.getString("user_id")
                                         UserInfo.PW=user.getString("user_pw")
@@ -88,8 +91,7 @@ class KakaoSignUpActivity : AppCompatActivity() {
                                         UserInfo.ABOUT=user.getString("user_about")
                                         UserInfo.RATING_AVERAGE=user.getDouble("user_rating_average").toFloat()
                                         UserInfo.RATING_COUNT=user.getInt("user_rating_count")
-
-                                        //  VolleyService.insertTokenReq(UserInfo.NICKNAME,token,this)
+                                        UserInfo.TOKEN=token!!
 
                                         var pref=this@KakaoSignUpActivity.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
                                         var editor=pref.edit()
@@ -108,6 +110,7 @@ class KakaoSignUpActivity : AppCompatActivity() {
                                             .putString("ABOUT", UserInfo.ABOUT)
                                             .putFloat("RATING_AVERAGE",UserInfo.RATING_AVERAGE)
                                             .putInt("RATING_COUNT",UserInfo.RATING_COUNT)
+                                            .putString("TOKEN",UserInfo.TOKEN)
                                             .apply()
 
                                         var intent:Intent=Intent(this@KakaoSignUpActivity,MainActivity::class.java)

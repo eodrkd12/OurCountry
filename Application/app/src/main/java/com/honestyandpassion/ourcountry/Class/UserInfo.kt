@@ -21,5 +21,6 @@ class UserInfo : Application() {
         var BANK:String=""
         var RATING_AVERAGE:Float=0.0f
         var RATING_COUNT:Int=0
+        var TOKEN:String=""
     }
 }

@@ -78,6 +78,24 @@ router.post('/my',function(req,res,next){
   })
 })
 
+router.post('/remove/token',function(req,res,next){
+  var nickname=req.body.nickname
 
+  db_user.remove_token(nickname)
+
+  var object=new Object()
+  object.result="success"
+  res.send(object)
+})
+
+router.post('/insert/token',function(req,res,next){
+  var nickname=req.body.nickname
+  var token=req.body.token
+  db_user.insert_token(nickname,token)
+
+  var object=new Object()
+  object.result="success"
+  res.send(object)
+})
 
 module.exports = router;
