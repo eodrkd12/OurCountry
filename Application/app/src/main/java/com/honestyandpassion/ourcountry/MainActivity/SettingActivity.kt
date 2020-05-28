@@ -9,6 +9,8 @@ import androidx.appcompat.app.ActionBar
 import kotlinx.android.synthetic.main.toolbar_layout.*
 import android.R.menu
 import android.R
+import android.content.Context
+import android.content.Intent
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
@@ -26,6 +28,19 @@ class SettingActivity : ToolbarSetting() {
 
         var toolbar: androidx.appcompat.widget.Toolbar = findViewById(com.honestyandpassion.ourcountry.R.id.toolbar_setting)
         toolbarBinding(toolbar, "설정")
+
+        text_logout.setOnClickListener {
+            //VolleyService.removeToken(UserInfo.NICKNAME,context!!)
+
+            var pref=getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+            var editor=pref.edit()
+
+            editor.clear()
+            editor.commit()
+
+            var intent= Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 }

@@ -13,6 +13,24 @@ admin.initializeApp({
     databaseURL: "https://ourcountry-10694.firebaseio.com"
 });
 
+router.post('/',function(req,res,next){
+	var maker=req.body.maker
+	var partner=req.body.partner
+	var roomDate=req.body.room_date
+
+	db_chat_room.create_room(maker,partner,roomDate,function(err,result){
+		if(err) console.log(err)
+		else{
+			db_chat_room.get_room_info(maker,partner,roomDate,function(err,result){
+				if(err) console.log(err)
+				else{
+					res.send(result)
+				}
+			})
+		}
+	})
+})
+
 
 router.post('/fcm/send',function(req,res,next){
 

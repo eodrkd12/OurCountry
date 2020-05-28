@@ -88,6 +88,23 @@ class ProductActivity : AppCompatActivity() {
             }
         })
 
+        btn_chat.setOnClickListener {
+            var maker= UserInfo.ID
+            var partner = product.userId
+            val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
+            val roomDate = current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+
+            VolleyService.createRoomReq(maker,partner,roomDate,product.registerTitle!!,this,{success ->
+                var intent= Intent(this,ChatActivity::class.java)
+                intent.putExtra("room_id",success!!.getInt("room_id"))
+                intent.putExtra("maker",success!!.getString("maker"))
+                intent.putExtra("partner",success!!.getString("partner"))
+                intent.putExtra("room_date",success!!.getString("room_date"))
+                intent.putExtra("room_title",success!!.getString("room_title"))
+                startActivity(intent)
+                finish()
+            })
+        }
         VolleyService.checkWishlistReq(product.registerId!!, UserInfo.ID, this, {success->
             if(success!!.getInt("count") == 1) {
                 btn_favorite.setLiked(true)

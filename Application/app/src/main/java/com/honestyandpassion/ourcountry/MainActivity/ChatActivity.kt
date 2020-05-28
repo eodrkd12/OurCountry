@@ -28,14 +28,14 @@ class ChatActivity : AppCompatActivity() {
 
         var intent = intent
 
-        roomId = intent.getStringExtra("room_id")
+        roomId = intent.getIntExtra("room_id",0).toString()
         title = intent.getStringExtra("title")
 
-        FirebaseMessaging.getInstance().subscribeToTopic(roomId!!)
+        /*FirebaseMessaging.getInstance().subscribeToTopic(roomId!!)
             .addOnCompleteListener {
                 var msg = "${roomId} subscribe success"
                 if (!it.isSuccessful) msg = "${roomId} subscribe fail"
-            }
+            }*/
 
         setChatting()
     }
