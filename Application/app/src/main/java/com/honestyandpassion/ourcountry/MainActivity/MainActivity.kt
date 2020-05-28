@@ -191,7 +191,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Log.d("test",UserInfo.TYPE)
-        if (UserInfo.TYPE == "seller") btn_register.visibility = View.VISIBLE
+        if (UserInfo.TYPE == "판매자" || UserInfo.TYPE=="전문판매자") btn_register.visibility = View.VISIBLE
         else btn_register.visibility = View.GONE
 
         //홈프래그먼트 새로고침

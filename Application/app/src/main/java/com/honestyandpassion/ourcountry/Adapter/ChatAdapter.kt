@@ -45,8 +45,6 @@ class ChatAdapter : BaseAdapter() {
         }
         else {
             view = inflater.inflate(R.layout.item_my_chat, parent, false)
-            /*var textSpeaker=view!!.findViewById(R.id.text_speaker) as TextView
-            textSpeaker!!.text="나"*/
 
             var textContent = view!!.findViewById(R.id.text_content) as TextView
             var textTime = view.findViewById(R.id.text_time) as TextView

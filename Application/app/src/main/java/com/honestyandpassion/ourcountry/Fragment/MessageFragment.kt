@@ -7,6 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.honestyandpassion.ourcountry.Adapter.ChatRoomAdapter
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.Item.ChatRoomItem
@@ -18,7 +22,11 @@ import org.json.JSONObject
 
 class MessageFragment : Fragment() {
 
-    var chatRoomList=ArrayList<ChatRoomItem>()
+    var chatRoomList:ArrayList<ChatRoomItem>?=null
+    var chatRoomAdapter:ChatRoomAdapter?=null
+    init{
+        chatRoomList=ArrayList<ChatRoomItem>()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,17 +44,40 @@ class MessageFragment : Fragment() {
             for(i in 0..array.length()-1){
                 var json=array[i] as JSONObject
 
-                chatRoomList.add(ChatRoomItem(
+                val ref = FirebaseDatabase.getInstance().reference.child("chat").child(json.getInt("room_id").toString())
+                val query = ref.orderByChild("fulltime").limitToLast(1)
+
+                val childEventListener = object : ChildEventListener {
+                    override fun onCancelled(p0: DatabaseError) {}
+                    override fun onChildMoved(p0: DataSnapshot, p1: String?) {}
+                    override fun onChildChanged(p0: DataSnapshot, p1: String?) {
+                        chatConversation(p0)
+                    }
+                    override fun onChildAdded(p0: DataSnapshot, p1: String?) {
+                        chatConversation(p0)
+                    }
+                    override fun onChildRemoved(p0: DataSnapshot) {}
+                }
+
+                query.addChildEventListener(childEventListener)
+
+                var lastChat = ""
+                var lastChatTime = ""
+
+                chatRoomList!!.add(ChatRoomItem(
                     json.getInt("room_id"),
                     json.getString("maker"),
                     json.getString("partner"),
                     json.getString("room_date"),
-                    json.getString("room_title")))
+                    json.getString("room_title"),
+                    lastChat,
+                    lastChatTime))
             }
 
             chatRoomRV.setHasFixedSize(true)
             chatRoomRV.layoutManager = LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
-            chatRoomRV.adapter = ChatRoomAdapter(activity!!, chatRoomList)
+            chatRoomAdapter=ChatRoomAdapter(activity!!, chatRoomList!!)
+            chatRoomRV.adapter = chatRoomAdapter
         })
 
 
@@ -54,4 +85,16 @@ class MessageFragment : Fragment() {
         return rootView
     }
 
+    fun chatConversation(dataSnapshot: DataSnapshot) {
+        var i = dataSnapshot.children.iterator()
+
+        var content = ((i.next() as DataSnapshot).getValue()) as String
+        var fulltime = ((i.next() as DataSnapshot).getValue()) as String
+        var roomId = ((i.next() as DataSnapshot).getValue()) as String
+        var speaker=((i.next() as DataSnapshot).getValue()) as String
+        var time=((i.next() as DataSnapshot).getValue()) as String
+        chatRoomAdapter!!.insertLastChat(roomId,content,fulltime,time)
+        chatRoomAdapter!!.sortByLastChat()
+        chatRoomAdapter!!.notifyDataSetChanged()
+    }
 }

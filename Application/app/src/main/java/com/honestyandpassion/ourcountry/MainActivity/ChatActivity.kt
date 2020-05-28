@@ -7,6 +7,7 @@ import com.google.firebase.database.*
 import com.google.firebase.messaging.FirebaseMessaging
 import com.honestyandpassion.ourcountry.Adapter.ChatAdapter
 import com.honestyandpassion.ourcountry.Class.UserInfo
+import com.honestyandpassion.ourcountry.Item.ChatRoomItem
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.activity_chat.*
@@ -17,6 +18,8 @@ import java.time.format.DateTimeFormatter
 class ChatActivity : AppCompatActivity() {
 
     var chatAdapter = ChatAdapter()
+
+    var room: ChatRoomItem? = null
     var roomId: String? = null
     var title: String? = null
     var ref: DatabaseReference? = null
@@ -26,10 +29,10 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        var intent = intent
+        room=intent.getSerializableExtra("room") as ChatRoomItem
 
-        roomId = intent.getIntExtra("room_id",0).toString()
-        title = intent.getStringExtra("title")
+        roomId = room!!.roomId.toString()
+        title = room!!.roomTitle
 
         FirebaseMessaging.getInstance().subscribeToTopic(roomId!!)
             .addOnCompleteListener {
@@ -116,7 +119,6 @@ class ChatActivity : AppCompatActivity() {
 
     fun chatConversation(dataSnapshot: DataSnapshot) {
         var i = dataSnapshot.children.iterator()
-
         while (i.hasNext()) {
 
             var content = ((i.next() as DataSnapshot).getValue()) as String
