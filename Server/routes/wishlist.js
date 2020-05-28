@@ -10,9 +10,15 @@ router.post('/insert', function(req,res,next){
   db_wishlist.insert_wishlist(registerId, userId, function(err,result){
     if(err) console.log(err)
     else {
-      var object=new Object()
-      object.result="success"
-      res.send(object)
+      db_register.increase_register_like(registerId, function(err, result){
+        if(err) console.log(err)
+        else {
+          var object = new Object()
+          object.result="success"
+          res.send(object)
+          console.log("위시리스트 삽입완료")
+        }
+      })
     }
   })
 })
@@ -24,9 +30,15 @@ router.post('/delete', function(req,res,next){
   db_register.delete_wishlist(registerId, userId, function(err,result){
     if(err) console.log(err)
     else {
-      var object=new Object()
-      object.result="success"
-      res.send(object)
+      db_register.decrease_register_like(registerId, function(err, result){
+        if(err) console.log(err)
+        else {
+          var object = new Object()
+          object.result="success"
+          res.send(object)
+          console.log("위시리스트 제거완료")
+        }
+      })
     }
   })
 })

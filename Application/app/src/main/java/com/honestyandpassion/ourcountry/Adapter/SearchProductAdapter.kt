@@ -2,13 +2,16 @@ package com.honestyandpassion.ourcountry.Adapter
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.honestyandpassion.ourcountry.Item.Product
+import com.honestyandpassion.ourcountry.MainActivity.ProductActivity
 import com.honestyandpassion.ourcountry.Object.ImageManager
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.R
@@ -26,6 +29,7 @@ class SearchProductAdapter(val context: Context, val productList:ArrayList<Produ
     }
 
     override fun onBindViewHolder(holder: SearchProductAdapter.ViewHolder, position: Int) {
+        var product=productList.get(position)
         holder.itemView.text_productregistertitle.text = productList.get(position).registerTitle
         holder.itemView.text_productregisterprice.text = productList.get(position).productPrice
         holder.itemView.text_productregistercondition.text = productList.get(position).productStatus
@@ -41,11 +45,23 @@ class SearchProductAdapter(val context: Context, val productList:ArrayList<Produ
         })
 
 
-        var displayMetrics: DisplayMetrics = DisplayMetrics()
+        /*var displayMetrics: DisplayMetrics = DisplayMetrics()
         (holder.itemView.getContext() as Activity).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics) // 화면의 가로길이를 구함
         var width = displayMetrics.widthPixels / 2
         holder.itemView.getLayoutParams().width = width
-        holder.itemView.requestLayout()
+        holder.itemView.requestLayout()*/
+
+
+        holder.itemView.setOnClickListener {
+            var intent= Intent(context, ProductActivity::class.java)
+
+            intent.putExtra("product",product)
+            ProductActivity.imageList.clear()
+            for(i in 0..product.imageList!!.size-1){
+                ProductActivity.imageList.add(product.imageList!![i])
+            }
+            ContextCompat.startActivity(context, intent, null)
+        }
     }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view){

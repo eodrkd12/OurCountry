@@ -141,5 +141,12 @@ class ProductActivity : AppCompatActivity() {
                 })
             }
         })
+
+        btn_purchase.setOnClickListener {
+            var intent = Intent(this, PaymentActivity::class.java)
+            intent.putExtra("registerTitle", product.registerTitle)
+            intent.putExtra("registerPrice", product.productPrice)
+            startActivity(intent)
+        }
     }
 }
