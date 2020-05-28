@@ -1,20 +1,27 @@
 package com.honestyandpassion.ourcountry.MainActivity
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
 import android.view.MenuItem
 import android.widget.BaseExpandableListAdapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.honestyandpassion.ourcountry.Class.UserInfo
+import com.honestyandpassion.ourcountry.IntroActivity.SelectUserTypeActivity
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.activity_profile_edit.*
 import kr.co.bootpay.Bootpay.finish
 
 class EditProfileActivity:AppCompatActivity() {
+    companion object{
+        var userTypeText : TextView?=null
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -25,7 +32,9 @@ class EditProfileActivity:AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setTitle("프로필 편집")
 
+        userTypeText = findViewById(R.id.text_selectusertype)
 
+        userTypeText!!.setText(UserInfo.USERTYPE)
         edit_nickname.setText(UserInfo.NICKNAME)
         edit_email.setText(UserInfo.ID)
         edit_phone.setText(UserInfo.PHONE)
@@ -37,6 +46,11 @@ class EditProfileActivity:AppCompatActivity() {
         //val image = BitmapFactory.decodeByteArray(imageByte,0,imageByte.size)
         //img_profile.setImageBitmap(image)
 
+        layout_selectusertype.setOnClickListener {
+            var intent = Intent(this, SelectUserTypeActivity::class.java)
+            startActivity(intent)
+        }
+
         btn_save.setOnClickListener {
             var id = edit_email.text.toString()
             var phone = edit_phone.text.toString()
@@ -44,8 +58,10 @@ class EditProfileActivity:AppCompatActivity() {
           //  var city= edit_city.text.toString()
             var about =edit_about.text.toString()
             var address = edit_address.text.toString()
-        VolleyService.editUserReq(id,nickname,phone,about,address,this,{ success->
+            var userType = text_selectusertype.text.toString()
+        VolleyService.editUserReq(id,nickname,phone,about,address,userType,this,{ success->
 
+            UserInfo.USERTYPE=userType
             UserInfo.NICKNAME=nickname
             UserInfo.PHONE=phone
             UserInfo.ADDRESS=address
@@ -58,6 +74,7 @@ class EditProfileActivity:AppCompatActivity() {
                 .putString("PHONE", UserInfo.PHONE)
                 .putString("ADDRESS", UserInfo.ADDRESS)
                 .putString("ABOUT", UserInfo.ABOUT)
+                .putString("USERTYPE", UserInfo.USERTYPE)
                 .apply()
 
             edit_nickname.setText(UserInfo.NICKNAME)
@@ -67,6 +84,7 @@ class EditProfileActivity:AppCompatActivity() {
             edit_about.setText(UserInfo.ABOUT)
 
             Toast.makeText(this, "내 정보가 변경되었습니다.",Toast.LENGTH_SHORT).show()
+            finish()
 
         })
 

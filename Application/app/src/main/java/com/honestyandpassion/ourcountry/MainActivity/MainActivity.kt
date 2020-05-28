@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
-                test!!.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
+                test!!.setColorFilter(Color.parseColor("#D2232A"), PorterDuff.Mode.SRC_ATOP)
                 toolbar_main.overflowIcon?.setColorFilter(Color.parseColor("#000000"),PorterDuff.Mode.SRC_ATOP)
 
                 btn_register.visibility = View.VISIBLE

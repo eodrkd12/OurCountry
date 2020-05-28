@@ -22,5 +22,6 @@ class UserInfo : Application() {
         var RATING_AVERAGE:Float=0.0f
         var RATING_COUNT:Int=0
         var TOKEN:String=""
+        var USERTYPE:String=""
     }
 }
