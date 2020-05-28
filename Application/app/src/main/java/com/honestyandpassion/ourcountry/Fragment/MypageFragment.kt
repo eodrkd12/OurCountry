@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.Constraints
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.IntroActivity.SettingActivity
 import com.honestyandpassion.ourcountry.MainActivity.EditProfileActivity
+import com.honestyandpassion.ourcountry.MainActivity.ProductAllViewActivity
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.fragment_mypage.*
 
@@ -31,6 +32,7 @@ class MypageFragment : Fragment() {
         var nameText:TextView= rootView.findViewById((R.id.text_name))
         var joinText:TextView = rootView.findViewById(R.id.text_joindate)
         var settingBtn : ConstraintLayout = rootView.findViewById(R.id.layout_setting)
+        var wishlistBtn : ConstraintLayout = rootView.findViewById(R.id.layout_wishlist)
 
         nameText.text=UserInfo.NICKNAME
         joinText.text=UserInfo.JOINDATE.substring(0,10)
@@ -44,6 +46,12 @@ class MypageFragment : Fragment() {
 
         settingBtn.setOnClickListener {
             var intent = Intent(activity, SettingActivity::class.java)
+            startActivity(intent)
+        }
+
+        wishlistBtn.setOnClickListener {
+            var intent = Intent(activity, ProductAllViewActivity::class.java)
+            intent.putExtra("clickedText", "내가찜한상품")
             startActivity(intent)
         }
 

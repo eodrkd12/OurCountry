@@ -545,4 +545,26 @@ object VolleyService {
 
         Volley.newRequestQueue(context).add(request)
     }
+
+    fun getWishlistProductReq(userId: String, context: Context, success: (JSONArray) -> Unit) {
+        var url="${ip}/wishlist/get"
+
+        var json=JSONObject()
+        json.put("user_id", userId)
+
+        var array = JSONArray()
+        array.put(json)
+
+        var request=object : JsonArrayRequest(Method.POST,
+            url,
+            array,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+
+            }){
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
 }
