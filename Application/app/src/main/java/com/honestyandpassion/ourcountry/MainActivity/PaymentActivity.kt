@@ -3,6 +3,7 @@ package com.honestyandpassion.ourcountry.MainActivity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.honestyandpassion.ourcountry.Class.ToolbarSetting
+import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.activity_payment.*
 
@@ -19,6 +20,9 @@ class PaymentActivity : ToolbarSetting() {
 
         var registerTitle : String = intent.getStringExtra("registerTitle")
         var registerPrice : String = intent.getStringExtra("registerPrice")
+
+        edit_buyerphone.setText(UserInfo.PHONE)
+        edit_buyeraddress.setText(UserInfo.ADDRESS)
 
         text_paymentprice.text = registerPrice
         text_paymentprice1.text = registerPrice

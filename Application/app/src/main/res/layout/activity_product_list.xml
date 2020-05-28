@@ -23,4 +23,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_productlist" />
+
+    <ImageView
+        android:id="@+id/image_emptyrecent"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="156dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.554"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rv_productlist"
+        app:srcCompat="@drawable/baseline_empty_item_grey_24" />
+
+    <TextView
+        android:id="@+id/text_emptyrecent2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="검색결과가 없습니다."
+        android:textSize="25dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_emptyrecent" />
+
+    <TextView
+        android:id="@+id/text_emptyrecent1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="카테고리, 필터, 위치지정을 통하여 다시 검색해보세요."
+        android:textSize="15dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_emptyrecent2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

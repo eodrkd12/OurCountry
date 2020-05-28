@@ -40,7 +40,7 @@ class SubCategoryAdapter(val context: Context, val categoryList:ArrayList<String
             holder.itemView.imageView22.visibility=View.INVISIBLE
             holder.itemView.setOnClickListener{
                 var intent = Intent(context, ProductListActivity::class.java)
-                intent.putExtra("clickedText", categoryList.get(position))
+                intent.putExtra("subCategoryType", categoryList.get(position))
                 context.startActivity(intent)
             }
         }
@@ -51,7 +51,7 @@ class SubCategoryAdapter(val context: Context, val categoryList:ArrayList<String
             holder.itemView.imageView22.visibility=View.INVISIBLE
             holder.itemView.setOnClickListener{
                 var intent = Intent(context, ProductListActivity::class.java)
-                intent.putExtra("clickedText", categoryList.get(position))
+                intent.putExtra("subCategoryType", categoryList.get(position))
                 context.startActivity(intent)
             }
         }
@@ -62,7 +62,7 @@ class SubCategoryAdapter(val context: Context, val categoryList:ArrayList<String
             holder.itemView.imageView22.visibility=View.INVISIBLE
             holder.itemView.setOnClickListener{
                 var intent = Intent(context, ProductListActivity::class.java)
-                intent.putExtra("clickedText", categoryList.get(position))
+                intent.putExtra("subCategoryType", categoryList.get(position))
                 context.startActivity(intent)
             }
         }
@@ -73,7 +73,7 @@ class SubCategoryAdapter(val context: Context, val categoryList:ArrayList<String
             holder.itemView.imageView22.visibility=View.INVISIBLE
             holder.itemView.setOnClickListener{
                 var intent = Intent(context, ProductListActivity::class.java)
-                intent.putExtra("clickedText", categoryList.get(position))
+                intent.putExtra("subCategoryType", categoryList.get(position))
                 context.startActivity(intent)
             }
         }
@@ -84,7 +84,7 @@ class SubCategoryAdapter(val context: Context, val categoryList:ArrayList<String
             holder.itemView.imageView22.visibility=View.INVISIBLE
             holder.itemView.setOnClickListener{
                 var intent = Intent(context, ProductListActivity::class.java)
-                intent.putExtra("clickedText", categoryList.get(position))
+                intent.putExtra("subCategoryType", categoryList.get(position))
                 context.startActivity(intent)
             }
         }
