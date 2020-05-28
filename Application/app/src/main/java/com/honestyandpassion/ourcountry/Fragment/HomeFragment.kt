@@ -14,23 +14,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.LocationServices
-import com.google.firebase.messaging.FirebaseMessaging
 import com.honestyandpassion.ourcountry.Adapter.CategoryAdapter
 import com.honestyandpassion.ourcountry.Adapter.ProductAdapter
 import com.honestyandpassion.ourcountry.Item.Product
+import com.honestyandpassion.ourcountry.MainActivity.CategoryActivity
+import com.honestyandpassion.ourcountry.MainActivity.ProductAllViewActivity
 import com.honestyandpassion.ourcountry.MainActivity.SearchActivity
 import com.honestyandpassion.ourcountry.Object.VolleyService
 
 import com.honestyandpassion.ourcountry.R
-import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.json.JSONObject
 
@@ -38,11 +38,9 @@ class HomeFragment : Fragment() {
 
     companion object{
         var HANDLER:Handler?=null
+        var recentProductArrayList=ArrayList<Product>()
+        var popularProductArrayList=ArrayList<Product>()
     }
-
-
-    var recentProductArrayList=ArrayList<Product>()
-    var popularProductArrayList=ArrayList<Product>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +52,9 @@ class HomeFragment : Fragment() {
         var recentProductRV:RecyclerView=rootView.findViewById(R.id.rv_recentproduct)
         var popularProductRV:RecyclerView=rootView.findViewById(R.id.rv_popularproduct)
         var searchBtn: ImageButton = rootView.findViewById(R.id.btn_homesearch)
+        var recentTextView: TextView = rootView.findViewById(R.id.text_recentallview)
+        var popularTextView : TextView = rootView.findViewById(R.id.text_popularallview)
+        var categoryTextView : TextView = rootView.findViewById(R.id.text_categoryallview)
 
         initLocation()
 
@@ -67,6 +68,22 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
+        recentTextView.setOnClickListener {
+            var intent = Intent(activity!!, ProductAllViewActivity::class.java)
+            intent.putExtra("clickedText", "최근등록된상품")
+            startActivity(intent)
+        }
+
+        popularTextView.setOnClickListener {
+            var intent = Intent(activity!!, ProductAllViewActivity::class.java)
+            intent.putExtra("clickedText", "인기상품")
+            startActivity(intent)
+        }
+
+        categoryTextView.setOnClickListener {
+            var intent = Intent(activity!!, CategoryActivity::class.java)
+            startActivity(intent)
+        }
 
         VolleyService.recentRegisterReq(activity!!,{ success ->
             recentProductArrayList.clear()

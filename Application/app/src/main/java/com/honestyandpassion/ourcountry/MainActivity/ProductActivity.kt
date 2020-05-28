@@ -1,5 +1,6 @@
 package com.honestyandpassion.ourcountry.MainActivity
 
+import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -123,5 +124,12 @@ class ProductActivity : AppCompatActivity() {
                 })
             }
         })
+
+        btn_purchase.setOnClickListener {
+            var intent = Intent(this, PaymentActivity::class.java)
+            intent.putExtra("registerTitle", product.registerTitle)
+            intent.putExtra("registerPrice", product.productPrice)
+            startActivity(intent)
+        }
     }
 }
