@@ -21,11 +21,12 @@ class PaymentActivity : ToolbarSetting() {
         var registerTitle : String = intent.getStringExtra("registerTitle")
         var registerPrice : String = intent.getStringExtra("registerPrice")
 
-        edit_buyerphone.setText(UserInfo.PHONE)
-        edit_buyeraddress.setText(UserInfo.ADDRESS)
-
         text_paymentprice.text = registerPrice
         text_paymentprice1.text = registerPrice
         text_paymentregistertitle.text = registerTitle
+
+        btn_payment.setOnClickListener {
+            
+        }
     }
 }
