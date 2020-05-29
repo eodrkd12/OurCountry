@@ -34,6 +34,8 @@ class ChatActivity : AppCompatActivity() {
         roomId = room!!.roomId.toString()
         title = room!!.roomTitle
 
+        text_title.setText(title)
+
         FirebaseMessaging.getInstance().subscribeToTopic(roomId!!)
             .addOnCompleteListener {
                 var msg = "${roomId} subscribe success"
