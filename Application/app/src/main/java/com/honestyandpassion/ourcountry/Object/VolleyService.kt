@@ -592,4 +592,41 @@ object VolleyService {
         }
         Volley.newRequestQueue(context).add(request)
     }
+
+    fun paymentReq(
+        orderId: String,
+        registerId: Int?,
+        userId: String,
+        registerPrice: String,
+        paymentDate: String?,
+        type: String,
+        registerTitle: String?,
+        context: Context
+    ) {
+        var url="${ip}/payment"
+
+        var json=JSONObject()
+        json.put("order_id",orderId)
+            .put("register_id",registerId)
+            .put("user_id",userId)
+            .put("register_price",registerPrice)
+            .put("payment_date",paymentDate)
+            .put("type",type)
+            .put("register_title",registerTitle)
+
+        var request=object : JsonObjectRequest(
+            Method.POST,
+            url,
+            json,
+            Response.Listener {
+
+            },
+            Response.ErrorListener {
+
+            }){
+
+        }
+
+        Volley.newRequestQueue(context).add(request)
+    }
 }
