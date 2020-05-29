@@ -424,6 +424,30 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
+    fun getMylistReq(id: String,context: Context,success: (JSONArray?) -> Unit) {
+        var url = "${ip}/my/list"
+
+        var json = JSONObject()
+        json.put("user_id", id)
+
+        var array = JSONArray()
+        array.put(json)
+
+        var request = object : JsonArrayRequest(Method.POST,
+            url,
+            array,
+            Response.Listener {
+                Log.d("test", it.toString())
+                success(it)
+            },
+            Response.ErrorListener {
+                Log.d("test", it.toString())
+            }) {
+
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
     fun insertWishlistReq(registerId:Int, userId:String, context: Context, success: (String?)->Unit) {
         var url = "${ip}/wishlist/insert"
 
@@ -461,6 +485,7 @@ object VolleyService {
         }
         Volley.newRequestQueue(context).add(request)
     }
+
 
     fun checkWishlistReq(registerId:Int, userId:String, context: Context, success: (JSONObject?)->Unit) {
         var url = "${ip}/wishlist/check"
