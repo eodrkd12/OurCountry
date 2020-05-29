@@ -2,6 +2,7 @@ package com.honestyandpassion.ourcountry.MainActivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.honestyandpassion.ourcountry.Class.ToolbarSetting
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.R
@@ -26,7 +27,9 @@ class PaymentActivity : ToolbarSetting() {
         text_paymentregistertitle.text = registerTitle
 
         btn_payment.setOnClickListener {
-            
+            when(radiogroup_payment.checkedRadioButtonId){
+
+            }
         }
     }
 }
