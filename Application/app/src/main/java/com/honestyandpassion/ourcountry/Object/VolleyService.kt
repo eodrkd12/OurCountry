@@ -427,10 +427,10 @@ object VolleyService {
     }
 
     fun getMylistReq(id: String,context: Context,success: (JSONArray?) -> Unit) {
-        var url = "${ip}/my/list"
+        var url = "${ip}/user/my/list"
 
         var json = JSONObject()
-        json.put("user_id", id)
+        json.put("id", id)
 
         var array = JSONArray()
         array.put(json)

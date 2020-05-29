@@ -1,23 +1,16 @@
 package com.honestyandpassion.ourcountry.Fragment
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
-import android.text.Layout
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.Constraints
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.honestyandpassion.ourcountry.Adapter.MyProductlistAdapter
 import com.honestyandpassion.ourcountry.Adapter.ProductAdapter
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.IntroActivity.SettingActivity
@@ -26,8 +19,6 @@ import com.honestyandpassion.ourcountry.MainActivity.EditProfileActivity
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.MainActivity.ProductAllViewActivity
 import com.honestyandpassion.ourcountry.R
-import com.kakao.usermgmt.response.model.User
-import kotlinx.android.synthetic.main.fragment_mypage.*
 import org.json.JSONObject
 
 
