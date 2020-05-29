@@ -15,6 +15,7 @@ import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.google.android.material.navigation.NavigationView
@@ -38,6 +39,10 @@ class MainActivity : AppCompatActivity() {
     var bell:Drawable?=null
     var bottomNavigationView: BottomNavigationView? = null
 
+    var homeFragment: Fragment? = null
+    var categoryFragment : Fragment? = null
+    var mypageFragment : Fragment? = null
+    var messageFragment : Fragment? = null
 
     private  val PermissinCode =100
 
@@ -67,10 +72,8 @@ class MainActivity : AppCompatActivity() {
         bell = getResources().getDrawable(R.drawable.baseline_noti_white_24)
 
         if (savedInstanceState == null) {
-            val fragment = HomeFragment()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-            supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
+            homeFragment = HomeFragment()
+            supportFragmentManager.beginTransaction().add(R.id.frame_main, homeFragment!!).commit()
         }
 
         btn_register.setOnClickListener {
@@ -195,10 +198,16 @@ class MainActivity : AppCompatActivity() {
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
         when (it.itemId) {
             R.id.bnv_main_home -> {
-                val fragment = HomeFragment()
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-                btn_register.visibility = View.VISIBLE
+                if(homeFragment == null) {
+                    homeFragment = HomeFragment()
+                    supportFragmentManager.beginTransaction().add(R.id.frame_main, homeFragment!!).commit()
+                }
+
+                if(homeFragment != null) supportFragmentManager.beginTransaction().show(homeFragment!!).commit()
+                if(categoryFragment != null) supportFragmentManager.beginTransaction().hide(categoryFragment!!).commit()
+                if(mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
+                if(messageFragment != null) supportFragmentManager.beginTransaction().hide(messageFragment!!).commit()
+
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
                 test!!.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
                 image_nofi.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
@@ -206,9 +215,16 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_category -> {
-                val fragment = CategoryFragment()
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
+                if(categoryFragment == null) {
+                    categoryFragment = CategoryFragment()
+                    supportFragmentManager.beginTransaction().add(R.id.frame_main, categoryFragment!!).commit()
+                }
+
+                if(homeFragment != null) supportFragmentManager.beginTransaction().hide(homeFragment!!).commit()
+                if(categoryFragment != null) supportFragmentManager.beginTransaction().show(categoryFragment!!).commit()
+                if(mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
+                if(messageFragment != null) supportFragmentManager.beginTransaction().hide(messageFragment!!).commit()
+
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 image_nofi.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
@@ -217,20 +233,31 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_mypage -> {
-                val fragment = MypageFragment()
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-                btn_register.visibility = View.INVISIBLE
+                if(mypageFragment == null) {
+                    mypageFragment = MypageFragment()
+                    supportFragmentManager.beginTransaction().add(R.id.frame_main, mypageFragment!!).commit()
+                }
+                if(homeFragment != null) supportFragmentManager.beginTransaction().hide(homeFragment!!).commit()
+                if(categoryFragment != null) supportFragmentManager.beginTransaction().hide(categoryFragment!!).commit()
+                if(mypageFragment != null) supportFragmentManager.beginTransaction().show(mypageFragment!!).commit()
+                if(messageFragment != null) supportFragmentManager.beginTransaction().hide(messageFragment!!).commit()
+
+
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 image_nofi.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_message -> {
-                val fragment = MessageFragment()
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-                btn_register.visibility = View.INVISIBLE
+                if(messageFragment == null) {
+                    messageFragment = MessageFragment()
+                    supportFragmentManager.beginTransaction().add(R.id.frame_main, messageFragment!!).commit()
+                }
+                if(homeFragment != null) supportFragmentManager.beginTransaction().hide(homeFragment!!).commit()
+                if(categoryFragment != null) supportFragmentManager.beginTransaction().hide(categoryFragment!!).commit()
+                if(mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
+                if(messageFragment != null) supportFragmentManager.beginTransaction().show(messageFragment!!).commit()
+
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 image_nofi.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
