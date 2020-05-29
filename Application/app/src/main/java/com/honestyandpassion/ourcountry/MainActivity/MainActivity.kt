@@ -45,6 +45,10 @@ class MainActivity : AppCompatActivity() {
     var mypageFragment : Fragment? = null
     var messageFragment : Fragment? = null
 
+    var homeFragment: Fragment? = null
+    var categoryFragment : Fragment? = null
+    var mypageFragment : Fragment? = null
+    var messageFragment : Fragment? = null
 
     private  val PermissinCode =100
 
@@ -209,6 +213,10 @@ class MainActivity : AppCompatActivity() {
                 if(mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
                 if(messageFragment != null) supportFragmentManager.beginTransaction().hide(messageFragment!!).commit()
 
+                supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
+                test!!.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
+                image_nofi.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_category -> {
@@ -222,6 +230,11 @@ class MainActivity : AppCompatActivity() {
                 if(mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
                 if(messageFragment != null) supportFragmentManager.beginTransaction().hide(messageFragment!!).commit()
 
+                supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
+                test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+                image_nofi.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+                supportActionBar?.setTitle("카테고리")
+                toolbar_main.setTitleTextColor(Color.WHITE)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_mypage -> {
@@ -234,6 +247,10 @@ class MainActivity : AppCompatActivity() {
                 if(mypageFragment != null) supportFragmentManager.beginTransaction().show(mypageFragment!!).commit()
                 if(messageFragment != null) supportFragmentManager.beginTransaction().hide(messageFragment!!).commit()
 
+
+                supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
+                test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+                image_nofi.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_message -> {
@@ -246,6 +263,9 @@ class MainActivity : AppCompatActivity() {
                 if(mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
                 if(messageFragment != null) supportFragmentManager.beginTransaction().show(messageFragment!!).commit()
 
+                supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
+                test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+                image_nofi.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 return@OnNavigationItemSelectedListener true
             }
         }
