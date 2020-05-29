@@ -6,46 +6,28 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.location.Address
-import android.location.Geocoder
-import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.google.android.material.navigation.NavigationView
 import com.honestyandpassion.ourcountry.Class.DialogMsg
-import com.honestyandpassion.ourcountry.Adapter.ProductAdapter
-import com.google.android.material.snackbar.Snackbar
 import com.honestyandpassion.ourcountry.Fragment.CategoryFragment
 import com.honestyandpassion.ourcountry.Fragment.HomeFragment
 import com.honestyandpassion.ourcountry.Fragment.MessageFragment
 import com.honestyandpassion.ourcountry.Fragment.MypageFragment
 import com.honestyandpassion.ourcountry.IntroActivity.SettingActivity
-import com.honestyandpassion.ourcountry.Item.Product
-import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main_drawerlayout.*
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.toolbar_layout.*
-import org.json.JSONObject
-import java.util.*
-import java.util.jar.Manifest
+import kotlinx.android.synthetic.main.notification_layout.*
 import kotlin.collections.ArrayList
 
 
@@ -55,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     var test: Drawable? = null
     var bell:Drawable?=null
     var bottomNavigationView: BottomNavigationView? = null
+
 
     private  val PermissinCode =100
 
@@ -218,7 +201,7 @@ class MainActivity : AppCompatActivity() {
                 btn_register.visibility = View.VISIBLE
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
                 test!!.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
-                toolbar_main.overflowIcon?.setColorFilter(Color.parseColor("#000000"),PorterDuff.Mode.SRC_ATOP)
+                image_nofi.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
 
                 return@OnNavigationItemSelectedListener true
             }
@@ -228,7 +211,7 @@ class MainActivity : AppCompatActivity() {
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
-                toolbar_main.overflowIcon?.setColorFilter(Color.parseColor("#000000"),PorterDuff.Mode.SRC_ATOP)
+                image_nofi.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 supportActionBar?.setTitle("카테고리")
                 toolbar_main.setTitleTextColor(Color.WHITE)
                 return@OnNavigationItemSelectedListener true
@@ -240,7 +223,7 @@ class MainActivity : AppCompatActivity() {
                 btn_register.visibility = View.INVISIBLE
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
-                toolbar_main.overflowIcon?.setColorFilter(Color.parseColor("#000000"),PorterDuff.Mode.SRC_ATOP)
+                image_nofi.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_message -> {
@@ -250,19 +233,18 @@ class MainActivity : AppCompatActivity() {
                 btn_register.visibility = View.INVISIBLE
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
-                toolbar_main.overflowIcon?.setColorFilter(Color.parseColor("#000000"),PorterDuff.Mode.SRC_ATOP)
+                image_nofi.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 return@OnNavigationItemSelectedListener true
             }
         }
         false
     }
 
+
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         var inflater = getMenuInflater()
         inflater.inflate(R.menu.menu_alart, menu)
-        menu!!.add(0, 0, 0, "알림").setIcon(R.drawable.baseline_noti_white_24)
-            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-
 
         return super.onCreateOptionsMenu(menu)
     }
@@ -275,5 +257,6 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 
 }
