@@ -31,7 +31,6 @@ import com.honestyandpassion.ourcountry.IntroActivity.SettingActivity
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main_drawerlayout.*
-import kotlinx.android.synthetic.main.notification_layout.*
 import kotlin.collections.ArrayList
 
 
@@ -75,10 +74,6 @@ class MainActivity : AppCompatActivity() {
         bell = getResources().getDrawable(R.drawable.baseline_noti_white_24)
 
        if (savedInstanceState == null) {
-            /*val fragment = HomeFragment()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-            supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))*/
            homeFragment = HomeFragment()
            supportFragmentManager.beginTransaction().add(R.id.frame_main, homeFragment!!).commit()
         }
@@ -209,20 +204,10 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().add(R.id.frame_main, homeFragment!!).commit()
                 }
 
-
-
                 if(homeFragment != null) supportFragmentManager.beginTransaction().show(homeFragment!!).commit()
                 if(categoryFragment != null) supportFragmentManager.beginTransaction().hide(categoryFragment!!).commit()
                 if(mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
                 if(messageFragment != null) supportFragmentManager.beginTransaction().hide(messageFragment!!).commit()
-                /*val fragment = HomeFragment()
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-                btn_register.visibility = View.VISIBLE
-                supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
-                test!!.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
-                toolbar_main.overflowIcon?.setColorFilter(Color.parseColor("#000000"),PorterDuff.Mode.SRC_ATOP)*/
-                image_nofi.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
 
                 return@OnNavigationItemSelectedListener true
             }
@@ -236,14 +221,7 @@ class MainActivity : AppCompatActivity() {
                 if(categoryFragment != null) supportFragmentManager.beginTransaction().show(categoryFragment!!).commit()
                 if(mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
                 if(messageFragment != null) supportFragmentManager.beginTransaction().hide(messageFragment!!).commit()
-                /*val fragment = CategoryFragment()
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-                supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
-                test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
-                image_nofi.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
-                supportActionBar?.setTitle("카테고리")
-                toolbar_main.setTitleTextColor(Color.WHITE)*/
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_mypage -> {
@@ -251,19 +229,11 @@ class MainActivity : AppCompatActivity() {
                     mypageFragment = MypageFragment()
                     supportFragmentManager.beginTransaction().add(R.id.frame_main, mypageFragment!!).commit()
                 }
-
                 if(homeFragment != null) supportFragmentManager.beginTransaction().hide(homeFragment!!).commit()
                 if(categoryFragment != null) supportFragmentManager.beginTransaction().hide(categoryFragment!!).commit()
                 if(mypageFragment != null) supportFragmentManager.beginTransaction().show(mypageFragment!!).commit()
                 if(messageFragment != null) supportFragmentManager.beginTransaction().hide(messageFragment!!).commit()
-                /*val fragment = MypageFragment()
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-                btn_register.visibility = View.INVISIBLE
-                supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
-                test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
-                toolbar_main.overflowIcon?.setColorFilter(Color.parseColor("#000000"),PorterDuff.Mode.SRC_ATOP)*/
-                image_nofi.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_message -> {
@@ -271,19 +241,11 @@ class MainActivity : AppCompatActivity() {
                     messageFragment = MessageFragment()
                     supportFragmentManager.beginTransaction().add(R.id.frame_main, messageFragment!!).commit()
                 }
-
                 if(homeFragment != null) supportFragmentManager.beginTransaction().hide(homeFragment!!).commit()
                 if(categoryFragment != null) supportFragmentManager.beginTransaction().hide(categoryFragment!!).commit()
                 if(mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
                 if(messageFragment != null) supportFragmentManager.beginTransaction().show(messageFragment!!).commit()
-                /*val fragment = MessageFragment()
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
-                btn_register.visibility = View.INVISIBLE
-                supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
-                test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
-                toolbar_main.overflowIcon?.setColorFilter(Color.parseColor("#000000"),PorterDuff.Mode.SRC_ATOP)*/
-                image_nofi.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+
                 return@OnNavigationItemSelectedListener true
             }
         }
