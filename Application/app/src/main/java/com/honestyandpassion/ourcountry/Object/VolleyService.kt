@@ -567,4 +567,35 @@ object VolleyService {
         }
         Volley.newRequestQueue(context).add(request)
     }
+
+    fun updateProductReq(userId:String, registerTitle:String, productCategory:String, productSubCategory:String, productType:String, productStatus:String, productBrand:String, productPrice:String, sellerStore:Int, registerContent:String, tradeOption:String, sellerAddress: String, registerDate: String, context: Context, success:(String?) -> Unit) {
+        var url = "${ip}/register/update"
+
+        var jsonObject = JSONObject()
+        jsonObject.put("user_id", userId)
+            .put("register_title", registerTitle)
+            .put("product_category", productCategory)
+            .put("product_subcategory", productSubCategory)
+            .put("product_type", productType)
+            .put("product_status", productStatus)
+            .put("product_brand", productBrand)
+            .put("product_price", productPrice)
+            .put("seller_store", sellerStore)
+            .put("register_content", registerContent)
+            .put("trade_option", tradeOption)
+            .put("seller_address", sellerAddress)
+            .put("register_date", registerDate)
+
+        var request = object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+                success(it.getString("result"))
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
 }

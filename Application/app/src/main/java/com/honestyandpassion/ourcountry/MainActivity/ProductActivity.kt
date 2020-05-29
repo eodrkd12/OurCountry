@@ -25,7 +25,7 @@ import com.like.OnLikeListener
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
+import android.view.View
 
 
 class ProductActivity : AppCompatActivity() {
@@ -39,6 +39,25 @@ class ProductActivity : AppCompatActivity() {
         setContentView(R.layout.activity_product)
 
         var product=intent.getParcelableExtra<Product>("product")
+
+        if(product.userId == UserInfo.ID) {
+            btn_chat.visibility = View.INVISIBLE
+            btn_purchase.setText("수정")
+            btn_purchase.setOnClickListener{
+                var intent = Intent(this, RegisterActivity::class.java)
+                intent.putExtra("registerType", "수정")
+                intent.putExtra("product", product)
+                startActivity(intent)
+            }
+        }
+        else {
+            btn_purchase.setOnClickListener {
+                var intent = Intent(this, PaymentActivity::class.java)
+                intent.putExtra("registerTitle", product.registerTitle)
+                intent.putExtra("registerPrice", product.productPrice)
+                startActivity(intent)
+            }
+        }
 
         pager_product_image.adapter=ProductImagePagerAdapter(this,imageList!!)
 
@@ -142,11 +161,5 @@ class ProductActivity : AppCompatActivity() {
             }
         })
 
-        btn_purchase.setOnClickListener {
-            var intent = Intent(this, PaymentActivity::class.java)
-            intent.putExtra("registerTitle", product.registerTitle)
-            intent.putExtra("registerPrice", product.productPrice)
-            startActivity(intent)
-        }
     }
 }
