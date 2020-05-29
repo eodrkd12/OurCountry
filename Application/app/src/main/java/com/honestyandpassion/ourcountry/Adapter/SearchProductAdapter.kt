@@ -31,7 +31,7 @@ class SearchProductAdapter(val context: Context, val productList:ArrayList<Produ
     override fun onBindViewHolder(holder: SearchProductAdapter.ViewHolder, position: Int) {
         var product=productList.get(position)
         holder.itemView.text_productregistertitle.text = productList.get(position).registerTitle
-        holder.itemView.text_productregisterprice.text = productList.get(position).productPrice
+        holder.itemView.text_productregisterprice.text = productList.get(position).productPrice + "원"
         holder.itemView.text_productregistercondition.text = productList.get(position).productStatus
         VolleyService.getProductImageReq(productList.get(position).registerId!!,context,{success ->
             var array=success

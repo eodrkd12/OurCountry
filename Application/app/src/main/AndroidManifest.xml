@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MainActivity.PaymentActivity"></activity>
+        <activity android:name=".IntroActivity.SelectUserTypeActivity"></activity>
+        <activity android:name=".MainActivity.PaymentActivity" />
         <activity android:name=".MainActivity.CategoryActivity" />
         <activity android:name=".MainActivity.PopularRegisterActivity" />
         <activity android:name=".MainActivity.ProductAllViewActivity" />

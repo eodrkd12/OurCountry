@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.frame_main, fragment, fragment.javaClass.simpleName).commit()
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
-                test!!.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
+                test!!.setColorFilter(Color.parseColor("#D2232A"), PorterDuff.Mode.SRC_ATOP)
                 toolbar_main.overflowIcon?.setColorFilter(Color.parseColor("#000000"),PorterDuff.Mode.SRC_ATOP)
 
                 btn_register.visibility = View.VISIBLE
@@ -191,7 +191,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Log.d("test",UserInfo.TYPE)
-        if (UserInfo.TYPE == "seller") btn_register.visibility = View.VISIBLE
+        if (UserInfo.TYPE == "판매자" || UserInfo.TYPE=="전문판매자") btn_register.visibility = View.VISIBLE
         else btn_register.visibility = View.GONE
 
         //홈프래그먼트 새로고침

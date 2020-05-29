@@ -28,11 +28,11 @@ class Join3Activity : AppCompatActivity() {
         intent.putExtra("login_type",loginType)
 
         btn_buyer.setOnClickListener {
-            intent.putExtra("user_type","buyer")
+            intent.putExtra("user_type","구매자")
             startActivity(intent)
         }
         btn_seller.setOnClickListener {
-            intent.putExtra("user_type","seller")
+            intent.putExtra("user_type","판매자")
             startActivity(intent)
         }
     }

@@ -7,5 +7,8 @@ data class ChatRoomItem (
     var maker:String,
     var partner:String,
     var roomDate:String,
-    var roomTitle:String
+    var roomTitle:String,
+    var lastChat:String?,
+    var lastChatFullTime:String?,
+    var lastChatTime:String?=null
 ) : Serializable

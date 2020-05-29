@@ -92,6 +92,7 @@ class SplashActivity : AppCompatActivity() {
                         UserInfo.ABOUT=user.getString("user_about")
                         UserInfo.RATING_AVERAGE=user.getDouble("user_rating_average").toFloat()
                         UserInfo.RATING_COUNT=user.getInt("user_rating_count")
+                        UserInfo.USERTYPE=user.getString("user_type")
 
 
                         var pref=this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
@@ -111,6 +112,7 @@ class SplashActivity : AppCompatActivity() {
                             .putString("ABOUT",UserInfo.ABOUT)
                             .putFloat("RATING_AVERAGE",UserInfo.RATING_AVERAGE)
                             .putInt("RATING_COUNT",UserInfo.RATING_COUNT)
+                            .putString("USERTYPE", UserInfo.USERTYPE)
                             .apply()
 
                         Handler().postDelayed({
