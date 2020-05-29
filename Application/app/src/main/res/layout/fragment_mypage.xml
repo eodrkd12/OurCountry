@@ -270,8 +270,8 @@
                         app:layout_constraintTop_toTopOf="@+id/view3" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/constraintLayout"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/layout_wishlist"
+                        android:layout_width="0dp"
                         android:layout_height="0dp"
                         app:layout_constraintBottom_toBottomOf="@+id/view13"
                         app:layout_constraintEnd_toStartOf="@+id/view13"
@@ -283,10 +283,13 @@
                             android:id="@+id/heartImageView"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:layout_marginBottom="8dp"
+                            android:layout_gravity="center"
                             android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
                             android:tint="@color/colorMdGrey_700"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/text_fav"
+                            app:layout_constraintHorizontal_bias="1.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/like" />
@@ -295,14 +298,13 @@
                             android:id="@+id/text_fav"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
-                            android:layout_marginStart="8dp"
+                            android:layout_gravity="center_horizontal"
                             android:gravity="start|center"
                             android:text="내가찜한상품"
-
                             android:textColor="#000000"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/heartImageView"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
