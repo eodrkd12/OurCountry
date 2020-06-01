@@ -22,15 +22,15 @@ router.post('/', function (req, res, next) {
 	db_chat_room.create_room(maker, partner, roomDate, roomTitle, function (err, result) {
 		if (err) console.log(err)
 		else {
-			db_chat_room.get_room_info(maker, partner, roomDate, function (err, roomInfo) {
-				if (err) console.log(err)
-				else {
-					res.send(roomInfo[0])
-				}
-			})
+			console.log("채팅방 생성")
 		}
 	})
-
+	db_chat_room.get_room_info(maker, partner, roomDate, function (err, roomInfo) {
+		if (err) console.log(err)
+		else {
+			res.send(roomInfo[0])
+		}
+	})
 	db_user.get_token(user, function (err, result) {
 		if (err) console.log(err)
 		else {

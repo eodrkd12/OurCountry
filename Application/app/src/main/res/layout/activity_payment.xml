@@ -129,7 +129,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/colorPrimary"
-                        android:text="무통장입금"
+                        android:text="계좌이체"
                         android:textSize="25dp" />
 
                     <RadioButton

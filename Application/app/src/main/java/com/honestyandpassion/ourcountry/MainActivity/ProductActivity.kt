@@ -166,6 +166,13 @@ class ProductActivity : AppCompatActivity() {
             }
         })
 
+        btn_purchase.setOnClickListener {
+            var intent = Intent(this, PaymentActivity::class.java)
+            intent.putExtra("registerTitle", product.registerTitle)
+            intent.putExtra("registerPrice", product.productPrice)
+            intent.putExtra("registerId",product.registerId!!)
+            startActivity(intent)
+        }
         VolleyService.increaseViewReq(product.registerId!!, this, {success-> // 조회수 증가
         })
 
