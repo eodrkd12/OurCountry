@@ -25,7 +25,7 @@ import com.like.OnLikeListener
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
+import android.view.View
 
 
 class ProductActivity : AppCompatActivity() {
@@ -38,7 +38,31 @@ class ProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product)
 
+        btn_backpress.bringToFront()
+        btn_backpress.setOnClickListener {
+            finish()
+        }
+
         var product=intent.getParcelableExtra<Product>("product")
+
+        if(product.userId == UserInfo.ID) {
+            btn_chat.visibility = View.INVISIBLE
+            btn_purchase.setText("수정")
+            btn_purchase.setOnClickListener{
+                var intent = Intent(this, RegisterActivity::class.java)
+                intent.putExtra("registerType", "수정")
+                intent.putExtra("product", product)
+                startActivity(intent)
+            }
+        }
+        else {
+            btn_purchase.setOnClickListener {
+                var intent = Intent(this, PaymentActivity::class.java)
+                intent.putExtra("registerTitle", product.registerTitle)
+                intent.putExtra("registerPrice", product.productPrice)
+                startActivity(intent)
+            }
+        }
 
         pager_product_image.adapter=ProductImagePagerAdapter(this,imageList!!)
 
@@ -149,5 +173,25 @@ class ProductActivity : AppCompatActivity() {
             intent.putExtra("registerId",product.registerId!!)
             startActivity(intent)
         }
+        VolleyService.increaseViewReq(product.registerId!!, this, {success-> // 조회수 증가
+        })
+
+        VolleyService.checkViewReq(UserInfo.ID, product.registerId!!, this, {success-> // 사용자기록 갱신
+            if(success!!.getInt("count") == 1) {
+                val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
+                val viewDate =
+                    current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                VolleyService.updateViewReq(UserInfo.ID, product.registerId!!, viewDate,this, {success->
+                })
+            }
+            else if(success!!.getInt("count") == 0){
+                val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
+                val viewDate =
+                    current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                VolleyService.insertViewReq(UserInfo.ID, product.registerId!!, viewDate,this, {success->
+                })
+            }
+        })
+
     }
 }

@@ -619,14 +619,124 @@ object VolleyService {
             url,
             json,
             Response.Listener {
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
 
+    fun updateProductReq(userId:String, registerTitle:String, productCategory:String, productSubCategory:String, productType:String, productStatus:String, productBrand:String, productPrice:String, sellerStore:Int, registerContent:String, tradeOption:String, sellerAddress: String, registerDate: String, context: Context, success:(String?) -> Unit) {
+        var url = "${ip}/register/update"
+
+        var jsonObject = JSONObject()
+        jsonObject.put("user_id", userId)
+            .put("register_title", registerTitle)
+            .put("product_category", productCategory)
+            .put("product_subcategory", productSubCategory)
+            .put("product_type", productType)
+            .put("product_status", productStatus)
+            .put("product_brand", productBrand)
+            .put("product_price", productPrice)
+            .put("seller_store", sellerStore)
+            .put("register_content", registerContent)
+            .put("trade_option", tradeOption)
+            .put("seller_address", sellerAddress)
+            .put("register_date", registerDate)
+
+        var request = object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+                success(it.getString("result"))
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun increaseViewReq(registerId: Int, context: Context, success: (String?) -> Unit) {
+        var url="${ip}/register/increase/view"
+
+        var json=JSONObject()
+        json.put("register_id", registerId)
+
+        var array = JSONArray()
+        array.put(json)
+
+        var request=object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it.getString("result"))
             },
             Response.ErrorListener {
 
             }){
-
         }
-
         Volley.newRequestQueue(context).add(request)
     }
+
+
+    fun checkViewReq(userId:String, registerId:Int, context: Context, success: (JSONObject?)->Unit) {
+        var url = "${ip}/view/check"
+
+        var json = JSONObject()
+        json.put("register_id", registerId)
+        json.put("user_id", userId)
+
+        var request = object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun insertViewReq(userId:String, registerId:Int, viewDate:String, context: Context, success: (JSONObject?)->Unit) {
+        var url = "${ip}/view/insert"
+
+        var json = JSONObject()
+        json.put("register_id", registerId)
+        json.put("user_id", userId)
+        json.put("view_date", viewDate)
+
+        var request = object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun updateViewReq(userId:String, registerId:Int, viewDate:String, context: Context, success: (JSONObject?)->Unit) {
+        var url = "${ip}/view/update"
+
+        var json = JSONObject()
+        json.put("register_id", registerId)
+        json.put("user_id", userId)
+        json.put("view_date", viewDate)
+
+        var request = object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
 }
