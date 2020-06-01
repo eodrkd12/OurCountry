@@ -699,13 +699,14 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
-    fun insertViewReq(userId:String, registerId:Int, viewDate:String, context: Context, success: (JSONObject?)->Unit) {
+    fun insertViewReq(userId:String, registerId:Int, viewDate:String, registerTitle: String, context: Context, success: (JSONObject?)->Unit) {
         var url = "${ip}/view/insert"
 
         var json = JSONObject()
         json.put("register_id", registerId)
         json.put("user_id", userId)
         json.put("view_date", viewDate)
+        json.put("register_title", registerTitle)
 
         var request = object : JsonObjectRequest(Method.POST,
             url,
@@ -730,6 +731,27 @@ object VolleyService {
         var request = object : JsonObjectRequest(Method.POST,
             url,
             json,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun getViewReq(userId:String, context: Context, success: (JSONArray?)->Unit) {
+        var url = "${ip}/view/get"
+
+        var json = JSONObject()
+        json.put("user_id", userId)
+
+        var array = JSONArray()
+        array.put(json)
+
+        var request = object : JsonArrayRequest(Method.POST,
+            url,
+            array,
             Response.Listener {
                 success(it)
             },
