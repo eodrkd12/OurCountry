@@ -181,7 +181,7 @@ class ProductActivity : AppCompatActivity() {
                 val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
                 val viewDate =
                     current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-                VolleyService.insertViewReq(UserInfo.ID, product.registerId!!, viewDate,this, {success->
+                VolleyService.insertViewReq(UserInfo.ID, product.registerId!!, viewDate, product.registerTitle!!,this, {success->
                 })
             }
         })

@@ -25,10 +25,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.google.android.material.navigation.NavigationView
 import com.honestyandpassion.ourcountry.Class.DialogMsg
-import com.honestyandpassion.ourcountry.Fragment.CategoryFragment
-import com.honestyandpassion.ourcountry.Fragment.HomeFragment
-import com.honestyandpassion.ourcountry.Fragment.MessageFragment
-import com.honestyandpassion.ourcountry.Fragment.MypageFragment
+import com.honestyandpassion.ourcountry.Fragment.*
 import com.honestyandpassion.ourcountry.IntroActivity.SettingActivity
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.activity_main.*
