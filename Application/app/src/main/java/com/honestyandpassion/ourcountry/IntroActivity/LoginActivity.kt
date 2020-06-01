@@ -79,6 +79,8 @@ class LoginActivity : AppCompatActivity() {
                         UserInfo.RATING_COUNT=user.getInt("user_rating_count")
                         UserInfo.TOKEN=token!!
 
+                        VolleyService.insertTokenReq(UserInfo.ID,token,this)
+
                         var pref=this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
                         var editor=pref.edit()
                         editor.putString("ID",UserInfo.ID)

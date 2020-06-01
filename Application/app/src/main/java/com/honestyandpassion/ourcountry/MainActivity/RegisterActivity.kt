@@ -24,6 +24,7 @@ import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.activity_register.*
 import java.io.FileNotFoundException
 import java.io.IOException
+import java.lang.NullPointerException
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -56,11 +57,56 @@ class RegisterActivity : ToolbarSetting() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        imageArray.add(image_insert1)
+        imageArray.add(image_insert2)
+        imageArray.add(image_insert3)
+        imageArray.add(image_insert4)
+        imageArray.add(image_insert5)
+        imageArray.add(image_insert6)
+        imageArray.add(image_insert7)
+        imageArray.add(image_insert8)
+        imageArray.add(image_insert9)
+        imageArray.add(image_insert10)
+
+        for (i in 0..imageArray.size - 1) {
+            imageArray[i].setOnClickListener {
+                imageView = it as ImageView
+                insertArray.add(imageView!!)
+                var imageChangeDialog = layoutInflater.inflate(R.layout.dialog_imageupload, null)
+                var dialog = Dialog(this)
+                dialog.setContentView(imageChangeDialog)
+
+                var btnCancel = imageChangeDialog.findViewById<Button>(R.id.btn_imagechangecancel)
+                var btnAlbum =
+                    imageChangeDialog.findViewById<Button>(R.id.btn_changeimage_from_phone)
+                var btnCam = imageChangeDialog.findViewById<Button>(R.id.btn_changeimage_from_cam)
+
+                btnAlbum.setOnClickListener({
+                    //이미지변경버튼
+                    var albumIntent = Intent(Intent.ACTION_PICK)
+                    albumIntent.setType(MediaStore.Images.Media.CONTENT_TYPE)
+                    startActivityForResult(albumIntent, PICK_FROM_ALBUM)
+                    dialog.dismiss()
+                })
+                btnCam.setOnClickListener({
+                    var cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    startActivityForResult(cameraIntent, PICK_FROM_CAMERA)
+                    dialog.dismiss()
+                })
+                btnCancel.setOnClickListener({
+                    //취소버튼
+                    dialog.dismiss()
+                })
+                dialog!!.show()
+            }
+        }
+
         categoryText = findViewById(R.id.text_selectcategory)
         subCategoryText = findViewById(R.id.text_selectsubcategory)
 
         var intent = intent
         if(intent.getStringExtra("registerType") == "수정") {
+
             var product=intent.getParcelableExtra<Product>("product")
             edit_registertitle.setText(product.registerTitle)
             btn_registercomplete.setText("수정완료")
@@ -153,7 +199,7 @@ class RegisterActivity : ToolbarSetting() {
                                 Toast.makeText(this, "수정완료", Toast.LENGTH_SHORT).show()
                                 finish()
                             }
-                            /*for (i in 0..insertArray.size - 1) {
+                            for (i in 0..insertArray.size - 1) {
                                 var bitmap =
                                     ((imageArray[i].drawable as Drawable) as BitmapDrawable).bitmap
                                 VolleyService.insertImageReq(registerId, edit_registertitle.text.toString(), bitmap, this,{success ->
@@ -162,7 +208,7 @@ class RegisterActivity : ToolbarSetting() {
                                     msg.what=0
                                     handler.sendMessage(msg)
                                 })
-                            }*/
+                            }
                         })
                 }
             }
@@ -280,52 +326,6 @@ class RegisterActivity : ToolbarSetting() {
                 sellerStore = 0
             }
         }
-
-
-
-        imageArray.add(image_insert1)
-        imageArray.add(image_insert2)
-        imageArray.add(image_insert3)
-        imageArray.add(image_insert4)
-        imageArray.add(image_insert5)
-        imageArray.add(image_insert6)
-        imageArray.add(image_insert7)
-        imageArray.add(image_insert8)
-        imageArray.add(image_insert9)
-        imageArray.add(image_insert10)
-
-        for (i in 0..imageArray.size - 1) {
-            imageArray[i].setOnClickListener {
-                imageView = it as ImageView
-                insertArray.add(imageView!!)
-                var imageChangeDialog = layoutInflater.inflate(R.layout.dialog_imageupload, null)
-                var dialog = Dialog(this)
-                dialog.setContentView(imageChangeDialog)
-
-                var btnCancel = imageChangeDialog.findViewById<Button>(R.id.btn_imagechangecancel)
-                var btnAlbum =
-                    imageChangeDialog.findViewById<Button>(R.id.btn_changeimage_from_phone)
-                var btnCam = imageChangeDialog.findViewById<Button>(R.id.btn_changeimage_from_cam)
-
-                btnAlbum.setOnClickListener({
-                    //이미지변경버튼
-                    var albumIntent = Intent(Intent.ACTION_PICK)
-                    albumIntent.setType(MediaStore.Images.Media.CONTENT_TYPE)
-                    startActivityForResult(albumIntent, PICK_FROM_ALBUM)
-                    dialog.dismiss()
-                })
-                btnCam.setOnClickListener({
-                    var cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    startActivityForResult(cameraIntent, PICK_FROM_CAMERA)
-                    dialog.dismiss()
-                })
-                btnCancel.setOnClickListener({
-                    //취소버튼
-                    dialog.dismiss()
-                })
-                dialog!!.show()
-            }
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -336,8 +336,13 @@ class RegisterActivity : ToolbarSetting() {
 
         when (requestCode) {
             PICK_FROM_CAMERA -> {
-                val imageBitmap = data!!.extras.get("data") as Bitmap
-                imageView!!.setImageBitmap(imageBitmap)
+                try {
+                    val imageBitmap = data!!.extras.get("data") as Bitmap
+                    imageView!!.setImageBitmap(imageBitmap)
+                }
+                catch (e : NullPointerException){
+
+                }
             }
             PICK_FROM_ALBUM -> {
                 imageCaptureUri = data!!.data
@@ -352,6 +357,8 @@ class RegisterActivity : ToolbarSetting() {
                 } catch (e: IOException) {
                     // TODO Auto-generated catch block
                     e.printStackTrace()
+                } catch (e: NullPointerException){
+
                 }
             }
             CROP_FROM_CAMERA -> {

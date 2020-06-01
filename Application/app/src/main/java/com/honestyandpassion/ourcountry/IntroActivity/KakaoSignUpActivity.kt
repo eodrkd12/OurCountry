@@ -74,7 +74,6 @@ class KakaoSignUpActivity : AppCompatActivity() {
                                     }
                                     3 -> {
                                         var token= FirebaseInstanceId.getInstance().token
-                                        VolleyService.insertTokenReq(UserInfo.ID,token,this@KakaoSignUpActivity)
                                         var user=success.getJSONObject("user")
                                         UserInfo.ID=user.getString("user_id")
                                         UserInfo.PW=user.getString("user_pw")
@@ -92,6 +91,8 @@ class KakaoSignUpActivity : AppCompatActivity() {
                                         UserInfo.RATING_AVERAGE=user.getDouble("user_rating_average").toFloat()
                                         UserInfo.RATING_COUNT=user.getInt("user_rating_count")
                                         UserInfo.TOKEN=token!!
+
+                                        VolleyService.insertTokenReq(UserInfo.ID,token,this@KakaoSignUpActivity)
 
                                         var pref=this@KakaoSignUpActivity.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
                                         var editor=pref.edit()

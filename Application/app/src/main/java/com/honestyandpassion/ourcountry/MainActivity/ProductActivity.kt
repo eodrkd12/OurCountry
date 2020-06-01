@@ -26,6 +26,7 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.View
+import com.honestyandpassion.ourcountry.Item.ChatRoomItem
 
 
 class ProductActivity : AppCompatActivity() {
@@ -56,6 +57,8 @@ class ProductActivity : AppCompatActivity() {
             }
         }
         else {
+            btn_chat.visibility = View.VISIBLE
+            btn_purchase.setText("구매")
             btn_purchase.setOnClickListener {
                 var intent = Intent(this, PaymentActivity::class.java)
                 intent.putExtra("registerTitle", product.registerTitle)
@@ -68,8 +71,7 @@ class ProductActivity : AppCompatActivity() {
 
         text_productprice.setText(product.productPrice+"원")
         text_registertitle.setText(product.registerTitle)
-        var registerDate = product.registerDate!!.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-        text_registerdate.setText(registerDate.split('T')[0])
+        text_registerdate.setText(product.registerDate!!.substring(0,10))
         text_likecount.setText(product.registerLike.toString())
         text_viewcount.setText(product.registerView.toString())
         text_productstatus.setText(product.productStatus)
@@ -120,11 +122,14 @@ class ProductActivity : AppCompatActivity() {
 
             VolleyService.createRoomReq(maker,partner,roomDate,product.registerTitle!!,this,{success ->
                 var intent= Intent(this,ChatActivity::class.java)
-                intent.putExtra("room_id",success!!.getInt("room_id"))
-                intent.putExtra("maker",success!!.getString("maker"))
-                intent.putExtra("partner",success!!.getString("partner"))
-                intent.putExtra("room_date",success!!.getString("room_date"))
-                intent.putExtra("room_title",success!!.getString("room_title"))
+                var room=ChatRoomItem(
+                    success!!.getInt("room_id"),
+                    success!!.getString("maker"),
+                    success!!.getString("partner"),
+                    success!!.getString("room_date"),
+                    success!!.getString("room_title"),
+                    null,null,null)
+                intent.putExtra("room",room)
                 startActivity(intent)
                 finish()
             })
@@ -166,13 +171,6 @@ class ProductActivity : AppCompatActivity() {
             }
         })
 
-        btn_purchase.setOnClickListener {
-            var intent = Intent(this, PaymentActivity::class.java)
-            intent.putExtra("registerTitle", product.registerTitle)
-            intent.putExtra("registerPrice", product.productPrice)
-            intent.putExtra("registerId",product.registerId!!)
-            startActivity(intent)
-        }
         VolleyService.increaseViewReq(product.registerId!!, this, {success-> // 조회수 증가
         })
 
