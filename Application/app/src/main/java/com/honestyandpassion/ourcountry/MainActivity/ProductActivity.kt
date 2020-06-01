@@ -38,6 +38,11 @@ class ProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product)
 
+        btn_backpress.bringToFront()
+        btn_backpress.setOnClickListener {
+            finish()
+        }
+
         var product=intent.getParcelableExtra<Product>("product")
 
         if(product.userId == UserInfo.ID) {
@@ -157,6 +162,26 @@ class ProductActivity : AppCompatActivity() {
                     else{
                         Toast.makeText(this@ProductActivity, "통신오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
                     }
+                })
+            }
+        })
+
+        VolleyService.increaseViewReq(product.registerId!!, this, {success-> // 조회수 증가
+        })
+
+        VolleyService.checkViewReq(UserInfo.ID, product.registerId!!, this, {success-> // 사용자기록 갱신
+            if(success!!.getInt("count") == 1) {
+                val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
+                val viewDate =
+                    current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                VolleyService.updateViewReq(UserInfo.ID, product.registerId!!, viewDate,this, {success->
+                })
+            }
+            else if(success!!.getInt("count") == 0){
+                val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
+                val viewDate =
+                    current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                VolleyService.insertViewReq(UserInfo.ID, product.registerId!!, viewDate,this, {success->
                 })
             }
         })

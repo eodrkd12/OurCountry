@@ -92,6 +92,36 @@ module.exports=function(){
                 })
             })  
         },
+        get_subcategory:function(productSubCategory, callback){
+            pool.getConnection(function(err, con){
+                var sql=`select * from Register where product_subcategory='${productSubCategory}'`
+                con.query(sql, function(err, result, fields){
+                    con.release()
+                    if(err) callback(err)
+                    else callback(null, result)
+                })
+            })  
+        },
+        update_product:function(userId, registerTitle, productCategory, productSubCategory, productType, productStatus, productBrand, productPrice, sellerStore, registerContent, tradeOption, sellerAddress, registerDate, callback) {
+            pool.getConnection(function(err, con){
+                var sql=`update Register set register_title='${registerTitle}', product_category='${productCategory}', product_subcategory='${productSubCategory}', product_type='${productType}', product_status='${productStatus}', product_brand='${productBrand}', product_price='${productPrice}', seller_store=${sellerStore}, register_content='${registerContent}', trade_option='${tradeOption}', seller_address='${sellerAddress}', register_date='${registerDate}' where user_id='${userId}'`
+                con.query(sql, function(err, result, fields){
+                    con.release()
+                    if(err) callback(err)
+                    else callback(null, result)
+                })
+            })
+        },
+        increase_register_view:function(registerId, callback) {
+            pool.getConnection(function(err, con){
+                var sql=`update Register set register_view=register_view+1 where register_id=${registerId}`
+                con.query(sql, function(err, result, fields){
+                    con.release()
+                    if(err) callback(err)
+                    else callback(null, result)
+                })
+            })
+        },
         pool: pool
     }
 };

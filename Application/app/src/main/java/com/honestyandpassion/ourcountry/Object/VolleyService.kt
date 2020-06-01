@@ -623,4 +623,87 @@ object VolleyService {
         }
         Volley.newRequestQueue(context).add(request)
     }
+
+    fun increaseViewReq(registerId: Int, context: Context, success: (String?) -> Unit) {
+        var url="${ip}/register/increase/view"
+
+        var json=JSONObject()
+        json.put("register_id", registerId)
+
+        var array = JSONArray()
+        array.put(json)
+
+        var request=object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it.getString("result"))
+            },
+            Response.ErrorListener {
+
+            }){
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+
+    fun checkViewReq(userId:String, registerId:Int, context: Context, success: (JSONObject?)->Unit) {
+        var url = "${ip}/view/check"
+
+        var json = JSONObject()
+        json.put("register_id", registerId)
+        json.put("user_id", userId)
+
+        var request = object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun insertViewReq(userId:String, registerId:Int, viewDate:String, context: Context, success: (JSONObject?)->Unit) {
+        var url = "${ip}/view/insert"
+
+        var json = JSONObject()
+        json.put("register_id", registerId)
+        json.put("user_id", userId)
+        json.put("view_date", viewDate)
+
+        var request = object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun updateViewReq(userId:String, registerId:Int, viewDate:String, context: Context, success: (JSONObject?)->Unit) {
+        var url = "${ip}/view/update"
+
+        var json = JSONObject()
+        json.put("register_id", registerId)
+        json.put("user_id", userId)
+        json.put("view_date", viewDate)
+
+        var request = object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
 }
