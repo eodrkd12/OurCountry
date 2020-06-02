@@ -766,7 +766,7 @@ object VolleyService {
         var url="${ip}/register/get/byid"
 
         var json=JSONObject()
-        json.put("registerId",registerId)
+        json.put("register_id",registerId)
 
         var request = object : JsonObjectRequest(Method.POST,
         url,

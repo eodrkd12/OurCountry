@@ -2,7 +2,7 @@ package com.honestyandpassion.ourcountry.Item
 
 import android.graphics.Bitmap
 
-data class Preview(
+data class PreviewItem(
     val registerId: Int?,
     val registerTitle: String?,
     val productPrice: String?,
