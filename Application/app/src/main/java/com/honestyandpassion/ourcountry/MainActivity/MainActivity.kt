@@ -185,6 +185,16 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_rate_this_app -> {
                 drawerLayout.closeDrawers()
             }
+            R.id.nav_favourite_news -> {
+                drawerLayout.closeDrawers()
+            }
+            R.id.nav_user_history -> {
+                drawerLayout.closeDrawers()
+            }
+            R.id.nav_logout -> {
+                drawerLayout.closeDrawers()
+            }
+
 
 
         }

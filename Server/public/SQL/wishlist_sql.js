@@ -32,6 +32,16 @@ module.exports=function(){
                 })
             })
         },
+        get_wishlist : function(userId, callback) {
+            pool.getConnection(function(err, con){
+                var sql=`select Register.register_id, Register.user_id, register_title, product_category, product_subcategory, product_type, product_status, product_brand, product_price, seller_store, register_content, trade_option, seller_address, register_date, register_like, register_view, user_nickname from Register, Wishlist where Register.register_id=Wishlist.register_id and Wishlist.user_id='${userId}'`
+                con.query(sql, function(err, result, fields){
+                    con.release()
+                    if(err) console.log(err)
+                    else callback(null, result)
+                })
+            })
+        },
         pool: pool
     }
 };
