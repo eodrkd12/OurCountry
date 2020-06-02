@@ -5,11 +5,15 @@ var db_test=require('../public/SQL/test')()
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log("adfasdfsadfasdf")
-  db_test.get_chat(function(err,result){
-    if(err) console.log(err)
-    else res.send(result)
-  })
+	res.render("login",{})
 });
+
+router.get('/main', function(req,res,next){
+	res.render("main",{})
+});
+
+router.get('/sidebar', function(req,res,next){
+	res.render("sidebar_menu",{})
+})
 
 module.exports = router;

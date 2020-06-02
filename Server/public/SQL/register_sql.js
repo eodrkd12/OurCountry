@@ -22,13 +22,23 @@ module.exports=function(){
                 })
             })
         },
-        get_image : function(registerId,callback){
+        get_register_byid : function(registerId,callback){
             pool.getConnection(function(err,con){
-                var sql=`select * from image where register_id='${regitserId}'`
+                var sql=`select * from Register where register_id=${registerId}`
                 con.query(sql,function(err,result,fields){
                     con.release()
                     if(err) callback(err)
-                    else callback(nul,result)
+                    else callback(null,result)
+                })
+            })
+        },
+        get_image : function(registerId,callback){
+            pool.getConnection(function(err,con){
+                var sql=`select * from image where register_id='${registerId}'`
+                con.query(sql,function(err,result,fields){
+                    con.release()
+                    if(err) callback(err)
+                    else callback(null,result)
                 })
             })
         },
@@ -42,6 +52,16 @@ module.exports=function(){
                 })
             })
         },
+	remove_image : function(registerId,callback){
+	    pool.getConnection(function(err,con){
+		var sql="delete from image where register_id="+registerId
+		con.query(sql,function(err,result,fields){
+		    con.release()
+		    if(err) callback(err)
+		    else callback(null,result)
+		})
+	    })
+	},
         get_register_recent:function(callback){
             pool.getConnection(function(err,con){
                 var sql=`select * from Register order by register_date desc`
@@ -62,7 +82,7 @@ module.exports=function(){
                 })
             })
         },
-        get_register_search:function(searchText, callback){
+	get_register_search:function(searchText, callback){
             pool.getConnection(function(err, con){
                 var sql=`select * from Register where register_title like '%${searchText}%'`
                 con.query(sql, function(err, result, fields){
@@ -74,7 +94,7 @@ module.exports=function(){
         },
         increase_register_like:function(registerId, callback){
             pool.getConnection(function(err, con){
-                var sql=`update register set register_like=register_like+1 where register_id=${registerId}`
+                var sql=`update Register set register_like=register_like+1 where register_id=${registerId}`
                 con.query(sql, function(err, result, fields){
                     con.release()
                     if(err) callback(err)
@@ -84,7 +104,7 @@ module.exports=function(){
         },
         decrease_register_like:function(registerId, callback){
             pool.getConnection(function(err, con){
-                var sql=`update register set register_like=register_like-1 where register_id=${registerId}`
+                var sql=`update Register set register_like=register_like-1 where register_id=${registerId}`
                 con.query(sql, function(err, result, fields){
                     con.release()
                     if(err) callback(err)
@@ -92,7 +112,7 @@ module.exports=function(){
                 })
             })  
         },
-        get_subcategory:function(productSubCategory, callback){
+	get_subcategory:function(productSubCategory, callback){
             pool.getConnection(function(err, con){
                 var sql=`select * from Register where product_subcategory='${productSubCategory}'`
                 con.query(sql, function(err, result, fields){
@@ -102,7 +122,7 @@ module.exports=function(){
                 })
             })  
         },
-        update_product:function(userId, registerTitle, productCategory, productSubCategory, productType, productStatus, productBrand, productPrice, sellerStore, registerContent, tradeOption, sellerAddress, registerDate, callback) {
+	update_product:function(userId, registerTitle, productCategory, productSubCategory, productType, productStatus, productBrand, productPrice, sellerStore, registerContent, tradeOption, sellerAddress, registerDate, callback) {
             pool.getConnection(function(err, con){
                 var sql=`update Register set register_title='${registerTitle}', product_category='${productCategory}', product_subcategory='${productSubCategory}', product_type='${productType}', product_status='${productStatus}', product_brand='${productBrand}', product_price='${productPrice}', seller_store=${sellerStore}, register_content='${registerContent}', trade_option='${tradeOption}', seller_address='${sellerAddress}', register_date='${registerDate}' where user_id='${userId}'`
                 con.query(sql, function(err, result, fields){
@@ -112,7 +132,7 @@ module.exports=function(){
                 })
             })
         },
-        increase_register_view:function(registerId, callback) {
+	increase_register_view:function(registerId, callback) {
             pool.getConnection(function(err, con){
                 var sql=`update Register set register_view=register_view+1 where register_id=${registerId}`
                 con.query(sql, function(err, result, fields){

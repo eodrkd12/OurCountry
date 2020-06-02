@@ -1,9 +1,12 @@
 package com.honestyandpassion.ourcountry.Object
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Base64
 import java.io.ByteArrayOutputStream
+import java.io.FileNotFoundException
 
 object ImageManager {
     fun StringToBitmap(encodedString: String): Bitmap? {
@@ -22,4 +25,5 @@ object ImageManager {
         val imageBytes = baos.toByteArray()
         return Base64.encodeToString(imageBytes, Base64.DEFAULT)
     }
+
 }
