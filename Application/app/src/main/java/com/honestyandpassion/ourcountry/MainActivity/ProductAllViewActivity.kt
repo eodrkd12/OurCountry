@@ -29,7 +29,7 @@ class ProductAllViewActivity : ToolbarSetting() {
         var toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar_recent_register)
 
 
-        if(clickedText == "최근등록된상품") {
+        /*if(clickedText == "최근등록된상품") {
             toolbarBinding(toolbar, "최근 등록된 상품")
             activityBinding(HomeFragment.recentProductArrayList)
         }
@@ -66,7 +66,7 @@ class ProductAllViewActivity : ToolbarSetting() {
                 }
                 activityBinding(wishList)
             })
-        }
+        }*/
 
 
 

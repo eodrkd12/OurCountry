@@ -2,6 +2,8 @@ package com.honestyandpassion.ourcountry.MainActivity
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -46,7 +48,46 @@ class ProductActivity : AppCompatActivity() {
 
         var product=intent.getParcelableExtra<Product>("product")
 
+        VolleyService.checkFollowReq(UserInfo.ID, product.userId!!, this, { success ->
+            if (success!!.getInt("count") == 1) {
+                btn_following.setText("팔로잉")
+                btn_following.setBackgroundResource(R.drawable.rounded_following_button)
+                btn_following.setTextColor(Color.parseColor("#212121"))
+            }
+        })
+
+        btn_following.setOnClickListener {
+            when(btn_following.text) {
+                "팔로잉" -> {
+                    VolleyService.deleteFollowReq(UserInfo.ID, product.userId!!, this, {success->
+                        if(success=="success") {
+                            btn_following.text = "+팔로우"
+                            btn_following.setBackgroundResource(R.drawable.rounded_follow_button)
+                            btn_following.setTextColor(Color.parseColor("#FFFFFF"))
+                        }
+                        else {
+                            Toast.makeText(this, "서버와의 통신에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                }
+                "+팔로우" -> {
+                    VolleyService.insertFollowReq(UserInfo.ID, product.userId!!, this , { success->
+                        if(success=="success") {
+                            btn_following.text = "팔로잉"
+                            btn_following.setBackgroundResource(R.drawable.rounded_following_button)
+                            btn_following.setTextColor(Color.parseColor("#212121"))
+                        }
+                        else {
+                            Toast.makeText(this, "서버와의 통신에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                }
+            }
+        }
+
+
         if(product.userId == UserInfo.ID) {
+            btn_following.visibility = View.INVISIBLE
             btn_chat.visibility = View.INVISIBLE
             btn_purchase.setText("수정")
             btn_purchase.setOnClickListener{
@@ -190,6 +231,8 @@ class ProductActivity : AppCompatActivity() {
                 })
             }
         })
+
+
 
     }
 }

@@ -761,4 +761,82 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
+    fun checkFollowReq(follower:String, following:String, context: Context, success: (JSONObject?)->Unit) {
+        var url = "${ip}/follow/check"
+
+        var json = JSONObject()
+        json.put("follower", follower)
+        json.put("following", following)
+
+        var request = object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun insertFollowReq(follower:String, following:String, context: Context, success: (String?)->Unit) {
+        var url = "${ip}/follow/insert"
+
+        var json = JSONObject()
+        json.put("follower", follower)
+        json.put("following", following)
+
+        var request = object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it.getString("result"))
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun deleteFollowReq(follower:String, following:String, context: Context, success: (String?)->Unit) {
+        var url = "${ip}/follow/delete"
+
+        var json = JSONObject()
+        json.put("follower", follower)
+        json.put("following", following)
+
+        var request = object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it.getString("result"))
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun getFollowingProductReq(follower: String, context: Context, success: (JSONArray) -> Unit) {
+        var url="${ip}/follow/get"
+
+        var json=JSONObject()
+        json.put("follower", follower)
+
+        var array = JSONArray()
+        array.put(json)
+
+        var request=object : JsonArrayRequest(Method.POST,
+            url,
+            array,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+
+            }){
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
 }

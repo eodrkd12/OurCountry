@@ -24,6 +24,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.LocationServices
 import com.honestyandpassion.ourcountry.Adapter.CategoryAdapter
 import com.honestyandpassion.ourcountry.Adapter.ProductAdapter
+import com.honestyandpassion.ourcountry.Adapter.ProductPreviewAdapter
+import com.honestyandpassion.ourcountry.Class.UserInfo
+import com.honestyandpassion.ourcountry.Item.Preview
 import com.honestyandpassion.ourcountry.Item.Product
 import com.honestyandpassion.ourcountry.MainActivity.CategoryActivity
 import com.honestyandpassion.ourcountry.MainActivity.ProductAllViewActivity
@@ -38,8 +41,9 @@ class HomeFragment : Fragment() {
 
     companion object{
         var HANDLER:Handler?=null
-        var recentProductArrayList=ArrayList<Product>()
-        var popularProductArrayList=ArrayList<Product>()
+        var recentProductArrayList=ArrayList<Preview>()
+        var popularProductArrayList=ArrayList<Preview>()
+        var followingProductArrayList=ArrayList<Preview>()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +59,7 @@ class HomeFragment : Fragment() {
         var categoryRV:RecyclerView = rootView.findViewById(R.id.rv_category)
         var recentProductRV:RecyclerView=rootView.findViewById(R.id.rv_recentproduct)
         var popularProductRV:RecyclerView=rootView.findViewById(R.id.rv_popularproduct)
+        var followingProductRV:RecyclerView=rootView.findViewById(R.id.rv_followingproduct)
         var searchBtn: ImageButton = rootView.findViewById(R.id.btn_homesearch)
         var recentTextView: TextView = rootView.findViewById(R.id.text_recentallview)
         var popularTextView : TextView = rootView.findViewById(R.id.text_popularallview)
@@ -89,7 +94,7 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
-        VolleyService.recentRegisterReq(activity!!,{ success ->
+        /*VolleyService.recentRegisterReq(activity!!,{ success ->
             recentProductArrayList.clear()
             var array=success
             for(i in 0..array!!.length()-1){
@@ -118,9 +123,9 @@ class HomeFragment : Fragment() {
             recentProductRV.setHasFixedSize(true)
             recentProductRV.layoutManager=LinearLayoutManager(activity!!,RecyclerView.HORIZONTAL,false)
             recentProductRV.adapter= ProductAdapter(activity!!,recentProductArrayList)
-        })
+        })*/
 
-        VolleyService.popularRegisterReq(activity!!,{ success ->
+        /*VolleyService.popularRegisterReq(activity!!,{ success ->
             popularProductArrayList.clear()
             var array=success
             for(i in 0..array!!.length()-1){
@@ -149,6 +154,59 @@ class HomeFragment : Fragment() {
             popularProductRV.layoutManager=LinearLayoutManager(activity!!,RecyclerView.HORIZONTAL,false)
             popularProductRV.adapter= ProductAdapter(activity!!,popularProductArrayList)
         })
+*/
+
+        VolleyService.recentRegisterReq(activity!!, { success->                //최근등록된상품
+            recentProductArrayList.clear()
+            var array = success
+            for(i in 0..array!!.length()-1) {
+                var json = array[i] as JSONObject
+                var recentProduct = Preview(json.getInt("register_id"),
+                    json.getString("register_title"),
+                    json.getString("product_price"),
+                    json.getString("product_status"),
+                    ArrayList<Bitmap>())
+                recentProductArrayList.add(recentProduct)
+            }
+            recentProductRV.setHasFixedSize(true)
+            recentProductRV.layoutManager=LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
+            recentProductRV.adapter= ProductPreviewAdapter(activity!!, recentProductArrayList)
+        })
+
+        VolleyService.popularRegisterReq(activity!!, { success->                //인기상품
+            popularProductArrayList.clear()
+            var array = success
+            for(i in 0..array!!.length()-1) {
+                var json = array[i] as JSONObject
+                var popularProduct = Preview(json.getInt("register_id"),
+                    json.getString("register_title"),
+                    json.getString("product_price"),
+                    json.getString("product_status"),
+                    ArrayList<Bitmap>())
+                popularProductArrayList.add(popularProduct)
+            }
+            popularProductRV.setHasFixedSize(true)
+            popularProductRV.layoutManager=LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
+            popularProductRV.adapter= ProductPreviewAdapter(activity!!, popularProductArrayList)
+        })
+
+        VolleyService.getFollowingProductReq(UserInfo.ID, activity!!, { success->              //팔로잉상품
+            followingProductArrayList.clear()
+            var array = success
+            for(i in 0..array.length()-1) {
+                var json = array[i] as JSONObject
+                var followingProduct = Preview(json.getInt("register_id"),
+                    json.getString("register_title"),
+                    json.getString("product_price"),
+                    json.getString("product_status"),
+                    ArrayList<Bitmap>())
+                followingProductArrayList.add(followingProduct)
+            }
+            followingProductRV.setHasFixedSize(true)
+            followingProductRV.layoutManager=LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
+            followingProductRV.adapter= ProductPreviewAdapter(activity!!, followingProductArrayList)
+        })
+
 
         HANDLER = object : Handler() {
             override fun handleMessage(msg: Message?) {
