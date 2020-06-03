@@ -1,13 +1,13 @@
 package com.honestyandpassion.ourcountry.MainActivity
 
 import android.graphics.Bitmap
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
-import com.honestyandpassion.ourcountry.Adapter.SearchProductAdapter
+import com.honestyandpassion.ourcountry.Adapter.ProductAllViewAdapter
 import com.honestyandpassion.ourcountry.Class.ToolbarSetting
+import com.honestyandpassion.ourcountry.Fragment.HomeFragment
+import com.honestyandpassion.ourcountry.Item.PreviewItem
 import com.honestyandpassion.ourcountry.Item.Product
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.R
@@ -17,7 +17,7 @@ import org.json.JSONObject
 class ProductListActivity : ToolbarSetting() {
 
     companion object{
-        var productList = ArrayList<Product>()
+        var productList = ArrayList<PreviewItem>()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,37 +30,25 @@ class ProductListActivity : ToolbarSetting() {
         var toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar_productlist)
         toolbarBinding(toolbar, subCategoryType)
 
-        VolleyService.getSubCategoryProductReq(subCategoryType, this, {success->
+        VolleyService.getSubCategoryProductReq(subCategoryType, this, { success ->
             productList.clear()
             var array = success
-            for(i in 0..array.length()-1) {
+            for (i in 0..array!!.length() - 1) {
                 var json = array[i] as JSONObject
-                var product=Product(json.getInt("register_id"),
-                    json.getString("user_id"),
+                var product = PreviewItem(
+                    json.getInt("register_id"),
                     json.getString("register_title"),
-                    json.getString("product_category"),
-                    json.getString("product_subcategory"),
-                    json.getString("product_type"),
-                    json.getString("product_status"),
-                    json.getString("product_brand"),
                     json.getString("product_price"),
-                    json.getInt("seller_store"),
-                    json.getString("register_content"),
-                    json.getString("trade_option"),
-                    json.getString("seller_address"),
-                    json.getString("register_date"),
-                    json.getInt("register_like"),
-                    json.getInt("register_view"),
-                    json.getString("user_nickname"),
-                    ArrayList<Bitmap>())
-
+                    json.getString("product_status"),
+                    ArrayList<Bitmap>()
+                )
                 productList.add(product)
             }
             activityBinding(productList)
         })
     }
 
-    fun activityBinding(productList: ArrayList<Product>) {
+    fun activityBinding(productList: ArrayList<PreviewItem>) {
         if(productList.size == 0) {
             image_emptyrecent.visibility = View.VISIBLE
             text_emptyrecent1.visibility = View.VISIBLE
@@ -69,7 +57,7 @@ class ProductListActivity : ToolbarSetting() {
         else {
             rv_productlist.setHasFixedSize(true)
             rv_productlist.layoutManager = GridLayoutManager(this, 2)
-            rv_productlist.adapter = SearchProductAdapter(this, productList)
+            rv_productlist.adapter = ProductAllViewAdapter(this, productList)
         }
     }
 

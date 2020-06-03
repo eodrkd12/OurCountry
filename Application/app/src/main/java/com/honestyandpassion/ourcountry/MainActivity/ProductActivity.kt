@@ -44,49 +44,70 @@ class ProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product)
 
+        var intent = intent
+
+        var registerId = intent.getIntExtra("register_id", 0)
+
         btn_backpress.bringToFront()
         btn_backpress.setOnClickListener {
             finish()
         }
-        var product=intent.getParcelableExtra<Product>("product")
 
-        VolleyService.checkFollowReq(UserInfo.ID, product.userId!!, this, { success ->
-            if (success!!.getInt("count") == 1) {
-                btn_following.setText("팔로잉")
-                btn_following.setBackgroundResource(R.drawable.rounded_following_button)
-                btn_following.setTextColor(Color.parseColor("#212121"))
-            }
-        })
+        VolleyService.getRegisterReq(registerId, this, {success->
+            var json = success
+            var userId = json!!.getString("user_id")
+            var registerTitle = json!!.getString("register_title")
+            var productCategory = json!!.getString("product_category")
+            var productSubCategory = json!!.getString("product_subcategory")
+            var productType = json!!.getString("product_type")
+            var productStatus = json!!.getString("product_status")
+            var productBrand = json!!.getString("product_brand")
+            var productPrice = json!!.getString("product_price")
+            var sellerStore = json!!.getInt("seller_store")
+            var registerContent = json!!.getString("register_content")
+            var tradeOption = json!!.getString("trade_option")
+            var sellerAddress = json!!.getString("seller_address")
+            var registerDate = json!!.getString("register_date")
+            var registerLike = json!!.getInt("register_like")
+            var registerView = json!!.getInt("register_view")
+            var userNickname = json!!.getString("user_nickname")
 
-        btn_following.setOnClickListener {
-            when(btn_following.text) {
-                "팔로잉" -> {
-                    VolleyService.deleteFollowReq(UserInfo.ID, product.userId!!, this, {success->
-                        if(success=="success") {
-                            btn_following.text = "+팔로우"
-                            btn_following.setBackgroundResource(R.drawable.rounded_follow_button)
-                            btn_following.setTextColor(Color.parseColor("#FFFFFF"))
-                        }
-                        else {
-                            Toast.makeText(this, "서버와의 통신에 실패하였습니다.", Toast.LENGTH_SHORT).show()
-                        }
-                    })
+            VolleyService.checkFollowReq(UserInfo.ID, userId, this, { success ->
+                if (success!!.getInt("count") == 1) {
+                    btn_following.setText("팔로잉")
+                    btn_following.setBackgroundResource(R.drawable.rounded_following_button)
+                    btn_following.setTextColor(Color.parseColor("#212121"))
                 }
-                "+팔로우" -> {
-                    VolleyService.insertFollowReq(UserInfo.ID, product.userId!!, this , { success->
-                        if(success=="success") {
-                            btn_following.text = "팔로잉"
-                            btn_following.setBackgroundResource(R.drawable.rounded_following_button)
-                            btn_following.setTextColor(Color.parseColor("#212121"))
-                        }
-                        else {
-                            Toast.makeText(this, "서버와의 통신에 실패하였습니다.", Toast.LENGTH_SHORT).show()
-                        }
-                    })
-                }
-            }
-        }
 
+                btn_following.setOnClickListener {
+                    when(btn_following.text) {
+                        "팔로잉" -> {
+                            VolleyService.deleteFollowReq(UserInfo.ID, userId, this, {success->
+                                if(success=="success") {
+                                    btn_following.text = "+팔로우"
+                                    btn_following.setBackgroundResource(R.drawable.rounded_follow_button)
+                                    btn_following.setTextColor(Color.parseColor("#FFFFFF"))
+                                }
+                                else {
+                                    Toast.makeText(this, "서버와의 통신에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                                }
+                            })
+                        }
+                        "+팔로우" -> {
+                            VolleyService.insertFollowReq(UserInfo.ID, userId, this , { success->
+                                if(success=="success") {
+                                    btn_following.text = "팔로잉"
+                                    btn_following.setBackgroundResource(R.drawable.rounded_following_button)
+                                    btn_following.setTextColor(Color.parseColor("#212121"))
+                                }
+                                else {
+                                    Toast.makeText(this, "서버와의 통신에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                                }
+                            })
+                        }
+                    }
+                }
+            })
 
         if(product.userId == UserInfo.ID) {
             btn_following.visibility = View.INVISIBLE
@@ -122,131 +143,135 @@ class ProductActivity : AppCompatActivity() {
             }
         }
 
-        pager_product_image.adapter=ProductImagePagerAdapter(this,imageList!!)
+            pager_product_image.adapter=ProductImagePagerAdapter(this,imageList!!)
 
-        text_productprice.setText(product!!.productPrice+"원")
-        text_registertitle.setText(product!!.registerTitle)
-        text_registerdate.setText(product!!.registerDate!!.substring(0,10))
-        text_likecount.setText(product!!.registerLike.toString())
-        text_viewcount.setText(product!!.registerView.toString())
-        text_productstatus.setText(product!!.productStatus)
-        var brand=product!!.productBrand
-        if(brand=="")
-            text_productbrand.setText("브랜드가 없습니다.")
-        else
-            text_productbrand.setText(brand)
-        text_productcategory.setText("${product!!.productCategory}/${product!!.productSubCategory}")
-        text_producttype.setText(product!!.productType)
-        text_registercontent.setText(product!!.registerContent)
-        text_productlocation.setText(product!!.sellerAddress)
-        text_tradeoption.setText(product!!.tradeOption)
-
-        VolleyService.myInfoReq(product!!.userId!!,this,{success ->
-            var user:JSONObject=success!!
-
-            text_sellernickname.setText(user.getString("user_nickname"))
-            text_sellerratingaverage.setText(user.getDouble("user_rating_average").toString())
-            rating_seller.rating=user.getDouble("user_rating_average").toFloat()
-            text_ratingcount.setText("(${user.getInt("user_rating_count")})")
-            var phone = user.getString("user_phone")
-            if(phone=="")
-                text_sellerphone.setText("등록된 번호가 없습니다.")
+            text_productprice.setText(productPrice+"원")
+            text_registertitle.setText(registerTitle)
+            text_registerdate.setText(registerDate!!.substring(0,10))
+            text_likecount.setText(registerLike.toString())
+            text_viewcount.setText(registerView.toString())
+            text_productstatus.setText(productStatus)
+            var brand= productBrand
+            if(brand=="")
+                text_productbrand.setText("브랜드가 없습니다.")
             else
-                text_sellerphone.setText(phone)
-            var joinDate = user.getString("user_join_date").format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-            text_sellersignupdate.setText(joinDate.split('T')[0])
-            var loginType=user.getString("user_login_type")
-            when(loginType){
-                "kakao" -> {
-                    text_sellercertification.setText("카카오 인증 계정")
-                }
-                "email" -> {
-                    text_sellercertification.setText("이메일 인증 계정")
-                }
-                "phone" -> {
-                    text_sellercertification.setText("휴대폰 인증 계정")
-                }
-            }
-        })
+                text_productbrand.setText(brand)
+            text_productcategory.setText("${productCategory}/${productSubCategory}")
+            text_producttype.setText(productType)
+            text_registercontent.setText(registerContent)
+            text_productlocation.setText(sellerAddress)
+            text_tradeoption.setText(tradeOption)
 
-        btn_chat.setOnClickListener {
-            var maker= UserInfo.ID
-            var partner = product!!.userId
-            val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
-            val roomDate = current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
-            VolleyService.createRoomReq(maker,partner,roomDate,product!!.registerTitle!!,this,{success ->
-                var intent= Intent(this,ChatActivity::class.java)
-                var room=ChatRoomItem(
-                    success!!.getInt("room_id"),
-                    success!!.getString("maker"),
-                    success!!.getString("partner"),
-                    success!!.getString("room_date"),
-                    success!!.getString("room_title"),
-                    null,null,null)
-                intent.putExtra("room",room)
-                startActivity(intent)
-                finish()
+            VolleyService.myInfoReq(userId,this,{success ->
+                var user:JSONObject=success!!
+
+                text_sellernickname.setText(user.getString("user_nickname"))
+                text_sellerratingaverage.setText(user.getDouble("user_rating_average").toString())
+                rating_seller.rating=user.getDouble("user_rating_average").toFloat()
+                text_ratingcount.setText("(${user.getInt("user_rating_count")})")
+                var phone = user.getString("user_phone")
+                if(phone=="")
+                    text_sellerphone.setText("등록된 번호가 없습니다.")
+                else
+                    text_sellerphone.setText(phone)
+                var joinDate = user.getString("user_join_date").format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                text_sellersignupdate.setText(joinDate.split('T')[0])
+                var loginType=user.getString("user_login_type")
+                when(loginType){
+                    "kakao" -> {
+                        text_sellercertification.setText("카카오 인증 계정")
+                    }
+                    "email" -> {
+                        text_sellercertification.setText("이메일 인증 계정")
+                    }
+                    "phone" -> {
+                        text_sellercertification.setText("휴대폰 인증 계정")
+                    }
+                }
             })
-        }
-        VolleyService.checkWishlistReq(product!!.registerId!!, UserInfo.ID, this, {success->
-            if(success!!.getInt("count") == 1) {
-                btn_favorite.setLiked(true)
-            }
-            else {
-                btn_favorite.setLiked(false)
-            }
-        })
 
-        btn_favorite.setOnLikeListener(object : OnLikeListener {
-            override fun liked(likeButton: LikeButton) {
-                VolleyService.insertWishlistReq(product!!.registerId!!, UserInfo.ID, this@ProductActivity, {success->
-                    if(success == "success")
-                    {
-                        likeButton.setLikeDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.heart_on, null))
-                        Toast.makeText(this@ProductActivity, "위시리스트에 등록되었습니다.", Toast.LENGTH_SHORT).show()
-                    }
-                    else{
-                        Toast.makeText(this@ProductActivity, "통신오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
-                    }
-                })
-            }
 
-            override fun unLiked(likeButton: LikeButton) {
-                VolleyService.deleteWishlistReq(product!!.registerId!!, UserInfo.ID, this@ProductActivity, {success->
-                    if(success == "success")
-                    {
-                        likeButton.setLikeDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.heart_off, null))
-                        Toast.makeText(this@ProductActivity, "위시리스트에서 제거되었습니다.", Toast.LENGTH_SHORT).show()
-                    }
-                    else{
-                        Toast.makeText(this@ProductActivity, "통신오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
-                    }
-                })
-            }
-        })
-
-        VolleyService.increaseViewReq(product!!.registerId!!, this, {success-> // 조회수 증가
-        })
-
-        VolleyService.checkViewReq(UserInfo.ID, product!!.registerId!!, this, {success-> // 사용자기록 갱신
-            if(success!!.getInt("count") == 1) {
+            btn_chat.setOnClickListener {
+                var maker= UserInfo.ID
+                var partner = userId
                 val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
-                val viewDate =
-                    current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-                VolleyService.updateViewReq(UserInfo.ID, product!!.registerId!!, viewDate,this, {success->
+                val roomDate = current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+
+                VolleyService.createRoomReq(maker,partner,roomDate, registerTitle!!,this,{success ->
+                    var intent= Intent(this,ChatActivity::class.java)
+                    var room=ChatRoomItem(
+                        success!!.getInt("room_id"),
+                        success!!.getString("maker"),
+                        success!!.getString("partner"),
+                        success!!.getString("room_date"),
+                        success!!.getString("room_title"),
+                        null,null,null)
+                    intent.putExtra("room",room)
+                    startActivity(intent)
+                    finish()
                 })
             }
-            else if(success!!.getInt("count") == 0){
-                val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
-                val viewDate =
-                    current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-                VolleyService.insertViewReq(UserInfo.ID, product!!.registerId!!, viewDate, product!!.registerTitle!!,this, {success->
-                })
-            }
+
+
+            VolleyService.checkWishlistReq(registerId!!, UserInfo.ID, this, {success->
+                if(success!!.getInt("count") == 1) {
+                    btn_favorite.setLiked(true)
+                }
+                else {
+                    btn_favorite.setLiked(false)
+                }
+            })
+
+            btn_favorite.setOnLikeListener(object : OnLikeListener {
+                override fun liked(likeButton: LikeButton) {
+                    VolleyService.insertWishlistReq(registerId!!, UserInfo.ID, this@ProductActivity, {success->
+                        if(success == "success")
+                        {
+                            likeButton.setLikeDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.heart_on, null))
+                            Toast.makeText(this@ProductActivity, "위시리스트에 등록되었습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                        else{
+                            Toast.makeText(this@ProductActivity, "통신오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                }
+
+                override fun unLiked(likeButton: LikeButton) {
+                    VolleyService.deleteWishlistReq(registerId!!, UserInfo.ID, this@ProductActivity, {success->
+                        if(success == "success")
+                        {
+                            likeButton.setLikeDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.heart_off, null))
+                            Toast.makeText(this@ProductActivity, "위시리스트에서 제거되었습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                        else{
+                            Toast.makeText(this@ProductActivity, "통신오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                }
+            })
+
+            VolleyService.increaseViewReq(registerId!!, this, {success-> // 조회수 증가
+            })
+
+
+            VolleyService.checkViewReq(UserInfo.ID, registerId!!, this, {success-> // 사용자기록 갱신
+                if(success!!.getInt("count") == 1) {
+                    val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
+                    val viewDate =
+                        current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                    VolleyService.updateViewReq(UserInfo.ID, registerId!!, viewDate,this, {success->
+                    })
+                }
+                else if(success!!.getInt("count") == 0){
+                    val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
+                    val viewDate =
+                        current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                    VolleyService.insertViewReq(UserInfo.ID, registerId!!, viewDate, registerTitle!!,this, {success->
+                    })
+                }
+            })
         })
-
-
 
     }
 }

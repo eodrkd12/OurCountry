@@ -1,17 +1,13 @@
 package com.honestyandpassion.ourcountry.Adapter
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.honestyandpassion.ourcountry.Item.Preview
-import com.honestyandpassion.ourcountry.Item.Product
+import com.honestyandpassion.ourcountry.Item.PreviewItem
 import com.honestyandpassion.ourcountry.MainActivity.ProductActivity
 import com.honestyandpassion.ourcountry.Object.ImageManager
 import com.honestyandpassion.ourcountry.Object.VolleyService
@@ -19,7 +15,7 @@ import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.item_product.view.*
 import org.json.JSONObject
 
-class ProductPreviewAdapter(val context: Context, val productList:ArrayList<Preview>) : RecyclerView.Adapter<ProductPreviewAdapter.ViewHolder>() {
+class ProductPreviewAdapter(val context: Context, val productList:ArrayList<PreviewItem>) : RecyclerView.Adapter<ProductPreviewAdapter.ViewHolder>() {
     override fun getItemCount(): Int {
         return productList.size
     }
@@ -32,7 +28,7 @@ class ProductPreviewAdapter(val context: Context, val productList:ArrayList<Prev
     override fun onBindViewHolder(holder: ProductPreviewAdapter.ViewHolder, position: Int) {
         var product=productList.get(position)
         holder.itemView.text_productregistertitle.text = product.registerTitle
-        holder.itemView.text_productregisterprice.text = product.productPrice
+        holder.itemView.text_productregisterprice.text = product.productPrice + "원"
         holder.itemView.text_productregistercondition.text = product.productStatus
         VolleyService.getProductImageReq(product.registerId!!,context,{success ->
             var array=success

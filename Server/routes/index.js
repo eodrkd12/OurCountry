@@ -20,4 +20,13 @@ router.get('/member',function(req,res,next){
 	res.render("member/member",{})
 })
 
+router.get('/member/member001',function(req,res,next){
+	res.render("member/member001",{})
+})
+router.get('/member/member002',function(req,res,next){
+	res.render("member/member002",{})
+})
+router.get('/payment',function(req,res,next){
+	res.render("payment",{})
+})
 module.exports = router;
