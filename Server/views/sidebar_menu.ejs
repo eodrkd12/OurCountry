@@ -1,108 +1,95 @@
 
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-	<meta charset="UTF-8">
-	<title>side_navigation</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-	<style>
-		/* 사이드바 스타일 */
-		.sidenav {
-			height:100%;
-			width: 0;
-			position: fixed;
-			z-index:1;
-			top: 0;
-			left: 0;
-			background-color: #F8E0F7;
-			overflow-x: hidden;
-			transition:0.5s ease-in-out;
-			padding-top: 60px;
-		}
-		.sidenav a {
-			padding: 8px 8px 8px 32px;
-			text-decoration: none;
-			font-size: 25px;
-			color: #fff;
-			display: block;
-			transition: 0.2s ease-in-out;
-		}
-		.sidenav a:hover, .offcanvas a:focus {
-			color: #000;
-		}
-		.closebtn {
-			position: absolute;
-			top: 0;
-			right: 25px;
-			font-size: 36px !important;
-			margin-left: 50px;
-		}
-		.openmenu:hover {
-			color:#F8E0F7;
-			transition:0.5s ease-in-out;
-		}
-		.openmenu {
-			font-size: 25px;
-			cursor:pointer;
-			transition:0.5s ease-in-out;
-		}
-		.openmenu > i {
-			font-size: 30px;
-		}
-		/* 미디어쿼리 적용 */
-		@media screen and (max-height:450px) {
-			.sidenav {
-				padding-top:15px;
-			}
-			.sidenav a {
-				font-size: 18px;
-			}
-		}
-	</style>
-</head>
-<!-- <body>
-	<div id="mysidenav" class="sidenav">
-		<a href="#" class="closebtn" onclick='closeNav()'>x</a>
-		<a href="#">회원관리</a>
-		<a href="#">주문내역</a>
+<style>
+    *{
+        margin:0px;
+        padding:0px;
+        font-family:sans-serif;
+    }
+    #sidebar{
+        position:fixed;
+        width:200px;
+        height:100%;
+        background:#151719;
+        left:-200px;
+        transition:all 500ms linear;
+       grid-row-start: 1;
+       grid-row-end: 4;
 
-    </div> -->
-    <nav id="sidebar">
-    <div class="sidebar-header">
+    }
+    #sidebar.active{
+        left:0px;
+    }
+    #sidebar ul li{
+        color:rgba(230,230,230,0.9);
+        list-style:none;
+        padding:15px 10px;
+        border-bottom: 1px solid rgba(100,100,100,0.3);
+    }
+    #sidebar ul li:hover{
+        color:#A9D0F5;
+    }
+    #sidebar ul li li {
+        color:rgba(230,230,230,0.9);
+        list-style:none;
+        padding:15px 10px;
+        border-bottom: 1px solid rgba(100,100,100,0.3);
+    }
+   
 
-    </div>
+    #sidebar .toggle-btn{
+        position: absolute;
+        left:230px;
+        top:20px;
+    }
+    #sidebar .toggle-btn span{
+        display: block;
+        width:30px;
+        height:5px;
+        background:#151719;
+        margin:5px 0px;
+    }
+</style>
+<div class="wrapper">
+    <div id="sidebar" class="active">
+        <div class="toggle-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul>
+            <li id="menu" name="main"onclick="clickmenu()">회원관리</li>
+            <div id="menuclicked" style="display: none;">
+                <li  style="background-color:#045FB4" onclick="change_iframe(/member/member001)">회원전환신청관리</li>
+                <li  style="background-color:#045FB4"onclick="change_iframe(/member/member002)">포인트환급관리</li>
+            </div>
 
-    <div class="sidebar-menu">
-        <ul class="list-unstyled components">
-            <li>
-                <ul class="submenu collapse list-unstyled">
-                <a href="#" target="ifrm_content">회원관리</a>
-            </ul>
-            <ul class="submenu collapse list-unstyled">
-                <a href="#"target="ifrm_content">주문내역</a>
-            </ul>
-            </li>
+            <li id="menu" onclick="change_iframe()">주문내역</li>
+
         </ul>
     </div>
-</nav>
-<div class="container-fluid p-0" >
-    <iframe name="ifrm_content" src="/" scrolling="yes" style="display:block;  border:none; width:100%; height: 100vh"></iframe>
+
+    <iframe id="main_frame" name="ifrm_content" src="/main" scrolling="yes"
+        style="display:block;  border:none; width:100%; height: 100vh;padding-left: 15%;"></iframe>
 </div>
-	<!-- <span class="openmenu" onclick='openNav()'><i class="fa fa-angle-double-left fa-5" aria-hidden="true"></i> open</span> -->
-   
-	<script>
-		// function openNav() {
-		// 	document.getElementById('mysidenav').style.width = '250px';
-		// }
-		// function closeNav() {
-		// 	document.getElementById('mysidenav').style.width = '0';
-        // }
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-                $(this).toggleClass('active');
-            });
-        });
-	</script>
-</body>
+<script>
+function togglesidebar(){
+    document.getElementById("sidebar").classList.toggle('active');
+}
+function clickmenu(){
+  var clicked= document.getElementById("menuclicked")
+  var menu= document.getElementById("menu")
+  if(clicked.style.display=='none'){
+  clicked.style.display='block'
+
+  }
+  else {
+      clicked.style.display='none'
+}
+}
+function change_iframe(url){
+    var iframe=document.getElementById("main_frame");
+    iframe.src=url;
+}
+</script>
 </html>
