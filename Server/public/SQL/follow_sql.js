@@ -2,83 +2,45 @@ var pool = require('../../config/db_config');
 
 module.exports = function () {
   return {
-    check_email: function (email, callback) {
+    check_follow: function (follower, following, callback) {
       pool.getConnection(function (err, con) {
-        con.release()
-        var sql = `select * from user where user_id='${email}'`
+        var sql = `select count(*) as count from follow where follower='${follower}' and following='${following}'`
         con.query(sql, function (err, result) {
-          if (err) console.log(err);
-          else callback(null, result);
+            con.release()
+            if (err) console.log(err);
+            else callback(null, result);
         })
       })
     },
-    login: function (id, callback) {
-      pool.getConnection(function (err, con) {
-        var sql = `select * from user where user_id='${id}'`
-        con.query(sql, function (err, result, fields) {
-          con.release();
-          if (err) callback(err);
-          else callback(null, result);
+    insert_follow: function(follower, following, callback) {
+        pool.getConnection(function(err, con) {
+            var sql = `insert into follow values('${follower}', '${following}')`
+            con.query(sql, function(err, result) {
+                con.release()
+                if(err) console.log(err)
+                else callback(null, result)
+            })
         })
-      })
     },
-    join: function (id, password, loginType, nickname, userType, image, phone, userBank, userAccount, joinDate, callback) {
-      pool.getConnection(function (err, con) {
-        var sql = `insert into user values('${id}','${password}','${loginType}','${nickname}','${userType}','${phone}',null,'${image}',0,0,'${joinDate}','${userAccount}',null,'${userBank}',0,0)`
-        con.query(sql, function (err, result) {
-          con.release()
-          if (err) callback(err)
-          else callback(null, result)
+    delete_follow: function(follower, following, callback) {
+        pool.getConnection(function(err, con) {
+            var sql = `delete from follow where follower='${follower}' and following='${following}'`
+            con.query(sql, function(err, result) {
+                con.release()
+                if(err) console.log(err)
+                else callback(null, result)
+            })
         })
-      })
     },
-    edit_user: function (id, nickname, phone, about, address, callback) {
-      pool.getConnection(function (err, con) {
-        var sql = `UPDATE user set user_nickname='${nickname}', user_phone='${phone}', user_address='${address}', user_about='${about}' where user_id='${id}'`
-        con.query(sql, function (err, result, fields) {
-          con.release();
-          if (err) callback(err);
-          else callback(null, result);
+    get_product: function(follower, following, callback) {
+        pool.getConnection(function(err, con) {
+            var sql = `select Register.register_id, register_title, product_price from Register, follow where Register.user_id=follow.following and follow.follower='${follower}'`
+            con.query(sql, function(err, result) {
+                con.release()
+                if(err) console.log(err)
+                else callback(null, result)
+            })
         })
-      })
-    },
-    get_my_info: function (id, callback) {
-      pool.getConnection(function (err, con) {
-        var sql = `select * from user where user_id='${id}'`
-        con.query(sql, function (err, result, fields) {
-          con.release()
-          if (err) callback(err)
-          else callback(null, result)
-        })
-      })
-    },
-    remove_token: function (nickname) {
-      pool.getConnection(function (err, con) {
-        var sql = "update user set token='' where user_nickname='" + nickname + "'"
-        con.query(sql, function (err, result, fields) {
-          con.release()
-          if (err) console.log(err)
-        })
-      })
-    },
-    insert_token: function (nickname, token) {
-      pool.getConnection(function (err, con) {
-        var sql = "update user set token='" + token + "' where user_nickname='" + nickname + "'"
-        con.query(sql, function (err, result, fields) {
-          con.release()
-          if (err) console.log(err)
-        })
-      })
-    },
-    get_token:function(nickname,callback){
-      pool.getConnection(function(err,con){
-              var sql=`select token from user where user_nickname='${nickname}'`
-              con.query(sql,function(err,result,fields){
-                      con.release()
-                      if(err) console.log(err)
-                      else callback(null,result)
-              })
-      })
     },
     pool: pool
   }

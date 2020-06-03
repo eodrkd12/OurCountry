@@ -1,5 +1,6 @@
 package com.honestyandpassion.ourcountry.MainActivity
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
@@ -20,12 +21,14 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.google.android.material.navigation.NavigationView
 import com.honestyandpassion.ourcountry.Class.DialogMsg
 import com.honestyandpassion.ourcountry.Fragment.*
+import com.honestyandpassion.ourcountry.IntroActivity.LoginActivity
 import com.honestyandpassion.ourcountry.IntroActivity.SettingActivity
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -34,7 +37,7 @@ import kotlinx.android.synthetic.main.notification_layout.*
 import kotlin.collections.ArrayList
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
 
     var dialogMsg: DialogMsg? = null
     var test: Drawable? = null
@@ -43,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     var categoryFragment : Fragment? = null
     var mypageFragment : Fragment? = null
     var messageFragment : Fragment? = null
+    var historyFragment : Fragment? = null
 
 
     private  val PermissinCode =100
@@ -79,6 +83,23 @@ class MainActivity : AppCompatActivity() {
             var intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
+
+
+
+        layout_swipe.setOnRefreshListener {
+            if(bottomNavigationView!!.menu.findItem(R.id.bnv_main_home).isChecked == true) {
+                supportFragmentManager.beginTransaction().detach(homeFragment!!).attach(homeFragment!!).commit()
+                layout_swipe.setRefreshing(false)
+            }
+            else if(bottomNavigationView!!.menu.findItem(R.id.bnv_main_mypage).isChecked == true) {
+                supportFragmentManager.beginTransaction().detach(mypageFragment!!).attach(mypageFragment!!).commit()
+                layout_swipe.setRefreshing(false)
+            }
+            else if(bottomNavigationView!!.menu.findItem(R.id.bnv_main_message).isChecked == true) {
+                supportFragmentManager.beginTransaction().detach(messageFragment!!).attach(messageFragment!!).commit()
+                layout_swipe.setRefreshing(false)
+            }
+        }
     }
 
     private fun checkPermissions(){
@@ -101,6 +122,9 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView = findViewById(R.id.bnv_main)
         when (it.itemId) {
             R.id.nav_home -> {
+                layout_swipe.setEnabled(true)
+
+
                 if(homeFragment == null) {
                     homeFragment = HomeFragment()
                     supportFragmentManager.beginTransaction().add(R.id.frame_main, homeFragment!!).commit()
@@ -110,12 +134,15 @@ class MainActivity : AppCompatActivity() {
                 if(categoryFragment != null) supportFragmentManager.beginTransaction().hide(categoryFragment!!).commit()
                 if(mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
                 if(messageFragment != null) supportFragmentManager.beginTransaction().hide(messageFragment!!).commit()
+                if(historyFragment != null) supportFragmentManager.beginTransaction().hide(historyFragment!!).commit()
 
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
                 test!!.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
                 image_notification.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
 
                 bottomNavigationView!!.menu.findItem(R.id.bnv_main_home).setChecked(true)
+
+                bnv_main.visibility = View.VISIBLE
                 drawerLayout.closeDrawers()
             }
             R.id.nav_category -> {
@@ -128,14 +155,18 @@ class MainActivity : AppCompatActivity() {
                 if(categoryFragment != null) supportFragmentManager.beginTransaction().show(categoryFragment!!).commit()
                 if(mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
                 if(messageFragment != null) supportFragmentManager.beginTransaction().hide(messageFragment!!).commit()
+                if(historyFragment != null) supportFragmentManager.beginTransaction().hide(historyFragment!!).commit()
 
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 image_notification.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 supportActionBar?.setTitle("카테고리")
                 toolbar_main.setTitleTextColor(Color.WHITE)
+                bnv_main.visibility = View.VISIBLE
+                layout_swipe.setEnabled(false)
 
-              bottomNavigationView!!.menu.findItem(R.id.bnv_main_category).setChecked(true)
+
+                bottomNavigationView!!.menu.findItem(R.id.bnv_main_category).setChecked(true)
                 drawerLayout.closeDrawers()
 
             }
@@ -160,12 +191,16 @@ class MainActivity : AppCompatActivity() {
                 if(categoryFragment != null) supportFragmentManager.beginTransaction().hide(categoryFragment!!).commit()
                 if(mypageFragment != null) supportFragmentManager.beginTransaction().show(mypageFragment!!).commit()
                 if(messageFragment != null) supportFragmentManager.beginTransaction().hide(messageFragment!!).commit()
+                if(historyFragment != null) supportFragmentManager.beginTransaction().hide(historyFragment!!).commit()
 
+
+                layout_swipe.setEnabled(true)
 
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 image_notification.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 bottomNavigationView!!.menu.findItem(R.id.bnv_main_mypage).setChecked(true)
+                bnv_main.visibility = View.INVISIBLE
                 drawerLayout.closeDrawers()
             }
             R.id.nav_language -> {
@@ -186,12 +221,36 @@ class MainActivity : AppCompatActivity() {
                 drawerLayout.closeDrawers()
             }
             R.id.nav_favourite_news -> {
+                var intent = Intent(this, ProductAllViewActivity::class.java)
+                intent.putExtra("clickedText", "내가찜한상품")
+                startActivity(intent)
                 drawerLayout.closeDrawers()
             }
             R.id.nav_user_history -> {
+                if(historyFragment == null) {
+                    historyFragment = RecordFragment()
+                    supportFragmentManager.beginTransaction().add(R.id.frame_main, historyFragment!!).commit()
+                }
+                if(homeFragment != null) supportFragmentManager.beginTransaction().hide(homeFragment!!).commit()
+                if(categoryFragment != null) supportFragmentManager.beginTransaction().hide(categoryFragment!!).commit()
+                if(mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
+                if(messageFragment != null) supportFragmentManager.beginTransaction().hide(messageFragment!!).commit()
+                if(historyFragment != null) supportFragmentManager.beginTransaction().show(historyFragment!!).commit()
+
+                bnv_main.visibility = View.INVISIBLE
+                layout_swipe.setEnabled(true)
+
                 drawerLayout.closeDrawers()
             }
             R.id.nav_logout -> {
+                var pref=getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+                var editor=pref.edit()
+
+                editor.clear()
+                editor.commit()
+
+                var intent= Intent(this, LoginActivity::class.java)
+                startActivity(intent)
                 drawerLayout.closeDrawers()
             }
 
@@ -234,12 +293,13 @@ class MainActivity : AppCompatActivity() {
                 if(categoryFragment != null) supportFragmentManager.beginTransaction().hide(categoryFragment!!).commit()
                 if(mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
                 if(messageFragment != null) supportFragmentManager.beginTransaction().hide(messageFragment!!).commit()
+                if(historyFragment != null) supportFragmentManager.beginTransaction().hide(historyFragment!!).commit()
 
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
                 test!!.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
                 image_notification.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
-                btn_register.visibility=View.VISIBLE
 
+                layout_swipe.setEnabled(true)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_category -> {
@@ -252,13 +312,15 @@ class MainActivity : AppCompatActivity() {
                 if(categoryFragment != null) supportFragmentManager.beginTransaction().show(categoryFragment!!).commit()
                 if(mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
                 if(messageFragment != null) supportFragmentManager.beginTransaction().hide(messageFragment!!).commit()
+                if(historyFragment != null) supportFragmentManager.beginTransaction().hide(historyFragment!!).commit()
 
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 image_notification.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 supportActionBar?.setTitle("카테고리")
                 toolbar_main.setTitleTextColor(Color.WHITE)
-                btn_register.visibility=View.INVISIBLE
+
+                layout_swipe.setEnabled(false)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_mypage -> {
@@ -270,12 +332,13 @@ class MainActivity : AppCompatActivity() {
                 if(categoryFragment != null) supportFragmentManager.beginTransaction().hide(categoryFragment!!).commit()
                 if(mypageFragment != null) supportFragmentManager.beginTransaction().show(mypageFragment!!).commit()
                 if(messageFragment != null) supportFragmentManager.beginTransaction().hide(messageFragment!!).commit()
+                if(historyFragment != null) supportFragmentManager.beginTransaction().hide(historyFragment!!).commit()
 
 
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 image_notification.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
-                btn_register.visibility=View.INVISIBLE
+                layout_swipe.setEnabled(true)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bnv_main_message -> {
@@ -287,11 +350,12 @@ class MainActivity : AppCompatActivity() {
                 if(categoryFragment != null) supportFragmentManager.beginTransaction().hide(categoryFragment!!).commit()
                 if(mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
                 if(messageFragment != null) supportFragmentManager.beginTransaction().show(messageFragment!!).commit()
+                if(historyFragment != null) supportFragmentManager.beginTransaction().hide(historyFragment!!).commit()
 
+                layout_swipe.setEnabled(true)
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 image_notification.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
-                btn_register.visibility=View.INVISIBLE
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -323,6 +387,4 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-
 }
