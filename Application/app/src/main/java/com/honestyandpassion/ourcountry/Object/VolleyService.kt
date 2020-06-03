@@ -626,11 +626,12 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
-    fun updateProductReq(userId:String, registerTitle:String, productCategory:String, productSubCategory:String, productType:String, productStatus:String, productBrand:String, productPrice:String, sellerStore:Int, registerContent:String, tradeOption:String, sellerAddress: String, registerDate: String, context: Context, success:(String?) -> Unit) {
+    fun updateProductReq(registerId: Int,userId:String, registerTitle:String, productCategory:String, productSubCategory:String, productType:String, productStatus:String, productBrand:String, productPrice:String, sellerStore:Int, registerContent:String, tradeOption:String, sellerAddress: String, registerDate: String, context: Context, success:(String?) -> Unit) {
         var url = "${ip}/register/update"
 
         var jsonObject = JSONObject()
-        jsonObject.put("user_id", userId)
+        jsonObject.put("register_id",registerId)
+            .put("user_id", userId)
             .put("register_title", registerTitle)
             .put("product_category", productCategory)
             .put("product_subcategory", productSubCategory)
@@ -761,6 +762,26 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
+    fun getRegisterReq(registerId: Int, context: Context, success: (JSONObject?)->Unit) {
+        var url="${ip}/register/get/byid"
+
+        var json=JSONObject()
+        json.put("register_id",registerId)
+
+        var request = object : JsonObjectRequest(Method.POST,
+        url,
+        json,
+        Response.Listener {
+            success(it)
+        },
+        Response.ErrorListener {
+            Log.d("test",it.toString())
+        }) {
+
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
     fun checkFollowReq(follower:String, following:String, context: Context, success: (JSONObject?)->Unit) {
         var url = "${ip}/follow/check"
 
@@ -775,8 +796,9 @@ object VolleyService {
                 success(it)
             },
             Response.ErrorListener {
-            }) {
-        }
+                Log.d("test",it.toString())
+            }){
+            }
         Volley.newRequestQueue(context).add(request)
     }
 

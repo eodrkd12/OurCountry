@@ -6,14 +6,13 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.graphics.drawable.toBitmap
 import com.honestyandpassion.ourcountry.Class.ToolbarSetting
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.Fragment.HomeFragment
@@ -29,6 +28,7 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.collections.ArrayList
+
 
 class RegisterActivity : ToolbarSetting() {
 
@@ -105,9 +105,9 @@ class RegisterActivity : ToolbarSetting() {
         subCategoryText = findViewById(R.id.text_selectsubcategory)
 
         var intent = intent
-        if(intent.getStringExtra("registerType") == "수정") {
+        if (intent.getStringExtra("registerType") == "수정") {
 
-            var product=intent.getParcelableExtra<Product>("product")
+            var product = intent.getParcelableExtra<Product>("product")
             edit_registertitle.setText(product.registerTitle)
             btn_registercomplete.setText("수정완료")
             categoryText!!.text = product.productCategory
@@ -116,9 +116,9 @@ class RegisterActivity : ToolbarSetting() {
             productStatus = product.productStatus!!
             sellerStore = product.sellerStore!!
             tradeOption = product.tradeOption!!
-            var registerId : Int = product.registerId!!
+            var registerId: Int = product.registerId!!
 
-            when(productType) {
+            when (productType) {
                 "산지직송" -> radio_typeoption1.setChecked(true)
                 "팝니다" -> radio_typeoption2.setChecked(true)
                 "삽니다" -> radio_typeoption3.setChecked(true)
@@ -126,7 +126,7 @@ class RegisterActivity : ToolbarSetting() {
                 "교환신청" -> radio_typeoption5.setChecked(true)
             }
 
-            when(productStatus) {
+            when (productStatus) {
                 "신선식품" -> radio_statusoption1.setChecked(true)
                 "가공식품" -> radio_statusoption2.setChecked(true)
                 "새상품" -> radio_statusoption3.setChecked(true)
@@ -136,32 +136,30 @@ class RegisterActivity : ToolbarSetting() {
             edit_registerbrand.setText(product.productBrand)
             edit_registerprice.setText(product.productPrice)
 
-            when(sellerStore) {
+            when (sellerStore) {
                 0 -> check_store.setChecked(false)
                 1 -> check_store.setChecked(true)
             }
 
             edit_registerinfo.setText(product.registerContent)
 
-            if(tradeOption.contains("택배")) check_tradeoption1.setChecked(true)
-            if(tradeOption.contains("무료배송")) check_tradeoption2.setChecked(true)
-            if(tradeOption.contains("직거래")) check_tradeoption3.setChecked(true)
+            if (tradeOption.contains("택배")) check_tradeoption1.setChecked(true)
+            if (tradeOption.contains("무료배송")) check_tradeoption2.setChecked(true)
+            if (tradeOption.contains("직거래")) check_tradeoption3.setChecked(true)
 
             edit_registeraddress.setText(product.sellerAddress)
 
-            btn_registercomplete.setOnClickListener{
+            btn_registercomplete.setOnClickListener {
                 tradeOption = ""
                 if (check_tradeoption1.isChecked == true) tradeOption += check_tradeoption1.text
                 if (check_tradeoption2.isChecked == true) tradeOption += check_tradeoption2.text
                 if (check_tradeoption3.isChecked == true) tradeOption += check_tradeoption3.text
 
-                if(insertArray.size==0){
-                    Toast.makeText(this, "상품 이미지를 등록해주세요.",Toast.LENGTH_SHORT).show()
-                }
-                else if (edit_registertitle.text.toString() == "" || edit_registertitle.text.toString() == null) {
+                if (insertArray.size == 0) {
+                    Toast.makeText(this, "상품 이미지를 등록해주세요.", Toast.LENGTH_SHORT).show()
+                } else if (edit_registertitle.text.toString() == "" || edit_registertitle.text.toString() == null) {
                     Toast.makeText(this, "제목을 확인해주세요.", Toast.LENGTH_SHORT).show()
-                }
-                else if (text_selectcategory.text == "설정해주세요.") {
+                } else if (text_selectcategory.text == "설정해주세요.") {
                     Toast.makeText(this, "카테고리를 선택해주세요.", Toast.LENGTH_SHORT).show()
                 } else if (text_selectsubcategory.text == "설정해주세요.") {
                     Toast.makeText(this, "하위 카테고리를 선택해주세요.", Toast.LENGTH_SHORT).show()
@@ -180,6 +178,7 @@ class RegisterActivity : ToolbarSetting() {
                     val registerDate =
                         current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
                     VolleyService.updateProductReq(
+                        product.registerId!!,
                         UserInfo.ID,
                         edit_registertitle.text.toString(),
                         text_selectcategory.text.toString(),
@@ -195,37 +194,74 @@ class RegisterActivity : ToolbarSetting() {
                         registerDate,
                         this,
                         { success ->
-                            if(success== "success") {
+                            if (success == "success") {
                                 Toast.makeText(this, "수정완료", Toast.LENGTH_SHORT).show()
-                                finish()
+
+                                ProductActivity.imageList.clear()
+                                for (i in 0..insertArray.size - 1) {
+                                    ProductActivity.imageList.add(insertArray[i].drawable.toBitmap())
+                                }
+
+                                VolleyService.getRegisterReq(registerId, this, { success ->
+                                    var json = success
+                                    var updateProduct = Product(
+                                        json!!.getInt("register_id"),
+                                        json.getString("user_id"),
+                                        json.getString("register_title"),
+                                        json.getString("product_category"),
+                                        json.getString("product_subcategory"),
+                                        json.getString("product_type"),
+                                        json.getString("product_status"),
+                                        json.getString("product_brand"),
+                                        json.getString("product_price"),
+                                        json.getInt("seller_store"),
+                                        json.getString("register_content"),
+                                        json.getString("trade_option"),
+                                        json.getString("seller_address"),
+                                        json.getString("register_date"),
+                                        json.getInt("register_like"),
+                                        json.getInt("register_view"),
+                                        json.getString("user_nickname"),
+                                        ArrayList<Bitmap>()
+                                    )
+
+                                    var intent = Intent(this, ProductActivity::class.java)
+                                    intent.putExtra("product", updateProduct)
+                                    startActivity(intent)
+                                    finish()
+                                })
+
+
                             }
                             for (i in 0..insertArray.size - 1) {
                                 var bitmap =
                                     ((imageArray[i].drawable as Drawable) as BitmapDrawable).bitmap
-                                VolleyService.insertImageReq(registerId, edit_registertitle.text.toString(), bitmap, this,{success ->
-                                    var handler=HomeFragment.HANDLER
-                                    var msg=handler!!.obtainMessage()
-                                    msg.what=0
-                                    handler.sendMessage(msg)
-                                })
+                                VolleyService.insertImageReq(
+                                    registerId,
+                                    edit_registertitle.text.toString(),
+                                    bitmap,
+                                    this,
+                                    { success ->
+                                        var handler = HomeFragment.HANDLER
+                                        var msg = handler!!.obtainMessage()
+                                        msg.what = 0
+                                        handler.sendMessage(msg)
+                                    })
                             }
                         })
                 }
             }
-        }
-        else {
+        } else {
             btn_registercomplete.setOnClickListener {
                 if (check_tradeoption1.isChecked == true) tradeOption += check_tradeoption1.text
                 if (check_tradeoption2.isChecked == true) tradeOption += check_tradeoption1.text
                 if (check_tradeoption3.isChecked == true) tradeOption += check_tradeoption1.text
 
-                if(insertArray.size==0){
-                    Toast.makeText(this, "상품 이미지를 등록해주세요.",Toast.LENGTH_SHORT).show()
-                }
-                else if (edit_registertitle.text.toString() == "" || edit_registertitle.text.toString() == null) {
+                if (insertArray.size == 0) {
+                    Toast.makeText(this, "상품 이미지를 등록해주세요.", Toast.LENGTH_SHORT).show()
+                } else if (edit_registertitle.text.toString() == "" || edit_registertitle.text.toString() == null) {
                     Toast.makeText(this, "제목을 확인해주세요.", Toast.LENGTH_SHORT).show()
-                }
-                else if (text_selectcategory.text == "설정해주세요.") {
+                } else if (text_selectcategory.text == "설정해주세요.") {
                     Toast.makeText(this, "카테고리를 선택해주세요.", Toast.LENGTH_SHORT).show()
                 } else if (text_selectsubcategory.text == "설정해주세요.") {
                     Toast.makeText(this, "하위 카테고리를 선택해주세요.", Toast.LENGTH_SHORT).show()
@@ -268,12 +304,17 @@ class RegisterActivity : ToolbarSetting() {
                             for (i in 0..insertArray.size - 1) {
                                 var bitmap =
                                     ((imageArray[i].drawable as Drawable) as BitmapDrawable).bitmap
-                                VolleyService.insertImageReq(registerId, registerTitle, bitmap, this,{success ->
-                                    var handler=HomeFragment.HANDLER
-                                    var msg=handler!!.obtainMessage()
-                                    msg.what=0
-                                    handler.sendMessage(msg)
-                                })
+                                VolleyService.insertImageReq(
+                                    registerId,
+                                    registerTitle,
+                                    bitmap,
+                                    this,
+                                    { success ->
+                                        var handler = HomeFragment.HANDLER
+                                        var msg = handler!!.obtainMessage()
+                                        msg.what = 0
+                                        handler.sendMessage(msg)
+                                    })
                             }
                         })
                     Toast.makeText(this, "등록완료", Toast.LENGTH_SHORT).show()
@@ -339,8 +380,7 @@ class RegisterActivity : ToolbarSetting() {
                 try {
                     val imageBitmap = data!!.extras.get("data") as Bitmap
                     imageView!!.setImageBitmap(imageBitmap)
-                }
-                catch (e : NullPointerException){
+                } catch (e: NullPointerException) {
 
                 }
             }
@@ -357,7 +397,7 @@ class RegisterActivity : ToolbarSetting() {
                 } catch (e: IOException) {
                     // TODO Auto-generated catch block
                     e.printStackTrace()
-                } catch (e: NullPointerException){
+                } catch (e: NullPointerException) {
 
                 }
             }

@@ -52,14 +52,36 @@ router.post('/login', function(req,res,next){
   })
 });
 
+router.post('/web/login',function(req,res,next){
+  db_user.login(req.body.id,function(err,result){
+    if(err) console.log(err)
+    else{
+      if(result[0].user_pw==req.body.pw){
+        res.cookie("user", req.body.id , {
+          expires: new Date(Date.now() + 900000),
+          httpOnly: true
+        })
+        var obj=new Object()
+        obj.result="success"
+        res.send(obj)
+      }
+      else{
+        obj.result="fail"
+        res.send(obj)
+      }
+    }
+  })
+})
+
 router.post('/update/editUserReq', function(req, res, next) {
 	var id=req.body.id
 	var nickname=req.body.nickname
 	var phone = req.body.phone
 	var about = req.body.about 
 	var address= req.body.address
+	var userType=req.body.user_type
 
-	db_user.edit_user(id, nickname,phone,about,address,function(err,result){
+	db_user.edit_user(id, nickname,phone,about,address,userType, function(err,result){
 		if(err) console.log(err)
 		else{
 			var object=new Object()
@@ -79,9 +101,9 @@ router.post('/my',function(req,res,next){
 })
 
 router.post('/remove/token',function(req,res,next){
-  var nickname=req.body.nickname
+  var id=req.body.id
 
-  db_user.remove_token(nickname)
+  db_user.remove_token(id)
 
   var object=new Object()
   object.result="success"
@@ -89,13 +111,21 @@ router.post('/remove/token',function(req,res,next){
 })
 
 router.post('/insert/token',function(req,res,next){
-  var nickname=req.body.nickname
+  var id=req.body.id
   var token=req.body.token
-  db_user.insert_token(nickname,token)
+  db_user.insert_token(id,token)
 
   var object=new Object()
   object.result="success"
   res.send(object)
+})
+
+router.post('/my/list',function(req,res,next){
+var id=req.body[0].id
+db_user.get_mylist(id,function(err,result){
+	if(err) console.log(err)
+	else res.send(result)
+	})
 })
 
 module.exports = router;
