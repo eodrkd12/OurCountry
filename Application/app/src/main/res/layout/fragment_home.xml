@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.HomeFragment">
 
-
             <EditText
                 android:id="@+id/edit_homesearch"
                 android:layout_width="0dp"
@@ -146,16 +145,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/recentItemTitleTextView" />
 
-            <!--<androidx.cardview.widget.CardView-->
-            <!--android:id="@+id/itemFromFollowerCardView"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--app:cardElevation="0sp"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/blogViewPager">-->
-
             <TextView
                 android:id="@+id/categoryTextView"
                 android:layout_width="0dp"
@@ -172,8 +161,6 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edit_homesearch" />
-
-            <!--</androidx.cardview.widget.CardView>-->
 
             <TextView
                 android:id="@+id/text_categoryallview"
@@ -251,58 +238,6 @@
                 app:layout_constraintStart_toEndOf="@+id/image_homeheader"
                 app:layout_constraintTop_toBottomOf="@+id/locationTitleTextView"
                 tools:text="XXXXX XXXX XXXXX" />
-
-            <!--<ImageView-->
-            <!--android:id="@+id/cityImageView"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="300dp"-->
-            <!--android:scaleType="centerCrop"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="parent"-->
-            <!--app:srcCompat="@drawable/default_image" />-->
-
-            <!--<TextView-->
-            <!--android:id="@+id/cityNameTextView"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="16dp"-->
-            <!--android:layout_marginTop="16dp"-->
-            <!--android:layout_marginEnd="8dp"-->
-            <!--android:textColor="@color/text__primary_dark"-->
-            <!--android:textSize="@dimen/font_h7_size"-->
-            <!--app:font='@{"normal"}'-->
-            <!--app:layout_constraintEnd_toStartOf="@+id/shareImageView"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/cityImageView"-->
-            <!--tools:text="TextView" />-->
-
-            <!--<ImageView-->
-            <!--android:id="@+id/shareImageView"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginEnd="16dp"-->
-            <!--app:layout_constraintBottom_toBottomOf="@+id/cityNameTextView"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="@+id/cityNameTextView"-->
-            <!--app:srcCompat="@android:drawable/ic_menu_share" />-->
-
-            <!--<TextView-->
-            <!--android:id="@+id/cityDescriptionTextView"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="16dp"-->
-            <!--android:layout_marginTop="16dp"-->
-            <!--android:layout_marginEnd="16dp"-->
-            <!--android:ellipsize="end"-->
-            <!--android:maxLines="4"-->
-            <!--android:textColor="@color/text__primary"-->
-            <!--android:textSize="@dimen/font_body_size"-->
-            <!--app:font='@{"normal"}'-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/cityNameTextView"-->
-            <!--tools:text="TextView" />-->
 
             <View
                 android:layout_width="wrap_content"
@@ -536,6 +471,5 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_recentproduct" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

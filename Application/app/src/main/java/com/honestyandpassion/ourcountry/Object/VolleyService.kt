@@ -426,11 +426,11 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
-    fun getMylistReq(id: String,context: Context,success: (JSONArray?) -> Unit) {
-        var url = "${ip}/user/my/list"
+    fun getMyProductReq(userId: String,context: Context,success: (JSONArray?) -> Unit) {
+        var url = "${ip}/user/my/product"
 
         var json = JSONObject()
-        json.put("id", id)
+        json.put("user_id", userId)
 
         var array = JSONArray()
         array.put(json)
@@ -439,11 +439,9 @@ object VolleyService {
             url,
             array,
             Response.Listener {
-                Log.d("test", it.toString())
                 success(it)
             },
             Response.ErrorListener {
-                Log.d("test", it.toString())
             }) {
 
         }
@@ -861,4 +859,41 @@ object VolleyService {
         }
         Volley.newRequestQueue(context).add(request)
     }
+
+    fun getCountFollowerReq(following:String , context: Context, success: (JSONObject?)->Unit) {
+        var url = "${ip}/follow/get/count/follower"
+
+        var json = JSONObject()
+        json.put("following", following)
+
+        var request = object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun getCountFollowingReq(follower:String , context: Context, success: (JSONObject?)->Unit) {
+        var url = "${ip}/follow/get/count/following"
+
+        var json = JSONObject()
+        json.put("follower", follower)
+
+        var request = object : JsonObjectRequest(Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
 }

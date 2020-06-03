@@ -28,7 +28,7 @@ class ProductPreviewAdapter(val context: Context, val productList:ArrayList<Prev
     override fun onBindViewHolder(holder: ProductPreviewAdapter.ViewHolder, position: Int) {
         var product=productList.get(position)
         holder.itemView.text_productregistertitle.text = product.registerTitle
-        holder.itemView.text_productregisterprice.text = product.productPrice
+        holder.itemView.text_productregisterprice.text = product.productPrice + "원"
         holder.itemView.text_productregistercondition.text = product.productStatus
         VolleyService.getProductImageReq(product.registerId!!,context,{success ->
             var array=success

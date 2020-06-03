@@ -3,12 +3,12 @@ package com.honestyandpassion.ourcountry.MainActivity
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import com.honestyandpassion.ourcountry.Adapter.SearchProductAdapter
+import com.honestyandpassion.ourcountry.Adapter.ProductAllViewAdapter
+import com.honestyandpassion.ourcountry.Adapter.ProductPreviewAdapter
 import com.honestyandpassion.ourcountry.Class.ToolbarSetting
 import com.honestyandpassion.ourcountry.Class.UserInfo
-import com.honestyandpassion.ourcountry.Fragment.HomeFragment
+import com.honestyandpassion.ourcountry.Item.PreviewItem
 import com.honestyandpassion.ourcountry.Item.Product
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.R
@@ -18,6 +18,9 @@ import org.json.JSONObject
 class ProductAllViewActivity : ToolbarSetting() {
 
     var wishList = ArrayList<Product>()
+    var recentProductArrayList = ArrayList<PreviewItem>()
+    var popularProductArrayList = ArrayList<PreviewItem>()
+    var wishlistProductArrayList = ArrayList<PreviewItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,51 +31,63 @@ class ProductAllViewActivity : ToolbarSetting() {
 
         var toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar_recent_register)
 
-
-        /*if(clickedText == "최근등록된상품") {
-            toolbarBinding(toolbar, "최근 등록된 상품")
-            activityBinding(HomeFragment.recentProductArrayList)
+        when(clickedText) {
+            "최근등록된상품" -> {
+                toolbarBinding(toolbar, "최근 등록된 상품")
+                VolleyService.recentRegisterReq(this, { success->                //최근등록된상품
+                    recentProductArrayList.clear()
+                    var array = success
+                    for(i in 0..array!!.length()-1) {
+                        var json = array[i] as JSONObject
+                        var recentProduct = PreviewItem(json.getInt("register_id"),
+                            json.getString("register_title"),
+                            json.getString("product_price"),
+                            json.getString("product_status"),
+                            ArrayList<Bitmap>())
+                        recentProductArrayList.add(recentProduct)
+                    }
+                    activityBinding(recentProductArrayList)
+                })
+            }
+            "인기상품" -> {
+                toolbarBinding(toolbar, "인기상품")
+                VolleyService.popularRegisterReq(this, { success->                //인기상품
+                    popularProductArrayList.clear()
+                    var array = success
+                    for(i in 0..array!!.length()-1) {
+                        var json = array[i] as JSONObject
+                        var popularProduct = PreviewItem(json.getInt("register_id"),
+                            json.getString("register_title"),
+                            json.getString("product_price"),
+                            json.getString("product_status"),
+                            ArrayList<Bitmap>())
+                        popularProductArrayList.add(popularProduct)
+                    }
+                    activityBinding(popularProductArrayList)
+                })
+            }
+            "내가찜한상품" -> {
+                toolbarBinding(toolbar, "내가 찜한 상품")
+                VolleyService.getWishlistProductReq(UserInfo.ID, this, { success->
+                    wishlistProductArrayList.clear()
+                    var array = success
+                    for(i in 0..array!!.length()-1) {
+                        var json = array[i] as JSONObject
+                        var wishlistProduct = PreviewItem(json.getInt("register_id"),
+                            json.getString("register_title"),
+                            json.getString("product_price"),
+                            json.getString("product_status"),
+                            ArrayList<Bitmap>())
+                        wishlistProductArrayList.add(wishlistProduct)
+                    }
+                    activityBinding(wishlistProductArrayList)
+                })
+            }
         }
-        else if(clickedText == "인기상품") {
-            toolbarBinding(toolbar, "인기상품")
-            activityBinding(HomeFragment.popularProductArrayList)
-        }
-        else if(clickedText == "내가찜한상품") {
-            toolbarBinding(toolbar, "내가찜한상품")
-            VolleyService.getWishlistProductReq(UserInfo.ID, this, {success->
-                wishList.clear()
-                var array=success
-                for(i in 0..array!!.length()-1){
-                    var json=array[i] as JSONObject
-                    var product=Product(json.getInt("register_id"),
-                        json.getString("user_id"),
-                        json.getString("register_title"),
-                        json.getString("product_category"),
-                        json.getString("product_subcategory"),
-                        json.getString("product_type"),
-                        json.getString("product_status"),
-                        json.getString("product_brand"),
-                        json.getString("product_price"),
-                        json.getInt("seller_store"),
-                        json.getString("register_content"),
-                        json.getString("trade_option"),
-                        json.getString("seller_address"),
-                        json.getString("register_date"),
-                        json.getInt("register_like"),
-                        json.getInt("register_view"),
-                        json.getString("user_nickname"),
-                        ArrayList<Bitmap>())
-                    wishList.add(product)
-                }
-                activityBinding(wishList)
-            })
-        }*/
-
-
 
     }
 
-    fun activityBinding(productList: ArrayList<Product>) {
+    fun activityBinding(productList: ArrayList<PreviewItem>) {
         if(productList.size == 0) {
             image_emptyrecent.visibility = View.VISIBLE
             text_emptyrecent1.visibility = View.VISIBLE
@@ -81,7 +96,7 @@ class ProductAllViewActivity : ToolbarSetting() {
         else {
             rv_recent_register.setHasFixedSize(true)
             rv_recent_register.layoutManager = GridLayoutManager(this, 2)
-            rv_recent_register.adapter = SearchProductAdapter(this, productList)
+            rv_recent_register.adapter = ProductAllViewAdapter(this, productList)
         }
     }
 }

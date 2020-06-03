@@ -1,15 +1,48 @@
 var express = require('express');
 var router = express.Router();
-var db_test=require('../public/SQL/test')()
+var db_follow=require('../public/SQL/follow_sql')()
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  console.log("adfasdfsadfasdf")
-  db_test.get_chat(function(err,result){
+router.post('/check', function(req, res, next) {
+  db_follow.check_follow(follower, following, function(err,result){
     if(err) console.log(err)
     else res.send(result)
   })
-});
+})
+
+router.post('/insert', function(req, res, next) {
+    db_follow.insert_follow(follower, following, function(err, result) {
+        if(err) console.log(err)
+        else {
+            var object = new Object()
+            object.result = "success"
+            res.send(object)
+            console.log("팔로우데이터 삽입완료")
+        }
+    })
+})
+
+router.post('/delete', function(req, res, next) {
+    db_follow.delete_follow(follower, following, function(err, result) {
+        if(err) console.log(err)
+        else {
+            var object = new Object()
+            object.result = "success"
+            res.send(object)
+            console.log("팔로우데이터 삭제완료")
+        }
+    })
+})
+
+router.post('/get/product', function(req, res, next) {
+    var follower = req.body[0].follower
+    var following = req.body[0].following
+
+    db_follow.get_product(follower, following, function(err, result) {
+        if(err) console.log(err)
+        else res.send(result)
+    })
+})
 
 module.exports = router;

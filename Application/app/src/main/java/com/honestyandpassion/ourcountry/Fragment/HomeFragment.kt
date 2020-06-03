@@ -92,68 +92,6 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
-        /*VolleyService.recentRegisterReq(activity!!,{ success ->
-            recentProductArrayList.clear()
-            var array=success
-            for(i in 0..array!!.length()-1){
-                var json=array[i] as JSONObject
-                var product=Product(json.getInt("register_id"),
-                    json.getString("user_id"),
-                    json.getString("register_title"),
-                    json.getString("product_category"),
-                    json.getString("product_subcategory"),
-                    json.getString("product_type"),
-                    json.getString("product_status"),
-                    json.getString("product_brand"),
-                    json.getString("product_price"),
-                    json.getInt("seller_store"),
-                    json.getString("register_content"),
-                    json.getString("trade_option"),
-                    json.getString("seller_address"),
-                    json.getString("register_date"),
-                    json.getInt("register_like"),
-                    json.getInt("register_view"),
-                    json.getString("user_nickname"),
-                    ArrayList<Bitmap>())
-
-                recentProductArrayList.add(product)
-            }
-            recentProductRV.setHasFixedSize(true)
-            recentProductRV.layoutManager=LinearLayoutManager(activity!!,RecyclerView.HORIZONTAL,false)
-            recentProductRV.adapter= ProductAdapter(activity!!,recentProductArrayList)
-        })*/
-
-        /*VolleyService.popularRegisterReq(activity!!,{ success ->
-            popularProductArrayList.clear()
-            var array=success
-            for(i in 0..array!!.length()-1){
-                var json=array[i] as JSONObject
-                var product=Product(json.getInt("register_id"),
-                    json.getString("user_id"),
-                    json.getString("register_title"),
-                    json.getString("product_category"),
-                    json.getString("product_subcategory"),
-                    json.getString("product_type"),
-                    json.getString("product_status"),
-                    json.getString("product_brand"),
-                    json.getString("product_price"),
-                    json.getInt("seller_store"),
-                    json.getString("register_content"),
-                    json.getString("trade_option"),
-                    json.getString("seller_address"),
-                    json.getString("register_date"),
-                    json.getInt("register_like"),
-                    json.getInt("register_view"),
-                    json.getString("user_nickname"),
-                    ArrayList<Bitmap>())
-                popularProductArrayList.add(product)
-            }
-            popularProductRV.setHasFixedSize(true)
-            popularProductRV.layoutManager=LinearLayoutManager(activity!!,RecyclerView.HORIZONTAL,false)
-            popularProductRV.adapter= ProductAdapter(activity!!,popularProductArrayList)
-        })
-*/
-
         VolleyService.recentRegisterReq(activity!!, { success->                //최근등록된상품
             recentProductArrayList.clear()
             var array = success
