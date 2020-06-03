@@ -41,6 +41,18 @@ module.exports=function(){
                 }
             })
         },
+        check_chat_room: function(maker,partner,registerTitle,callback){
+            pool.getConnection(function(err,con){
+                if(err) console.log(err)
+                else{
+                    var sql=`select * from ChatRoom where maker='${maker}' and partner='${partner}' and room_title='${registerTitle}'`
+                    con.query(sql,function(err,result,field){
+                        if(err) callback(err)
+                        else callback(null,result)
+                    })
+                }   
+            })
+        },
         pool:pool
     }
 }

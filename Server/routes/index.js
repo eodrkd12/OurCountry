@@ -9,11 +9,15 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/main', function(req,res,next){
-	res.render("main",{})
+	res.render("sidebar_menu",{})
 });
 
 router.get('/sidebar', function(req,res,next){
 	res.render("sidebar_menu",{})
+})
+
+router.get('/member',function(req,res,next){
+	res.render("member/member",{})
 })
 
 module.exports = router;

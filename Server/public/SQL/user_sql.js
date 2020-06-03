@@ -2,11 +2,31 @@ var pool = require('../../config/db_config');
 
 module.exports = function () {
   return {
+    get_user: function(callback){
+      pool.getConnection(function(err,con){
+        var sql=`select * from user`
+        con.query(sql,function(err,result,fields){
+          con.release()
+          if (err) callback(err)
+          else callback(null,result)
+        })
+      })
+    },
+    search_user:function(search,callback){
+      pool.getConnection(function(err,con){
+        var sql=`select * from user where user_id like '%${search}%'`
+        con.query(sql,function(err,result,fields){
+          con.release()
+          if(err) callback(err)
+          else callback(null,result)
+        })
+      })
+    },
     check_email: function (email, callback) {
       pool.getConnection(function (err, con) {
-        con.release()
         var sql = `select * from user where user_id='${email}'`
-        con.query(sql, function (err, result) {
+        con.query(sql, function (err, result,fields) {
+          con.release()
           if (err) console.log(err);
           else callback(null, result);
         })

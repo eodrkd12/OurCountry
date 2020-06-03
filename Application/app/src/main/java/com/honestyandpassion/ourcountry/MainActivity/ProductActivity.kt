@@ -28,6 +28,7 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.View
+import com.honestyandpassion.ourcountry.Class.DialogMsg
 import com.honestyandpassion.ourcountry.Item.ChatRoomItem
 
 
@@ -36,6 +37,8 @@ class ProductActivity : AppCompatActivity() {
     companion object{
         var imageList=ArrayList<Bitmap>()
     }
+
+    var dialogMsg: DialogMsg? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,6 +91,7 @@ class ProductActivity : AppCompatActivity() {
         if(product.userId == UserInfo.ID) {
             btn_following.visibility = View.INVISIBLE
             btn_chat.visibility = View.INVISIBLE
+            layout_favorite.visibility=View.INVISIBLE
             btn_purchase.setText("수정")
             btn_purchase.setOnClickListener{
                 var intent = Intent(this, RegisterActivity::class.java)
@@ -101,10 +105,20 @@ class ProductActivity : AppCompatActivity() {
             btn_chat.visibility = View.VISIBLE
             btn_purchase.setText("구매")
             btn_purchase.setOnClickListener {
-                var intent = Intent(this, PaymentActivity::class.java)
-                intent.putExtra("registerTitle", product!!.registerTitle)
-                intent.putExtra("registerPrice", product!!.productPrice)
-                startActivity(intent)
+                VolleyService.checkChatRoomReq(UserInfo.ID,product!!.userId,product!!.registerTitle,this,{success ->
+                    when(success){
+                        0 -> {
+                            dialogMsg!!.showDialog("확인", "취소", "결제할 수 없습니다.", "판매자와 대화를 먼저하십시오.")
+                            dialogMsg!!.show()
+                        }
+                        1 -> {
+                            var intent = Intent(this, PaymentActivity::class.java)
+                            intent.putExtra("registerTitle", product!!.registerTitle)
+                            intent.putExtra("registerPrice", product!!.productPrice)
+                            startActivity(intent)
+                        }
+                    }
+                })
             }
         }
 

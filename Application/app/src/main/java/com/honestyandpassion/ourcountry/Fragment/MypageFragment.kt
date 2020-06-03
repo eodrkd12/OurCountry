@@ -19,6 +19,8 @@ import com.honestyandpassion.ourcountry.MainActivity.EditProfileActivity
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.MainActivity.ProductAllViewActivity
 import com.honestyandpassion.ourcountry.R
+import kotlinx.android.synthetic.main.activity_product.*
+import kotlinx.android.synthetic.main.fragment_mypage.*
 import org.json.JSONObject
 
 
@@ -74,7 +76,19 @@ class MypageFragment : Fragment() {
         nameText.text=UserInfo.NICKNAME
         joinText.text=UserInfo.JOINDATE.substring(0,10)
 
+        var textVerified=rootView.findViewById<TextView>(R.id.text_verified)
 
+        when(UserInfo.LOGIN_TYPE){
+            "kakao" -> {
+                textVerified.setText("카카오 인증 계정")
+            }
+            "email" -> {
+                textVerified.setText("이메일 인증 계정")
+            }
+            "phone" -> {
+                textVerified.setText("휴대폰 인증 계정")
+            }
+        }
 
         btnEdit.setOnClickListener {
             var intent = Intent(activity, EditProfileActivity::class.java)

@@ -2,6 +2,7 @@ package com.honestyandpassion.ourcountry.Object
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.net.sip.SipSession
 import android.util.Log
 import com.android.volley.Request
 import com.android.volley.Response
@@ -859,6 +860,31 @@ object VolleyService {
 
             }){
         }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun checkChatRoomReq(maker: String, partner: String?, registerTitle: String?, context: Context, success: (Int)->Unit) {
+        var url="${ip}/chat_room/check"
+
+        var json=JSONObject()
+
+        json.put("maker",maker)
+            .put("partner",partner)
+            .put("register_title",registerTitle)
+
+        var request=object : JsonObjectRequest(
+            Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(1)
+            },
+            Response.ErrorListener {
+                success(0)
+            }){
+
+        }
+
         Volley.newRequestQueue(context).add(request)
     }
 }

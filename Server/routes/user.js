@@ -20,6 +20,16 @@ router.get('/', function(req, res, next) {
   })
 });
 
+router.get('/search',function(req,res,next){
+
+  var search=req.body.search
+
+  db_user.search_user(search,function(err,result){
+    if(err) console.log(err)
+    else res.send(result)
+  })
+})
+
 router.post('/join',function(req,res,next){
   var id=req.body.id
   var password=req.body.password

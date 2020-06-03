@@ -229,7 +229,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.146"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/deactivateTextView" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_verified" />
 
                     <View
                         android:id="@+id/view6"
@@ -385,61 +385,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_join" />
 
-                    <TextView
-                        android:id="@+id/deactivateTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:text="계정삭제"
-
-                        android:textColor="@color/colorMain"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_verified" />
-
-                    <ImageView
-                        android:id="@+id/facebookImage"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginStart="8dp"
-                        android:tint="@color/colorMdGrey_700"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_verified"
-                        app:layout_constraintStart_toEndOf="@+id/text_verified"
-                        app:layout_constraintTop_toTopOf="@+id/text_verified"
-                        app:srcCompat="@drawable/baseline_facebook_grey_24" />
-
-                    <ImageView
-                        android:id="@+id/emailImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:tint="@color/colorMdGrey_700"
-                        app:layout_constraintBottom_toBottomOf="@+id/facebookImage"
-                        app:layout_constraintStart_toEndOf="@+id/facebookImage"
-                        app:layout_constraintTop_toTopOf="@+id/facebookImage"
-                        app:srcCompat="@drawable/baseline_mail" />
-
-                    <ImageView
-                        android:id="@+id/phoneImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:tint="@color/colorMdGrey_700"
-                        app:layout_constraintBottom_toBottomOf="@+id/emailImage"
-                        app:layout_constraintStart_toEndOf="@+id/emailImage"
-                        app:layout_constraintTop_toTopOf="@+id/emailImage"
-                        app:srcCompat="@drawable/baseline_phone_grey_24" />
-
-                    <ImageView
-                        android:id="@+id/googleImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:tint="@color/colorMdGrey_700"
-                        app:layout_constraintBottom_toBottomOf="@+id/phoneImage"
-                        app:layout_constraintStart_toEndOf="@+id/phoneImage"
-                        app:layout_constraintTop_toTopOf="@+id/phoneImage"
-                        app:srcCompat="@drawable/googleg_standard_color_18" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

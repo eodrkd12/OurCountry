@@ -57,6 +57,18 @@ router.post('/my_room', function (req, res, next) {
 	})
 })
 
+router.post('/check', function(req,res,next){
+	var maker=req.body.maker
+	var partner=req.body.partner
+	var registerTitle=req.body.register_title
+
+	db_chat_room.check_chat_room(maker,partner,registerTitle,function(err,result){
+		if(err) console.log(err)
+		else res.send(result)
+	})
+	
+})
+
 router.post('/fcm/send', function (req, res, next) {
 
 	var topic = req.body.topic
