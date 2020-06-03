@@ -58,18 +58,21 @@
             <span></span>
         </div>
         <ul>
+            <h1 style="color: azure;">Market Country</h1>
+
             <li id="menu" name="main"onclick="clickmenu()">회원관리</li>
             <div id="menuclicked" style="display: none;">
-                <li  style="background-color:#045FB4" onclick="change_iframe(/member/member001)">회원전환신청관리</li>
-                <li  style="background-color:#045FB4"onclick="change_iframe(/member/member002)">포인트환급관리</li>
+                <li  style="background-color:#045FB4" onclick="change_iframe('/member')">회원목록</li>
+                <li  style="background-color:#045FB4" onclick="change_iframe('/member/member001')">회원전환신청관리</li>
+                <li  style="background-color:#045FB4"onclick="change_iframe('/member/member002')">포인트환급관리</li>
             </div>
 
-            <li id="menu" onclick="change_iframe()">주문내역</li>
+            <li id="menu" onclick="change_iframe('/payment')">주문내역</li>
 
         </ul>
     </div>
 
-    <iframe id="main_frame" name="ifrm_content" src="/main" scrolling="yes"
+    <iframe id="main_frame" name="main_frame" src="/member" scrolling="yes"
         style="display:block;  border:none; width:100%; height: 100vh;padding-left: 15%;"></iframe>
 </div>
 <script>
@@ -78,6 +81,7 @@ function togglesidebar(){
 }
 function clickmenu(){
   var clicked= document.getElementById("menuclicked")
+  var iframe=document.getElementById("main_frame");
   var menu= document.getElementById("menu")
   if(clicked.style.display=='none'){
   clicked.style.display='block'
