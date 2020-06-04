@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.ads.AdView
 import com.google.android.gms.location.LocationServices
 import com.honestyandpassion.ourcountry.Adapter.CategoryAdapter
 import com.honestyandpassion.ourcountry.Adapter.ProductPreviewAdapter
@@ -62,6 +63,9 @@ class HomeFragment : Fragment() {
         var recentTextView: TextView = rootView.findViewById(R.id.text_recentallview)
         var popularTextView : TextView = rootView.findViewById(R.id.text_popularallview)
         var categoryTextView : TextView = rootView.findViewById(R.id.text_categoryallview)
+        var adView : AdView = rootView.findViewById(R.id.adView2)
+
+        adView.visibility=View.GONE
 
         initLocation()
 

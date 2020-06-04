@@ -42,6 +42,26 @@ module.exports = function () {
             })
         })
     },
+    get_count_follower: function(following, callback) {
+        pool.getConnection(function(err, con) {
+            var sql = `select count(*) as count from follow where following='${following}'`
+            con.query(sql, function(err, result) {
+                con.release()
+                if(err) console.log(err)
+                else callback(null, result)
+            })
+        })
+    },
+    get_count_following: function(follower, callback) {
+        pool.getConnection(function(err, con) {
+            var sql = `select count(*) as count from follow where follower='${follower}'`
+            con.query(sql, function(err, result) {
+                con.release()
+                if(err) console.log(err)
+                else callback(null, result)
+            })
+        })
+    },
     pool: pool
   }
 }
