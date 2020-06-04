@@ -1,105 +1,94 @@
+
 <!DOCTYPE html>
 <style>
-	* {
-		margin: 0px;
-		padding: 0px;
-		font-family: sans-serif;
-	}
+    *{
+        margin:0px;
+        padding:0px;
+        font-family:sans-serif;
+    }
+    #sidebar{
+        position:fixed;
+        width:200px;
+        height:100%;
+        background:#151719;
+        left:-200px;
+        transition:all 500ms linear;
+       grid-row-start: 1;
+       grid-row-end: 4;
 
-	#sidebar {
-		position: fixed;
-		width: 200px;
-		height: 100%;
-		background: #151719;
-		left: -200px;
-		transition: all 500ms linear;
-		grid-row-start: 1;
-		grid-row-end: 4;
+    }
+    #sidebar.active{
+        left:0px;
+    }
+    #sidebar ul li{
+        color:rgba(230,230,230,0.9);
+        list-style:none;
+        padding:15px 10px;
+        border-bottom: 1px solid rgba(100,100,100,0.3);
+    }
+    #sidebar ul li:hover{
+        color:#A9D0F5;
+    }
+    #sidebar ul li li {
+        color:rgba(230,230,230,0.9);
+        list-style:none;
+        padding:15px 10px;
+        border-bottom: 1px solid rgba(100,100,100,0.3);
+    }
+   
 
-	}
-
-	#sidebar.active {
-		left: 0px;
-	}
-
-	#sidebar ul li {
-		color: rgba(230, 230, 230, 0.9);
-		list-style: none;
-		padding: 15px 10px;
-		border-bottom: 1px solid rgba(100, 100, 100, 0.3);
-	}
-
-	#sidebar ul li:hover {
-		color: #A9D0F5;
-	}
-
-	#sidebar ul li li {
-		color: rgba(230, 230, 230, 0.9);
-		list-style: none;
-		padding: 15px 10px;
-		border-bottom: 1px solid rgba(100, 100, 100, 0.3);
-	}
-
-
-	#sidebar .toggle-btn {
-		position: absolute;
-		left: 230px;
-		top: 20px;
-	}
-
-	#sidebar .toggle-btn span {
-		display: block;
-		width: 30px;
-		height: 5px;
-		background: #151719;
-		margin: 5px 0px;
-	}
+    #sidebar .toggle-btn{
+        position: absolute;
+        left:230px;
+        top:20px;
+    }
+    #sidebar .toggle-btn span{
+        display: block;
+        width:30px;
+        height:5px;
+        background:#151719;
+        margin:5px 0px;
+    }
 </style>
 <div class="wrapper">
-	<div id="sidebar" class="active">
-		<div class="toggle-btn">
-			<span></span>
-			<span></span>
-			<span></span>
-		</div>
-		<ul>
-			<h1 style="color: azure;">Market Country</h1>
+    <div id="sidebar" class="active">
+        <ul>
+            <h1 style="color: azure;">Market Country</h1>
 
-			<li id="menu" name="main" onclick="clickmenu()">회원관리</li>
-			<div id="menuclicked" style="display: none;">
-				<li style="background-color:#045FB4" onclick="change_iframe('/member')">회원목록</li>
-				<li style="background-color:#045FB4" onclick="change_iframe('/member/member001')">회원전환신청관리</li>
-				<li style="background-color:#045FB4" onclick="change_iframe('/member/member002')">포인트환급관리</li>
-			</div>
+            <li id="menu" name="main"onclick="clickmenu()">회원관리</li>
+            <div id="menuclicked" style="display: none;">
+                <li  style="background-color:#045FB4" onclick="change_iframe('/member')">회원목록</li>
+                <li  style="background-color:#045FB4" onclick="change_iframe('/member/member001')">회원전환신청관리</li>
+                <li  style="background-color:#045FB4"onclick="change_iframe('/member/member002')">포인트환급관리</li>
+            </div>
 
-			<li id="menu" onclick="change_iframe('/payment')">주문내역</li>
+            <li id="menu" onclick="change_iframe('/payment')">주문내역</li>
 
-		</ul>
-	</div>
+        </ul>
+    </div>
 
-	<iframe id="main_frame" name="main_frame" src="/member" scrolling="yes"
-		style="display:block;  border:none; width:100%; height: 100vh;padding-left: 15%;"></iframe>
+    <iframe id="main_frame" name="main_frame" src="/member" scrolling="yes"
+        style="display:block;  border:none; width:100%; height: 100vh;padding-left: 15%;"></iframe>
 </div>
 <script>
-	function togglesidebar() {
-		document.getElementById("sidebar").classList.toggle('active');
-	}
-	function clickmenu() {
-		var clicked = document.getElementById("menuclicked")
-		var iframe = document.getElementById("main_frame");
-		var menu = document.getElementById("menu")
-		if (clicked.style.display == 'none') {
-			clicked.style.display = 'block'
+function togglesidebar(){
+    document.getElementById("sidebar").classList.toggle('active');
+}
+function clickmenu(){
+  var clicked= document.getElementById("menuclicked")
+  var iframe=document.getElementById("main_frame");
+  var menu= document.getElementById("menu")
+  if(clicked.style.display=='none'){
+  clicked.style.display='block'
 
-		}
-		else {
-			clicked.style.display = 'none'
-		}
-	}
-	function change_iframe(url) {
-		var iframe = document.getElementById("main_frame");
-		iframe.src = url;
-	}
+  }
+  else {
+      clicked.style.display='none'
+}
+}
+function change_iframe(url){
+    var iframe=document.getElementById("main_frame");
+    iframe.src=url;
+}
 </script>
-
 </html>

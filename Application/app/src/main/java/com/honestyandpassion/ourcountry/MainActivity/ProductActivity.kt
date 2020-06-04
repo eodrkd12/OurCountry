@@ -55,6 +55,7 @@ class ProductActivity : AppCompatActivity() {
 
         VolleyService.getRegisterReq(registerId, this, {success->
             var json = success
+            var registerId=json!!.getInt("register_id")
             var userId = json!!.getString("user_id")
             var registerTitle = json!!.getString("register_title")
             var productCategory = json!!.getString("product_category")
@@ -71,7 +72,9 @@ class ProductActivity : AppCompatActivity() {
             var registerLike = json!!.getInt("register_like")
             var registerView = json!!.getInt("register_view")
             var userNickname = json!!.getString("user_nickname")
-
+            var product=Product(registerId,userId,registerTitle,productCategory, productSubCategory, productType, productStatus,
+                productBrand, productPrice, sellerStore, registerContent, tradeOption, sellerAddress,
+                registerDate, registerLike, registerView, userNickname, ArrayList<Bitmap>())
             VolleyService.checkFollowReq(UserInfo.ID, userId, this, { success ->
                 if (success!!.getInt("count") == 1) {
                     btn_following.setText("팔로잉")
@@ -109,7 +112,7 @@ class ProductActivity : AppCompatActivity() {
                 }
             })
 
-        if(product.userId == UserInfo.ID) {
+        if(userId == UserInfo.ID) {
             btn_following.visibility = View.INVISIBLE
             btn_chat.visibility = View.INVISIBLE
             layout_favorite.visibility=View.INVISIBLE
@@ -134,8 +137,8 @@ class ProductActivity : AppCompatActivity() {
                         }
                         1 -> {
                             var intent = Intent(this, PaymentActivity::class.java)
-                            intent.putExtra("registerTitle", product!!.registerTitle)
-                            intent.putExtra("registerPrice", product!!.productPrice)
+                            intent.putExtra("registerTitle", registerTitle)
+                            intent.putExtra("registerPrice", productPrice)
                             startActivity(intent)
                         }
                     }

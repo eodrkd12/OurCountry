@@ -4,7 +4,7 @@ module.exports = function () {
   return {
     get_user: function(callback){
       pool.getConnection(function(err,con){
-        var sql=`select * from user`
+        var sql=`select * from user where user_type<>'관리자'`
         con.query(sql,function(err,result,fields){
           con.release()
           if (err) callback(err)
@@ -14,7 +14,7 @@ module.exports = function () {
     },
     search_user:function(search,callback){
       pool.getConnection(function(err,con){
-        var sql=`select * from user where user_id like '%${search}%'`
+        var sql=`select * from user where user_id like '%${search}%' and user_type<>'관리자'`
         con.query(sql,function(err,result,fields){
           con.release()
           if(err) callback(err)
@@ -100,6 +100,17 @@ module.exports = function () {
               })
       })
     },
+    get_my_product:function(userId,callback){
+      pool.getConnection(function(err,con){
+              var sql=`select register_id, register_title, product_price, product_status from Register where user_id='${userId}'`
+              con.query(sql,function(err,result,fields){
+                      con.release()
+                      if(err) console.log(err)
+                      else callback(null,result)
+              })
+      })
+    },
+
     pool: pool
   }
 }

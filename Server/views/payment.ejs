@@ -40,14 +40,14 @@
     function htmlTable(data) {
         var htmlStr = "<table class=\"table table-hover\">"
         htmlStr += "<tr style=\"text-overflow:ellipsis; white-space:nowrap; overflow:hidden;\">"
-        htmlStr += "<th>#</td><th style='display:none';>키</th><th>상품번호</th><th>상품명</th><th>아이디</th><th>금액</th><th>거래날짜</th><th>판매상태</th><th>주소</th><th>결제수단</th>"
+        htmlStr += "<th>#</td><th style='display:none';>키</th><th>상품번호</th><th>상품명</th><th>아이디</th><th>금액</th><th>거래날짜</th><th>판매상태</th><th>결제수단</th>"
         htmlStr += "</tr>"
         var i = 1
         data.forEach(element => {
             htmlStr += "<tr style=\"text-overflow:ellipsis; white-space:nowrap; overflow:hidden\">"
-            htmlStr += "<td>" + i++ + "</td>" + "<td>" + element["payment_id"] + "</td>" + "<td>" + element["register_id"] + "</td>" + "<td>" + element["register_title"] + "</td>"
-            htmlStr += "<td>" + element["user_id"] + "</td>" + "<td>" + element["payment_amount"] + "</td>" + "<td>" + element["paymnet_date"] + "</td>"
-            htmlStr += "<td>" + element["paymnet_status"] + "</td>" + "<td>" + element["payment_type"] + "</td>"
+            htmlStr += "<td>" + i++ + "</td>" + "<td>" + element["payment_id"] + "</td>" + "<td>" + element["register_title"] + "</td>" + "<td>" + element["user_id"] + "</td>"
+            htmlStr += "<td>" + element["payment_amount"] + "</td>" + "<td>" + element["payment_date"] + "</td>" + "<td>" + element["payment_status"] + "</td>"
+            htmlStr += "<td>" + element["payment_type"] + "</td>"
             htmlStr += "</tr>"
         });
         htmlStr += "</table>"
@@ -58,7 +58,7 @@
     $(document).ready(() => {
 
         $.ajax({
-            url: "/payment",
+            url: "/payment/payment",
             dataType: "json",
             type: "GET",
             success: function (data) {
@@ -67,7 +67,7 @@
             error: function (err) {
                 var htmlStr = "<table class=\"table table-hover\">"
                 htmlStr += "<tr style=\"text-overflow:ellipsis; white-space:nowrap; overflow:hidden;\">"
-                htmlStr += "<th>#</td><th>상품번호</th><th>상품명</th><th>아이디</th><th>금액</th><th>거래날짜</th><th>판매상태</th><th>주소</th><th>결제수단</th>"
+                htmlStr += "<th>#</td><th>상품번호</th><th>상품명</th><th>아이디</th><th>금액</th><th>거래날짜</th><th>판매상태</th><th>결제수단</th>"
                 htmlStr += "</tr>"
                 htmlStr += "</table>"
 
