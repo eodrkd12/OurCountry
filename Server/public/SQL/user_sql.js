@@ -80,6 +80,16 @@ module.exports = function () {
               })
       })
     },
+    get_my_product:function(userId,callback){
+      pool.getConnection(function(err,con){
+              var sql=`select register_id, register_title, productPrice, productStatus from Register where user_id='${userId}'`
+              con.query(sql,function(err,result,fields){
+                      con.release()
+                      if(err) console.log(err)
+                      else callback(null,result)
+              })
+      })
+    },
     pool: pool
   }
 }

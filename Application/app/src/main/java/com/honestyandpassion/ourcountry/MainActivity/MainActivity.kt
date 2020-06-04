@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(){
     private  val PermissinCode =100
 
     private val requiredPermission = arrayOf(
-                android.Manifest.permission.ACCESS_FINE_LOCATION
+        android.Manifest.permission.ACCESS_FINE_LOCATION
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity(){
         if (savedInstanceState == null) {
             homeFragment = HomeFragment()
             supportFragmentManager.beginTransaction().add(R.id.frame_main, homeFragment!!).commit()
+            checkUserType(UserInfo.TYPE)
         }
 
         btn_register.setOnClickListener {
@@ -142,6 +143,7 @@ class MainActivity : AppCompatActivity(){
 
                 bottomNavigationView!!.menu.findItem(R.id.bnv_main_home).setChecked(true)
 
+                checkUserType(UserInfo.TYPE)
                 bnv_main.visibility = View.VISIBLE
                 drawerLayout.closeDrawers()
             }
@@ -165,10 +167,9 @@ class MainActivity : AppCompatActivity(){
                 bnv_main.visibility = View.VISIBLE
                 layout_swipe.setEnabled(false)
 
-
+                btn_register.visibility = View.INVISIBLE
                 bottomNavigationView!!.menu.findItem(R.id.bnv_main_category).setChecked(true)
                 drawerLayout.closeDrawers()
-
             }
             R.id.nav_latest -> {
                 var intent = Intent(this, ProductAllViewActivity::class.java)
@@ -201,6 +202,7 @@ class MainActivity : AppCompatActivity(){
                 image_notification.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 bottomNavigationView!!.menu.findItem(R.id.bnv_main_mypage).setChecked(true)
                 bnv_main.visibility = View.INVISIBLE
+                btn_register.visibility = View.INVISIBLE
                 drawerLayout.closeDrawers()
             }
             R.id.nav_language -> {
@@ -240,6 +242,8 @@ class MainActivity : AppCompatActivity(){
                 bnv_main.visibility = View.INVISIBLE
                 layout_swipe.setEnabled(true)
 
+                btn_register.visibility = View.INVISIBLE
+
                 drawerLayout.closeDrawers()
             }
             R.id.nav_logout -> {
@@ -258,19 +262,6 @@ class MainActivity : AppCompatActivity(){
 
         }
         false
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("test",UserInfo.TYPE)
-        if (UserInfo.TYPE == "판매자" || UserInfo.TYPE=="전문판매자") btn_register.visibility = View.VISIBLE
-        else btn_register.visibility = View.GONE
-
-        //홈프래그먼트 새로고침
-        /*var handler=HomeFragment.HANDLER
-        var msg=handler!!.obtainMessage()
-        msg.what=0
-        handler.sendMessage(msg)*/
     }
 
     override fun onBackPressed() {
@@ -299,6 +290,7 @@ class MainActivity : AppCompatActivity(){
                 test!!.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
                 image_notification.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
 
+                checkUserType(UserInfo.TYPE)
                 layout_swipe.setEnabled(true)
                 return@OnNavigationItemSelectedListener true
             }
@@ -320,6 +312,7 @@ class MainActivity : AppCompatActivity(){
                 supportActionBar?.setTitle("카테고리")
                 toolbar_main.setTitleTextColor(Color.WHITE)
 
+                btn_register.visibility = View.INVISIBLE
                 layout_swipe.setEnabled(false)
                 return@OnNavigationItemSelectedListener true
             }
@@ -335,6 +328,7 @@ class MainActivity : AppCompatActivity(){
                 if(historyFragment != null) supportFragmentManager.beginTransaction().hide(historyFragment!!).commit()
 
 
+                btn_register.visibility = View.INVISIBLE
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 image_notification.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
@@ -352,6 +346,7 @@ class MainActivity : AppCompatActivity(){
                 if(messageFragment != null) supportFragmentManager.beginTransaction().show(messageFragment!!).commit()
                 if(historyFragment != null) supportFragmentManager.beginTransaction().hide(historyFragment!!).commit()
 
+                btn_register.visibility = View.INVISIBLE
                 layout_swipe.setEnabled(true)
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
@@ -386,5 +381,15 @@ class MainActivity : AppCompatActivity(){
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun checkUserType(userType: String) {
+        if(userType == "판매자" || userType == "전문판매자")
+        {
+            btn_register.visibility = View.VISIBLE
+        }
+        else {
+            btn_register.visibility = View.INVISIBLE
+        }
     }
 }

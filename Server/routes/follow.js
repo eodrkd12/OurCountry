@@ -45,4 +45,22 @@ router.post('/get/product', function(req, res, next) {
     })
 })
 
+router.post('/get/count/follower', function(req, res, next) {
+    var following=req.body.following
+
+    db_follow.get_count_follower(following, function(err, result) {
+        if(err) console.log(err)
+        else res.send(result[0])
+    })
+})
+
+router.post('/get/count/following', function(req, res, next) {
+    var follower=req.body.follower
+
+    db_follow.get_count_following(follower, function(err, result) {
+        if(err) console(err)
+        else res.send(result[0])
+    })
+})
+
 module.exports = router;
