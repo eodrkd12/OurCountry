@@ -18,13 +18,14 @@
 </head>
 
 <body>
+    <div id="TopOfTableDiv" class="center-block">
+        <input id="textSearch" class="text text-defalut text-sm-left" type="text" placeholder="아이디">
+        <button id="btnSearch" class="btn btn-primary btn-sm" type="button">검색</button>
+    </div>
     <div id="tableDiv" class="table-responsive">
 
     </div>
-    <div id="bottomOfTableDiv" class="center-block">
-        <input id="textSearch" class="text text-defalut text-sm-left" type="text">
-        <button id="btnSearch" class="btn btn-primary btn-sm" type="button">검색</button>
-    </div>
+ 
 </body>
 <!-- JQuery -->
 <script type="text/javascript" src="/js/jquery.min.js"></script>
@@ -68,12 +69,11 @@
         })
 
         $('#btnSearch').click(function () {
-            var search = $("textSearch").val()
-
+            var search = $("#textSearch").val()
             $.ajax({
                 url: "/user/search",
                 dataType: "json",
-                type: "GET",
+                type: "POST",
                 data:{
                     search:search
                 },

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>유저리스트</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/css/mdb.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="tableDiv" class="table-responsive">
+
+    </div>
+    <div id="bottomOfTableDiv" class="center-block">
+        <input id="textSearch" class="text text-defalut text-sm-left" type="text">
+        <button id="btnSearch" class="btn btn-primary btn-sm" type="button">검색</button>
+    </div>
+</body>
+<!-- JQuery -->
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="/js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="/js/mdb.min.js"></script>
+
+
+<script>
+    function htmlTable(data) {
+        var htmlStr = "<table class=\"table table-hover\">"
+        htmlStr += "<tr style=\"text-overflow:ellipsis; white-space:nowrap; overflow:hidden;\">"
+        htmlStr += "<th>#</td><th>아이디</th><th>환급날짜</th><th>포인트</th><th>계좌번호</th>"
+        htmlStr += "</tr>"
+        var i = 1
+        data.forEach(element => {
+            htmlStr += "<tr style=\"text-overflow:ellipsis; white-space:nowrap; overflow:hidden\">"
+            htmlStr += "<td>" + i++ + "</td>" + "<td>" + element["user_id"] + "</td>" + "<td>" + element["return_date"] + "</td>" + "<td>" + element["point"] + "</td>"
+            htmlStr += "<td>" + element["user_bank"] + ' '+ element["user_account"] + "</td>"
+            htmlStr += "</tr>"
+        });
+        htmlStr += "</table>"
+
+        $("#tableDiv").html(htmlStr)
+    }
+
+    $(document).ready(() => {
+
+        $.ajax({
+            url: "/point",
+            dataType: "json",
+            type: "GET",
+            success: function (data) {
+                htmlTable(data)
+            },
+            error: function (err) {
+            var htmlStr = "<table class=\"table table-hover\">"
+            htmlStr += "<tr style=\"text-overflow:ellipsis; white-space:nowrap; overflow:hidden;\">"
+            htmlStr += "<th>#</td><th>아이디</th><th>환급날짜</th><th>포인트</th><th>계좌번호</th>"
+            htmlStr += "</tr>"
+            htmlStr += "</table>"
+
+            $("#tableDiv").html(htmlStr)
+            }
+            
+        })
+
+        $('#btnSearch').click(function () {
+            var search = $("textSearch").val()
+
+            // $.ajax({
+            //     url: "/user/search",
+            //     dataType: "json",
+            //     type: "GET",
+            //     data:{
+            //         search:search
+            //     },
+            //     success: function (data) {
+            //         htmlTable(data)
+            //     }
+            // })
+        })
+    })
+</script>
+
+
+
+</html>
