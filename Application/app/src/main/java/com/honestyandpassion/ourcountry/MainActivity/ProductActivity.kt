@@ -1,5 +1,6 @@
 package com.honestyandpassion.ourcountry.MainActivity
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -28,6 +29,7 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import com.honestyandpassion.ourcountry.Class.DialogMsg
 import com.honestyandpassion.ourcountry.Item.ChatRoomItem
 
@@ -132,8 +134,17 @@ class ProductActivity : AppCompatActivity() {
                 VolleyService.checkChatRoomReq(UserInfo.ID,product!!.userId,product!!.registerTitle,this,{success ->
                     when(success){
                         0 -> {
-                            dialogMsg!!.showDialog("확인", "취소", "결제할 수 없습니다.", "판매자와 대화를 먼저하십시오.")
-                            dialogMsg!!.show()
+                            var builder=AlertDialog.Builder(this)
+                            builder.setTitle("결제할 수 없습니다.")
+                                .setMessage("판매자와 채팅을 먼저 하세요")
+                                .setPositiveButton("확인",object : DialogInterface.OnClickListener{
+                                    override fun onClick(dialog: DialogInterface?, which: Int) {
+
+                                    }
+
+                                })
+                                .show()
+
                         }
                         1 -> {
                             var intent = Intent(this, PaymentActivity::class.java)
@@ -200,19 +211,40 @@ class ProductActivity : AppCompatActivity() {
                 var partner = userId
                 val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
                 val roomDate = current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                VolleyService.checkChatRoomReq(maker,partner,registerTitle!!,this,{success ->
+                    when(success){
+                        0 -> {
+                            VolleyService.createRoomReq(maker,partner,roomDate, registerTitle!!,this,{success ->
+                                var intent= Intent(this,ChatActivity::class.java)
+                                var room=ChatRoomItem(
+                                    success!!.getInt("room_id"),
+                                    success!!.getString("maker"),
+                                    success!!.getString("partner"),
+                                    success!!.getString("room_date"),
+                                    success!!.getString("room_title"),
+                                    null,null,null)
+                                intent.putExtra("room",room)
+                                startActivity(intent)
+                                finish()
+                            })
+                        }
+                        1 -> {
+                            VolleyService.getRoomInfoReq(maker,partner,registerTitle!!, this,{success ->
+                                var intent=Intent(this,ChatActivity::class.java)
+                                var room=ChatRoomItem(
+                                    success!!.getInt("room_id"),
+                                    success!!.getString("maker"),
+                                    success!!.getString("partner"),
+                                    success!!.getString("room_date"),
+                                    success!!.getString("room_title"),
+                                    null,null,null)
+                                intent.putExtra("room",room)
+                                startActivity(intent)
+                                finish()
+                            })
+                        }
+                    }
 
-                VolleyService.createRoomReq(maker,partner,roomDate, registerTitle!!,this,{success ->
-                    var intent= Intent(this,ChatActivity::class.java)
-                    var room=ChatRoomItem(
-                        success!!.getInt("room_id"),
-                        success!!.getString("maker"),
-                        success!!.getString("partner"),
-                        success!!.getString("room_date"),
-                        success!!.getString("room_title"),
-                        null,null,null)
-                    intent.putExtra("room",room)
-                    startActivity(intent)
-                    finish()
                 })
             }
 

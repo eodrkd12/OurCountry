@@ -875,9 +875,11 @@ object VolleyService {
             url,
             json,
             Response.Listener {
+                Log.d("test",it.toString())
                 success(1)
             },
             Response.ErrorListener {
+                Log.d("test",it.toString())
                 success(0)
             }){
 
@@ -918,6 +920,30 @@ object VolleyService {
             Response.ErrorListener {
             }) {
         }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun getRoomInfoReq(maker: String, partner: String?, registerTitle: String, context: Context, success: (JSONObject?)->Unit) {
+        var url="${ip}/chat_room/get_room_info"
+
+        var json=JSONObject()
+        json.put("maker",maker)
+        json.put("partner",partner)
+        json.put("room_title",registerTitle)
+
+        var request=object : JsonObjectRequest(
+            Method.POST,
+            url,
+            json,
+            Response.Listener {
+                Log.d("test",it.toString())
+                success(it)
+            },
+            Response.ErrorListener {
+                Log.d("test",it.toString())
+            }
+        ){}
+
         Volley.newRequestQueue(context).add(request)
     }
 
