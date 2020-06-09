@@ -4,7 +4,7 @@ module.exports=function(){
     return {
         insert_payment : function(orderId, registerId, userId, registerPrice, paymentDate, type, registerTitle){
             pool.getConnection(function(err, con){
-                var sql=`insert into payment values('${orderId}',${registerId},'${userId}','${registerPrice}','${paymentDate}','입금','${type}','${registerTitle}})`
+                var sql=`insert into payment values('${orderId}',${registerId},'${userId}','${registerPrice}','${paymentDate}','입금','${type}','${registerTitle}')`
                 con.query(sql, function(err, result, fields){
                     con.release()
                     if(err) console.log(err)
@@ -12,6 +12,15 @@ module.exports=function(){
                 })
             })
         },
+	get_info:function(callback){
+	pool.getConnection(function(err,con){
+	var sql=`select * from payment`
+	con.query(sql,function(err,result,fields){
+		if(err) callback(err)
+		else callback(null,result)
+		})
+	})
+},
         pool : pool
     }
 }

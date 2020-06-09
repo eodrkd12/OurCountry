@@ -2,11 +2,31 @@ var pool = require('../../config/db_config');
 
 module.exports = function () {
   return {
+    get_user: function(callback){
+      pool.getConnection(function(err,con){
+        var sql=`select * from user where user_type<>'관리자'`
+        con.query(sql,function(err,result,fields){
+          con.release()
+          if (err) callback(err)
+          else callback(null,result)
+        })
+      })
+    },
+    search_user:function(search,callback){
+      pool.getConnection(function(err,con){
+        var sql=`select * from user where user_id like '%${search}%' and user_type<>'관리자'`
+        con.query(sql,function(err,result,fields){
+          con.release()
+          if(err) callback(err)
+          else callback(null,result)
+        })
+      })
+    },
     check_email: function (email, callback) {
       pool.getConnection(function (err, con) {
-        con.release()
         var sql = `select * from user where user_id='${email}'`
-        con.query(sql, function (err, result) {
+        con.query(sql, function (err, result,fields) {
+          con.release()
           if (err) console.log(err);
           else callback(null, result);
         })
@@ -52,27 +72,27 @@ module.exports = function () {
         })
       })
     },
-    remove_token: function (nickname) {
+    remove_token: function (id) {
       pool.getConnection(function (err, con) {
-        var sql = "update user set token='' where user_nickname='" + nickname + "'"
+        var sql = "update user set user_token='' where user_id='" + id + "'"
         con.query(sql, function (err, result, fields) {
           con.release()
           if (err) console.log(err)
         })
       })
     },
-    insert_token: function (nickname, token) {
+    insert_token: function (id, token) {
       pool.getConnection(function (err, con) {
-        var sql = "update user set token='" + token + "' where user_nickname='" + nickname + "'"
+        var sql = "update user set user_token='" + token + "' where user_id='" + id + "'"
         con.query(sql, function (err, result, fields) {
           con.release()
           if (err) console.log(err)
         })
       })
     },
-    get_token:function(nickname,callback){
+    get_token:function(id,callback){
       pool.getConnection(function(err,con){
-              var sql=`select token from user where user_nickname='${nickname}'`
+              var sql=`select user_token from user where user_id='${id}'`
               con.query(sql,function(err,result,fields){
                       con.release()
                       if(err) console.log(err)
@@ -82,7 +102,7 @@ module.exports = function () {
     },
     get_my_product:function(userId,callback){
       pool.getConnection(function(err,con){
-              var sql=`select register_id, register_title, productPrice, productStatus from Register where user_id='${userId}'`
+              var sql=`select register_id, register_title, product_price, product_status from Register where user_id='${userId}'`
               con.query(sql,function(err,result,fields){
                       con.release()
                       if(err) console.log(err)
@@ -90,6 +110,7 @@ module.exports = function () {
               })
       })
     },
+
     pool: pool
   }
 }

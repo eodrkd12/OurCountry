@@ -1,32 +1,7 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <!-- Required meta tags always come first -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>유저리스트</title>
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-    <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="/css/mdb.min.css" rel="stylesheet">
-
-</head>
-
-<body>
-    <div id="TopOfTableDiv" class="center-block">
-        <input id="textSearch" class="text text-defalut text-sm-left" type="text" placeholder="아이디">
-        <button id="btnSearch" class="btn btn-primary btn-sm" type="button">검색</button>
-    </div>
-    <div id="tableDiv" class="table-responsive">
-
-    </div>
- 
-</body>
+<script src="/public/js/common.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <!-- JQuery -->
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <!-- Bootstrap tooltips -->
@@ -35,7 +10,67 @@
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="/js/mdb.min.js"></script>
+<!DOCTYPE html>
+<html>
 
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/css/mdb.min.css" rel="stylesheet">
+
+
+
+    <!--검색 추가 수정 삭제 -->
+    <div class="view-cascade overlay gradient-card-header narrower z-depth-1 d-flex justify-content-between align-items-center ml-2 mr-2"
+    style="flex-flow: row wrap;">
+    <div class="form-inline mr-auto my-1">
+    
+       <input id="textSearch" class="text text-defalut text-sm-left" type="text" placeholder="아이디">
+      <a type="button"  id="btnSearch" class="fas fa-search ml-3 mt-1" ></a> 
+
+
+        <div>
+            <a type="button" class="btn-lg transparent" data-toggle="tooltip" data-placement="top"
+            title="추가" onclick="addModal()"><i class="fas fa-plus fa-large" aria-hidden="true"></i></a>
+            <a type="button" class="btn-lg transparent"  data-toggle="tooltip" data-placement="top"
+            title="수정" onclick="modifyModal()"><i class="fas fa-pencil-alt fa-large" aria-hidden="true"></i></a>    
+        </div>               
+        </div>
+       
+    </div>
+    <!--테이블-->
+    <div id="tableDiv" class="table-responsive"></div>
+
+    <!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="modal" tabindex="-1" role="dialog" aria-labelledby="userInfoModal"
+aria-hidden="true" data-backdrop="false">
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content card mb-4">
+        <div class="modal-header">
+            <h6 class="modal-title"></h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-row">
+                    </div>
+            </div>       
+        </div>
+        <div class="modal-footer">
+            <gb-button class="input-group-text purple white-text" ID="add" Text="추가" Icon="fas fa-plus" visibility="no" clickEvent="Add()"></gb-button>
+            <gb-button class="input-group-text purple white-text" ID="modify" Text="수정" Icon="fas fa-save" clickEvent="Modify()"></gb-button>
+            <gb-button ID="close" class="input-group-text purple white-text" Text="닫기" Icon="fas fa-times" clickEvent="Close()"></gb-button>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
 
 <script>
     function htmlTable(data) {
@@ -67,7 +102,6 @@
                 htmlTable(data)
             }
         })
-
         $('#btnSearch').click(function () {
             var search = $("#textSearch").val()
             $.ajax({
@@ -83,6 +117,12 @@
             })
         })
     })
+    function addModal() {
+            $('#modal').modal("show");
+        }
+        function modifyModal() {
+            $('#modal').modal('show');
+        }
 </script>
 
 

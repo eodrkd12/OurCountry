@@ -10,11 +10,15 @@ var registerRouter = require('./routes/register');
 var chatRoomRouter=require('./routes/chat_room');
 var wishlistRouter=require('./routes/wishlist');
 var paymentRouter=require('./routes/payment');
+var viewRouter=require('./routes/view');
+var followRouter=require('./routes/follow');
+var usertypeRouter=require('./routes/usertypechange');
+var pointRouter=require('./routes/point');
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json({limit:5000000}));
@@ -28,6 +32,10 @@ app.use('/register',registerRouter);
 app.use('/chat_room',chatRoomRouter);
 app.use('/wishlist', wishlistRouter);
 app.use('/payment', paymentRouter);
+app.use('/view', viewRouter);
+app.use('/follow', followRouter);
+app.use('/point',pointRouter);
+app.use('/usertypechange',usertypeRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -41,7 +49,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send(err.message)
 });
 
 module.exports = app;
