@@ -1,79 +1,79 @@
-var fs          = require('fs');
-var cheerio     = require('cheerio');
-var async       = require('async');
-var cache       = require('memory-cache');
-var logger      = require(__lib + '/logger');
-var opDB        = require(__lib + '/database').opDB;
+var fs = require('fs');
+var cheerio = require('cheerio');
+var async = require('async');
+var cache = require('memory-cache');
+var logger = require(__lib + '/logger');
+var opDB = require(__lib + '/database').opDB;
 
 var attribs = {
-    option  : '',
-    labeloption  : '',
-    label   : '',
-    id      : '',
-    style   : '',
-    value   : '',
-    data    : '',
-    display : '',
+    option: '',
+    labeloption: '',
+    label: '',
+    id: '',
+    style: '',
+    value: '',
+    data: '',
+    display: '',
     date: {
         rangedate: 'yes',
         positionx: 'left',
         positiony: 'down',
         format: 'YYYY-MM-DD',
     },
-    content : '',
-    icon : '',
+    content: '',
+    icon: '',
     labelwidth: '',
     caption: '',
     all: '',
-    selected:'',
+    selected: '',
 };
 
 var convertAttribs = {
-    label: function(obj, attr, callback) {
+    label: function (obj, attr, callback) {
         attr.label += obj;
         return attr;
-    }, 
-    class: function(obj, attr, callback) {
+    },
+    class: function (obj, attr, callback) {
         attr.option += `class="${obj}" `;
         return attr;
     },
-    labelclass: function(obj, attr, callback) {
+    labelclass: function (obj, attr, callback) {
         attr.labeloption += `class="${obj}" `;
         return attr;
     },
-    id: function(obj, attr, callback) {
+    id: function (obj, attr, callback) {
         attr.id = obj;
         return attr;
     },
-    text: function(obj, attr, callback) {
+    text: function (obj, attr, callback) {
         attr.value += obj;
         return attr;
     },
-    value: function(obj, attr, callback) {
+    value: function (obj, attr, callback) {
         attr.value += obj;
         return attr;
     },
-    labelwidth: function(obj, attr, callback) {
+    labelwidth: function (obj, attr, callback) {
         attr.labelwidth += `width:${obj}px; `;
         return attr;
     },
-    width: function(obj, attr, callback) {
+    width: function (obj, attr, callback) {
         attr.style += `width:${obj}px; `;
         return attr;
     },
-    height: function(obj, attr, callback) {
+    height: function (obj, attr, callback) {
         attr.style += `height:${obj}px; `;
         return attr;
     },
-    background: function(obj, attr, callback) {
+    background: function (obj, attr, callback) {
         attr.style += `background-color:${obj}; `;
         return attr;
     },
-    foreground: function(obj, attr, callback) {
+    foreground: function (obj, attr, callback) {
         attr.style += `color:${obj};`;
         return attr;
     },
-    visibility: function(obj, attr, callback) {
+    visibility: function (obj, attr, callback) {
         if (obj === 'no') {
             attr.display += `display:none`;
             return attr;
@@ -82,53 +82,53 @@ var convertAttribs = {
             return attr;
         }
     },
-    name: function(obj, attr, callback) {
+    name: function (obj, attr, callback) {
         attr.option += `name="${obj}" `;
         return attr;
     },
-    texttype: function(obj, attr, callback) {
+    texttype: function (obj, attr, callback) {
         attr.option += `type="${obj}" `;
         return attr;
     },
-    textstyle: function(obj, attr, callback) {
+    textstyle: function (obj, attr, callback) {
         return attr;
     },
-    dismiss: function(obj, attr, callback) {
+    dismiss: function (obj, attr, callback) {
         attr.option += `data-dismiss="${obj}"`;
     },
-    focusinevent: function(obj, attr, callback) {
+    focusinevent: function (obj, attr, callback) {
         attr.option += `onfocusin="${obj}" `;
         return attr;
     },
-    focusoutevent: function(obj, attr, callback) {
+    focusoutevent: function (obj, attr, callback) {
         attr.option += `onfocusout="${obj}" `;
         return attr;
     },
-    valuechangeevent: function(obj, attr, callback) {
+    valuechangeevent: function (obj, attr, callback) {
         attr.option += `onchange="${obj}" `;
         return attr;
     },
-    clickevent: function(obj, attr, callback) {
+    clickevent: function (obj, attr, callback) {
         attr.option += `onclick="${obj}" `;
         return attr;
     },
-    changeevent: function(obj, attr, callback) {
+    changeevent: function (obj, attr, callback) {
         attr.option += `onchange="${obj}" `;
         return attr;
-    },    
-    mouseoverevent: function(obj, attr, callback) {
+    },
+    mouseoverevent: function (obj, attr, callback) {
         attr.option += `onmouseover="${obj}" `;
         return attr;
     },
-    mouseoutevent: function(obj, attr, callback) {
+    mouseoutevent: function (obj, attr, callback) {
         attr.option += `onmouseout="${obj}" `;
         return attr;
     },
-    hint: function(obj, attr, callback) {
+    hint: function (obj, attr, callback) {
         attr.option += `placeholder="${obj}" `;
         return attr;
     },
-    scroll: function(obj, attr, callback) {
+    scroll: function (obj, attr, callback) {
         if (obj == "yes") {
             attr.style += `overflow:scroll; `;
             return attr;
@@ -137,9 +137,9 @@ var convertAttribs = {
             return attr;
         }
     },
-    textstyle: function(obj, attr, callback) {
+    textstyle: function (obj, attr, callback) {
         var style = obj.split("|");
-        for (var i=0; i<style.length; i++) {
+        for (var i = 0; i < style.length; i++) {
             if (style[i] === 'italic') {
                 attr.style += `font-style:italic; `;
             }
@@ -153,54 +153,54 @@ var convertAttribs = {
         }
         return attr;
     },
-    maxlength: function(obj, attr, callback) {
+    maxlength: function (obj, attr, callback) {
         attr.option += `maxlength="${obj}" `;
         return attr;
     },
-    allinit: function(obj, attr, callback) {
+    allinit: function (obj, attr, callback) {
         return attr;
     },
-    initvalue: function(obj, attr, callback) {
+    initvalue: function (obj, attr, callback) {
         return attr;
     },
-    src: function(obj, attr, callback) {
+    src: function (obj, attr, callback) {
         attr.value += obj;
         return attr;
-    },    
-    data: function(obj, attr, callback) {
+    },
+    data: function (obj, attr, callback) {
         attr.data += obj;
         return attr;
     },
-    rangedate: function(obj, attr, callback) {
+    rangedate: function (obj, attr, callback) {
         attr.date.rangedate = obj;
         return attr;
     },
-    format: function(obj, attr, callback) {
+    format: function (obj, attr, callback) {
         attr.date.format = obj;
         return attr;
     },
-    positionx: function(obj, attr, callback) {
+    positionx: function (obj, attr, callback) {
         attr.date.positionx = obj;
         return attr;
     },
-    positiony: function(obj, attr, callback) {
+    positiony: function (obj, attr, callback) {
         attr.date.positiony = obj;
         return attr;
     },
-    itemnum: function(obj, attr, callback) {
+    itemnum: function (obj, attr, callback) {
         attr.itemNum = parseInt(obj);
 
         return attr;
     },
-    selectednum: function(obj, attr, callback) {
+    selectednum: function (obj, attr, callback) {
         attr.selectedNum = parseInt(obj);
         return attr;
     },
-    addsearch: function(obj, attr, callback) {
+    addsearch: function (obj, attr, callback) {
         attr.option += `data-live-search="${obj}" `;
         return attr;
     },
-    addyn: function(obj, attr, callback) {
+    addyn: function (obj, attr, callback) {
         if (obj == "yes") {
             attr.addyn = true;
             return attr;
@@ -211,27 +211,27 @@ var convertAttribs = {
         }
         return attr;
     },
-    action: function(obj, attr, callback) {
+    action: function (obj, attr, callback) {
         attr.action = obj;
         return attr;
     },
-    target: function(obj, attr, callback) {
+    target: function (obj, attr, callback) {
         attr.target = obj;
         return attr;
     },
-    mode: function(obj, attr, callback) {
+    mode: function (obj, attr, callback) {
         attr.mode = obj;
         return attr;
     },
-    icon: function(obj, attr, callback) {
+    icon: function (obj, attr, callback) {
         attr.icon = obj;
         return attr;
     },
-    caption: function(obj, attr, callback) {
+    caption: function (obj, attr, callback) {
         attr.caption = obj;
         return attr;
     },
-    all: function(obj, attr, callback) {
+    all: function (obj, attr, callback) {
         if (obj == "yes") {
             attr.all = true;
             return attr;
@@ -241,38 +241,38 @@ var convertAttribs = {
             return attr;
         }
     },
-    searchable: function(obj, attr, callback) {
+    searchable: function (obj, attr, callback) {
         attr.option += `searchable="${obj}" `;
         return attr;
     },
-    zindex: function(obj, attr, callback) {
+    zindex: function (obj, attr, callback) {
         attr.style += `z-index:${obj};`;
         return attr;
     },
-    splaceholder: function(obj, attr, callback) {
+    splaceholder: function (obj, attr, callback) {
         attr.option += `data-placeholder="${obj}" `;
         return attr;
     },
-    bpad: function(obj, attr, callback) {
+    bpad: function (obj, attr, callback) {
         attr.style += `padding-bottom:${obj};`;
         return attr;
     },
-    bmargin: function(obj, attr, callback) {
+    bmargin: function (obj, attr, callback) {
         attr.style += `margin-bottom:${obj};`;
         return attr;
-    },    
-    view: function(obj, attr, callback) {
+    },
+    view: function (obj, attr, callback) {
         attr.option += ` ${obj}`;
         return attr;
     },
 };
-var _parseTag = function(obj, tag, callback) {
-    var attr    = Object.create(attribs);
-    var key     = Object.keys(tag.attribs);
+var _parseTag = function (obj, tag, callback) {
+    var attr = Object.create(attribs);
+    var key = Object.keys(tag.attribs);
     var resp;
     var err;
-    for(var i=0; i<key.length; i++) {
-        if (convertAttribs[key[i]] === undefined) { 
+    for (var i = 0; i < key.length; i++) {
+        if (convertAttribs[key[i]] === undefined) {
             err += ` ${key[i]} `;
             continue;
         }
@@ -281,76 +281,76 @@ var _parseTag = function(obj, tag, callback) {
     callback(err, resp);
 };
 var text = {
-    build: function(obj, attr, tag, callback) {
-        if(attr.style.indexOf('width') == -1){
+    build: function (obj, attr, tag, callback) {
+        if (attr.style.indexOf('width') == -1) {
             attr.style += 'width: 130px;'
         }
-        if(attr.style.indexOf('height') == -1){
+        if (attr.style.indexOf('height') == -1) {
             attr.style += 'height: 25px;'
         }
-        if(attr.labelwidth.indexOf('width') == -1){
+        if (attr.labelwidth.indexOf('width') == -1) {
             attr.labelwidth += 'width: 80px;'
         }
 
         var html = "";
         html += `<div id="div_${attr.id}" style="${attr.display}">\n`;
-        html += `\t<label style="display: inline-block; ${attr.labelwidth} text-align: center;">${attr.label}</label>\n`;        
+        html += `\t<label style="display: inline-block; ${attr.labelwidth} text-align: center;">${attr.label}</label>\n`;
         html += `\t<input style="${attr.style}" id="${attr.id}" ${attr.option} value="${attr.value}" readonly></input>\n`;
         html += `</div>\n`;
         callback(null, html);
     }
 };
 var edittext = {
-    build: function(obj, attr, tag, callback) {
-        if(attr.style.indexOf('width') == -1){
-            
-        }
-        if(attr.style.indexOf('height') == -1){
+    build: function (obj, attr, tag, callback) {
+        if (attr.style.indexOf('width') == -1) {
 
         }
-        if(attr.labelwidth.indexOf('width') == -1){
+        if (attr.style.indexOf('height') == -1) {
+
+        }
+        if (attr.labelwidth.indexOf('width') == -1) {
 
         }
 
         var html = "";
         html += `<div id="div_${attr.id}" style="${attr.display}" class="md-form  md-outline">\n`;
         html += `<input type="text" autocomplete="off"  class="form-control" id="${attr.id}" style="${attr.style}" ${attr.option} value="${attr.value}"></input>\n`;
-        html += `<label for="${attr.id}"class="active">${attr.label}</label>\n`;         
+        html += `<label for="${attr.id}"class="active">${attr.label}</label>\n`;
         html += `</div>\n`;
         callback(null, html);
     }
 };
 var editor = {
-    build: function(obj, attr, tag, callback) {
-    var html = "";
-    html += `<div id="div_${attr.id}" style="${attr.display}" class="md-form">\n`;
-    html += `<label for="${attr.id}" class="active">${attr.label}</label>\n`;         
-    html += `<textarea class="summernote form-control" id="${attr.id}" style="${attr.style}" ${attr.option} value="${attr.value}"></textarea>\n`;
-    html += `</div>\n`;
-    callback(null, html);
+    build: function (obj, attr, tag, callback) {
+        var html = "";
+        html += `<div id="div_${attr.id}" style="${attr.display}" class="md-form">\n`;
+        html += `<label for="${attr.id}" class="active">${attr.label}</label>\n`;
+        html += `<textarea class="summernote form-control" id="${attr.id}" style="${attr.style}" ${attr.option} value="${attr.value}"></textarea>\n`;
+        html += `</div>\n`;
+        callback(null, html);
     }
 };
 var edittextarea = {
-    build: function(obj, attr, tag, callback) {
-        if(attr.style.indexOf('width') == -1){
+    build: function (obj, attr, tag, callback) {
+        if (attr.style.indexOf('width') == -1) {
             attr.style += 'width: 200px;'
         }
-        if(attr.style.indexOf('height') == -1){
+        if (attr.style.indexOf('height') == -1) {
             attr.style += 'height: 50px;'
         }
-        if(attr.labelwidth.indexOf('width') == -1){
+        if (attr.labelwidth.indexOf('width') == -1) {
             attr.labelwidth += 'width: 150px;'
         }
 
-        var html = ""; 
+        var html = "";
         html += `<div id="div_${attr.id}" style="${attr.display}">\n`;
-        html += `<div class="input-group mb-3"> <div class="padding">\n`; 
+        html += `<div class="input-group mb-3"> <div class="padding">\n`;
         html += `<div class="input-group-prepend"style = "background-color: #47748b;"> \n`;
         html += `<div class="input-group-text" style = "background-color: #47748b;"> \n`;
-        html += `<label style="display: inline-block; color : #ffffff; ${attr.labelwidth} text-align: center; ">${attr.label}</label>\n`;    
+        html += `<label style="display: inline-block; color : #ffffff; ${attr.labelwidth} text-align: center; ">${attr.label}</label>\n`;
         html += `</div>\n`;
-        html += `</div>\n`     
-        html += `<textarea class="form-control" style="${attr.style}" id="${attr.id}" ${attr.option}>`;    
+        html += `</div>\n`
+        html += `<textarea class="form-control" style="${attr.style}" id="${attr.id}" ${attr.option}>`;
         html += `${attr.value}`;
         html += `</textarea>\n`;
         html += `</div>\n`;
@@ -359,14 +359,14 @@ var edittextarea = {
     }
 };
 var combo = {
-    build: function(obj, attr, tag, callback) {
-        if(attr.style.indexOf('width') == -1){
+    build: function (obj, attr, tag, callback) {
+        if (attr.style.indexOf('width') == -1) {
 
         }
-        if(attr.style.indexOf('height') == -1){
+        if (attr.style.indexOf('height') == -1) {
 
         }
-        if(attr.labelwidth.indexOf('width') == -1){
+        if (attr.labelwidth.indexOf('width') == -1) {
 
         }
 
@@ -374,9 +374,9 @@ var combo = {
         html += `<select style="${attr.style}" id="${attr.id}" ${attr.option} data-size="${attr.itemNum}">\n`;
         if (attr.data) {
             if (attr.mode === 'find') {
-                opDB.getField(attr.data, function(err, result) {
+                opDB.getField(attr.data, function (err, result) {
                     html += `\t<option value='all'>All</option>\n`;
-                    for (var i=0; i<result.length; i++) {
+                    for (var i = 0; i < result.length; i++) {
                         html += `\t<option value=${result[i].Field}>${result[i].Field}</option>\n`;
                     }
                     html += `</select>\n`;
@@ -390,10 +390,10 @@ var combo = {
                 var data = comm[attr.data];
                 */
                 var data = cache.get(attr.data);
-                if(attr.all){
+                if (attr.all) {
                     html += `\t<option value="all">전체</option>\n`;
                 }
-                for (var i=0; i< data.length; i++) {
+                for (var i = 0; i < data.length; i++) {
                     html += `\t<option value="${data[i].ID}">${data[i].VALUE}</option>\n`;
                 }
                 if (attr.addyn) {
@@ -412,14 +412,14 @@ var combo = {
     }
 };
 var searchcombo = {
-    build: function(obj, attr, tag, callback) {
+    build: function (obj, attr, tag, callback) {
         var html = "";
         html += `<select id="${attr.id}" ${attr.option} style="${attr.style}">\n`;
         var data = cache.get(attr.data);
-        if(attr.all){
+        if (attr.all) {
             html += `\t<option value="all">전체</option>\n`;
         }
-        for (var i=0; i< data.length; i++) {
+        for (var i = 0; i < data.length; i++) {
             html += `\t<option value="${data[i].ID}">${data[i].VALUE}</option>\n`;
         }
         html += `</select>\n`;
@@ -428,12 +428,12 @@ var searchcombo = {
     }
 };
 var button = {
-    build: function(obj, attr, tag, callback) {
-        if(attr.style.indexOf('width') == -1){
+    build: function (obj, attr, tag, callback) {
+        if (attr.style.indexOf('width') == -1) {
         }
-        if(attr.style.indexOf('height') == -1){
+        if (attr.style.indexOf('height') == -1) {
         }
-        if(attr.labelwidth.indexOf('width') == -1){
+        if (attr.labelwidth.indexOf('width') == -1) {
         }
 
         var html = "";
@@ -444,48 +444,48 @@ var button = {
     }
 };
 var checkgroup = {
-    build: function(obj, attr, tag, callback) {
+    build: function (obj, attr, tag, callback) {
         var html = "";
         html += `<div id="div_${attr.id}" ${attr.option} style="${attr.display}">\n`;
         callback(null, html);
     }
 };
 var check = {
-    build: function(obj, attr, tag, callback) {
-        if(attr.style.indexOf('width') == -1){
+    build: function (obj, attr, tag, callback) {
+        if (attr.style.indexOf('width') == -1) {
         }
-        if(attr.style.indexOf('height') == -1){
+        if (attr.style.indexOf('height') == -1) {
         }
-        if(attr.labelwidth.indexOf('width') == -1){
+        if (attr.labelwidth.indexOf('width') == -1) {
         }
 
         var html = "";
         html += `<div id="div_${attr.id}" style="${attr.style}" class="md-form">\n`;
         html += `\t<input type="checkbox" class="form-check-input" id="${attr.id}" style="${attr.style}" ${attr.option} value="${attr.value}"></input>\n`;
-        html += `\t<label for="${attr.id}" class="form-check-label">${attr.label}</label>\n`;         
-        html += `</div>\n`; 
+        html += `\t<label for="${attr.id}" class="form-check-label">${attr.label}</label>\n`;
+        html += `</div>\n`;
         callback(null, html);
     }
 };
 var radio = {
-    build: function(obj, attr, tag, callback) {
-        if(attr.style.indexOf('width') == -1){
+    build: function (obj, attr, tag, callback) {
+        if (attr.style.indexOf('width') == -1) {
             attr.style += 'width: 30px;'
         }
-        if(attr.style.indexOf('height') == -1){
+        if (attr.style.indexOf('height') == -1) {
             attr.style += 'height: 15px;'
         }
-        if(attr.labelwidth.indexOf('width') == -1){
+        if (attr.labelwidth.indexOf('width') == -1) {
             attr.labelwidth += 'width: 80px;'
         }
 
         var html = "";
         html += `<div id="div_${attr.id}" style="${attr.display}">\n`;
-        html += `<label style="display: inline-block; ${attr.labelwidth} text-align: center;">${attr.label}</label>\n`;        
+        html += `<label style="display: inline-block; ${attr.labelwidth} text-align: center;">${attr.label}</label>\n`;
         if (attr.data) {
             var comm = cache.get('commonDB');
             var data = comm[attr.data];
-            for (var i=0; i<data.length; i++) {
+            for (var i = 0; i < data.length; i++) {
                 html += `<input type="radio" style="${attr.style}" id="${attr.id}" ${attr.option} value="${data[i].ID}">${data[i].VALUE}</input>\n`;
             }
         }
@@ -494,11 +494,11 @@ var radio = {
     }
 };
 var imageview = {
-    build: function(obj, attr, tag, callback) {
-        if(attr.style.indexOf('width') == -1){
+    build: function (obj, attr, tag, callback) {
+        if (attr.style.indexOf('width') == -1) {
             attr.style += 'width: 100px;'
         }
-        if(attr.style.indexOf('height') == -1){
+        if (attr.style.indexOf('height') == -1) {
             attr.style += 'height: 100px;'
         }
 
@@ -513,18 +513,18 @@ var imageview = {
     }
 };
 var date = {
-    build: function(obj, attr, tag, callback) {
-        if(attr.style.indexOf('width') == -1){
+    build: function (obj, attr, tag, callback) {
+        if (attr.style.indexOf('width') == -1) {
         }
-        if(attr.style.indexOf('height') == -1){
+        if (attr.style.indexOf('height') == -1) {
         }
-        if(attr.labelwidth.indexOf('width') == -1){
+        if (attr.labelwidth.indexOf('width') == -1) {
         }
         var html = "";
         html += `<div id="div_${attr.id}" style="${attr.display}" class="md-form">\n`;
         html += `\t<input autocomplete = "off" type="text" class="form-control" id="${attr.id}" style="${attr.style}" ${attr.option} value="${attr.value}"></input>\n`;
-        html += `\t<label for="${attr.id}" class="active">${attr.label}</label>\n`;         
-        html += `</div>\n`;                    
+        html += `\t<label for="${attr.id}" class="active">${attr.label}</label>\n`;
+        html += `</div>\n`;
         html += `<script>$('input[id="${attr.id}"]').daterangepicker(getDateFormat(\n
             \t"${attr.date.positionx}","${attr.date.positiony}",
             \t"${attr.date.format}", "${attr.date.rangedate}"));\t</script>\n`;
@@ -532,25 +532,25 @@ var date = {
     }
 };
 var tab = {
-    build: function(obj, attr, tag, callback) {
+    build: function (obj, attr, tag, callback) {
         var html = "";
         html += `<div id="div_${attr.id}"\n`;
         html += `<nav>`
         html += `<div class="nav nav-tabs" id="${attr.id}" role="tablist">\n`;
-        for (var i=0; i<attr.itemNum; i++) {
-            var selected="false";
-            var active="";
-            if (i==attr.selectedNum) { selected="true";  active="active";}
+        for (var i = 0; i < attr.itemNum; i++) {
+            var selected = "false";
+            var active = "";
+            if (i == attr.selectedNum) { selected = "true"; active = "active"; }
             html += `<a class="nav-item nav-link ${active}" style="${attr.style}" id="tab_${attr.id}_${i}" 
                      ${attr.option} data-toggle="tab" href="#tabcontent_${attr.id}_${i}" role="tab" 
                       aria-controls="tabcontent_${attr.id}_${i}" aria-selected="${selected}">Tab${i}</a>\n`;
-        } 
+        }
         html += `</div></nav>\n`;
         html += `<div class="tab-content" id="nav-tabContent">\n`;
-        for (var i=0; i<attr.itemNum; i++) {
-            var active="";
-            var show="";
-            if (i==attr.selectedNum) { active="active"; show="show"; }
+        for (var i = 0; i < attr.itemNum; i++) {
+            var active = "";
+            var show = "";
+            if (i == attr.selectedNum) { active = "active"; show = "show"; }
             html += `<div class="tab-pane fade ${show} ${active}" id="tabcontent_${attr.id}_${i}"
                      role="tabpanel" aria-labelledby="tab_${attr.id}_${i}">${i}${i}${i}${i}${i}${i}</div>\n`;
         }
@@ -560,16 +560,16 @@ var tab = {
 };
 
 var panel = {
-    build: function(obj, attr, tag, callback) {
+    build: function (obj, attr, tag, callback) {
         var html = "";
         html += `<div id="div_${attr.id}" ${attr.option} style="${attr.style}">\n`;
         callback(null, html);
     }
 };
 var onoff = {
-    build: function(obj, attr, tag, callback) {
+    build: function (obj, attr, tag, callback) {
         var html = "";
-         html += `<div id="div_${attr.id}" style="${attr.style}">\n`;
+        html += `<div id="div_${attr.id}" style="${attr.style}">\n`;
         html += `<input type="checkbox" id="${attr.id}" ${attr.option} checked data-toggle="toggle">\n`;
         html += `</div>\n`;
         callback(null, html);
@@ -577,7 +577,7 @@ var onoff = {
 };
 
 var find = {
-    build: function(obj, attr, tag, callback) {
+    build: function (obj, attr, tag, callback) {
         var html = "";
         html += `<div id="div_${attr.id}" style="${attr.style}">\n`;
         html += `<input type="text" id="${attr.id}" placeholder="Search..">\n`;
@@ -587,7 +587,7 @@ var find = {
     }
 };
 var modal = {
-    build: function(obj, attr, tag, callback) {
+    build: function (obj, attr, tag, callback) {
         var labelId = `${attr.id}Label`;
         var formID = `${attr.id}Form`;
         var html = "";
@@ -606,7 +606,7 @@ var modal = {
 };
 
 var grid = {
-    build: function(obj, attr, tag, callback) {
+    build: function (obj, attr, tag, callback) {
         var html = "";
         html += `<div id="div_${attr.id}" style="${attr.display}" class="table-wrapper-scroll-y my-custom-scrollbar">\n`;
         html += `<table id="${attr.id}" class="table table-sm" style="${attr.style} width:100%" ${attr.option}>\n`;
@@ -621,61 +621,61 @@ var grid = {
     }
 };
 
-var objMap = {  
-    "text"           : text,
-    "edittext"       : edittext,
-    "editor"         : editor,
-    "edittextarea"   : edittextarea,    
-    "combo"          : combo,
-    "button"         : button,
-    "checkgroup"     : checkgroup,
-    "check"          : check,
-    "radio"          : radio,
-    "imageview"      : imageview,
-    "date"           : date,
-    "tab"            : tab,
-    "panel"          : panel,
-    "onoff"          : onoff,
-    "find"           : find,
-    "modal"          : modal,
-    "grid"           : grid,
-    "searchcombo"    : searchcombo,
+var objMap = {
+    "text": text,
+    "edittext": edittext,
+    "editor": editor,
+    "edittextarea": edittextarea,
+    "combo": combo,
+    "button": button,
+    "checkgroup": checkgroup,
+    "check": check,
+    "radio": radio,
+    "imageview": imageview,
+    "date": date,
+    "tab": tab,
+    "panel": panel,
+    "onoff": onoff,
+    "find": find,
+    "modal": modal,
+    "grid": grid,
+    "searchcombo": searchcombo,
 };
-exports.render = function(filePath, options, callback) {
+exports.render = function (filePath, options, callback) {
     var Tags = [];
     var result_html = "";
-    fs.readFile(filePath, 'utf-8', function(err, content) {
-        if(err) { 
-            callback(err, null); 
+    fs.readFile(filePath, 'utf-8', function (err, content) {
+        if (err) {
+            callback(err, null);
         }
         else {
-            var $ = cheerio.load(content, {recognizeSelfClosing: true });
-            $('*').each(function(i, tag) {
+            var $ = cheerio.load(content, { recognizeSelfClosing: true });
+            $('*').each(function (i, tag) {
                 if (objMap[tag.name] !== undefined) {
                     Tags.push(tag);
                 }
             });
-            async.eachSeries(Tags, function(tag, outCb) {
+            async.eachSeries(Tags, function (tag, outCb) {
                 var objVal = objMap[tag.name];
                 if (!objVal) {
                     outCb();
                 }
                 else {
                     var obj = Object.create(objVal);
-                    _parseTag(obj, tag, function(err, result) {
+                    _parseTag(obj, tag, function (err, result) {
                         if (err) {
                             logger.error(`${err} in ${tag.attribs.type}`);
                         }
                         else {
-                            obj.build(obj, result, tag, function(err, html) {
+                            obj.build(obj, result, tag, function (err, html) {
                                 if (tag.name === 'gb-panel' || tag.name === 'gb-checkgroup' || tag.name === 'gb-modal' || tag.name === 'gb-form') {
-                                    for (var i=0; i<$(tag).children().length; i++) {
+                                    for (var i = 0; i < $(tag).children().length; i++) {
                                         var child = $(tag).children()[i];
                                         var subobjVal = objMap[child.name];
                                         if (subobjVal) {
                                             var subobj = Object.create(subobjVal);
-                                            _parseTag(null, child, function(err, subresult) {
-                                                subobj.build(subobj, subresult, tag, function(err, subhtml) {
+                                            _parseTag(null, child, function (err, subresult) {
+                                                subobj.build(subobj, subresult, tag, function (err, subhtml) {
                                                     html += subhtml;
                                                 });
                                             });
@@ -693,9 +693,9 @@ exports.render = function(filePath, options, callback) {
                     })
                 }
             },
-            function(err) {
-                callback(null, $.html({ decodeEntities: false }));
-            });
+                function (err) {
+                    callback(null, $.html({ decodeEntities: false }));
+                });
         }
     })
 }

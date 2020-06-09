@@ -1,5 +1,6 @@
 package com.honestyandpassion.ourcountry.MainActivity
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -28,6 +29,8 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import com.honestyandpassion.ourcountry.Class.DialogMsg
 import com.honestyandpassion.ourcountry.Item.ChatRoomItem
 
 
@@ -36,6 +39,8 @@ class ProductActivity : AppCompatActivity() {
     companion object{
         var imageList=ArrayList<Bitmap>()
     }
+
+    var dialogMsg: DialogMsg? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +57,7 @@ class ProductActivity : AppCompatActivity() {
 
         VolleyService.getRegisterReq(registerId, this, {success->
             var json = success
+            var registerId=json!!.getInt("register_id")
             var userId = json!!.getString("user_id")
             var registerTitle = json!!.getString("register_title")
             var productCategory = json!!.getString("product_category")
@@ -68,7 +74,9 @@ class ProductActivity : AppCompatActivity() {
             var registerLike = json!!.getInt("register_like")
             var registerView = json!!.getInt("register_view")
             var userNickname = json!!.getString("user_nickname")
-
+            var product=Product(registerId,userId,registerTitle,productCategory, productSubCategory, productType, productStatus,
+                productBrand, productPrice, sellerStore, registerContent, tradeOption, sellerAddress,
+                registerDate, registerLike, registerView, userNickname, ArrayList<Bitmap>())
             VolleyService.checkFollowReq(UserInfo.ID, userId, this, { success ->
                 if (success!!.getInt("count") == 1) {
                     btn_following.setText("팔로잉")
@@ -106,28 +114,48 @@ class ProductActivity : AppCompatActivity() {
                 }
             })
 
-            if(userId == UserInfo.ID) {
-                btn_following.visibility = View.INVISIBLE
-                btn_chat.visibility = View.INVISIBLE
-                btn_purchase.setText("수정")
-                btn_purchase.setOnClickListener{
-                    var intent = Intent(this, RegisterActivity::class.java)
-                    intent.putExtra("registerType", "수정")
-                    intent.putExtra("register_id", registerId)
-                    startActivity(intent)
-                    finish()
-                }
+        if(userId == UserInfo.ID) {
+            btn_following.visibility = View.INVISIBLE
+            btn_chat.visibility = View.INVISIBLE
+            layout_favorite.visibility=View.INVISIBLE
+            btn_purchase.setText("수정")
+            btn_purchase.setOnClickListener{
+                var intent = Intent(this, RegisterActivity::class.java)
+                intent.putExtra("registerType", "수정")
+                intent.putExtra("product", product)
+                startActivity(intent)
+                finish()
             }
-            else {
-                btn_chat.visibility = View.VISIBLE
-                btn_purchase.setText("구매")
-                btn_purchase.setOnClickListener {
-                    var intent = Intent(this, PaymentActivity::class.java)
-                    intent.putExtra("registerTitle", registerTitle)
-                    intent.putExtra("registerPrice", productPrice)
-                    startActivity(intent)
-                }
+        }
+        else {
+            btn_chat.visibility = View.VISIBLE
+            btn_purchase.setText("구매")
+            btn_purchase.setOnClickListener {
+                VolleyService.checkChatRoomReq(UserInfo.ID,product!!.userId,product!!.registerTitle,this,{success ->
+                    when(success){
+                        0 -> {
+                            var builder=AlertDialog.Builder(this)
+                            builder.setTitle("결제할 수 없습니다.")
+                                .setMessage("판매자와 채팅을 먼저 하세요")
+                                .setPositiveButton("확인",object : DialogInterface.OnClickListener{
+                                    override fun onClick(dialog: DialogInterface?, which: Int) {
+
+                                    }
+
+                                })
+                                .show()
+
+                        }
+                        1 -> {
+                            var intent = Intent(this, PaymentActivity::class.java)
+                            intent.putExtra("registerTitle", registerTitle)
+                            intent.putExtra("registerPrice", productPrice)
+                            startActivity(intent)
+                        }
+                    }
+                })
             }
+        }
 
             pager_product_image.adapter=ProductImagePagerAdapter(this,imageList!!)
 
@@ -183,19 +211,40 @@ class ProductActivity : AppCompatActivity() {
                 var partner = userId
                 val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
                 val roomDate = current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                VolleyService.checkChatRoomReq(maker,partner,registerTitle!!,this,{success ->
+                    when(success){
+                        0 -> {
+                            VolleyService.createRoomReq(maker,partner,roomDate, registerTitle!!,this,{success ->
+                                var intent= Intent(this,ChatActivity::class.java)
+                                var room=ChatRoomItem(
+                                    success!!.getInt("room_id"),
+                                    success!!.getString("maker"),
+                                    success!!.getString("partner"),
+                                    success!!.getString("room_date"),
+                                    success!!.getString("room_title"),
+                                    null,null,null)
+                                intent.putExtra("room",room)
+                                startActivity(intent)
+                                finish()
+                            })
+                        }
+                        1 -> {
+                            VolleyService.getRoomInfoReq(maker,partner,registerTitle!!, this,{success ->
+                                var intent=Intent(this,ChatActivity::class.java)
+                                var room=ChatRoomItem(
+                                    success!!.getInt("room_id"),
+                                    success!!.getString("maker"),
+                                    success!!.getString("partner"),
+                                    success!!.getString("room_date"),
+                                    success!!.getString("room_title"),
+                                    null,null,null)
+                                intent.putExtra("room",room)
+                                startActivity(intent)
+                                finish()
+                            })
+                        }
+                    }
 
-                VolleyService.createRoomReq(maker,partner,roomDate, registerTitle!!,this,{success ->
-                    var intent= Intent(this,ChatActivity::class.java)
-                    var room=ChatRoomItem(
-                        success!!.getInt("room_id"),
-                        success!!.getString("maker"),
-                        success!!.getString("partner"),
-                        success!!.getString("room_date"),
-                        success!!.getString("room_title"),
-                        null,null,null)
-                    intent.putExtra("room",room)
-                    startActivity(intent)
-                    finish()
                 })
             }
 

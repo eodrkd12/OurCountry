@@ -1,6 +1,7 @@
 package com.honestyandpassion.ourcountry.MainActivity
 
 import android.os.Bundle
+import android.os.Message
 import android.util.Log
 import com.honestyandpassion.ourcountry.Class.ToolbarSetting
 import com.honestyandpassion.ourcountry.Class.UserInfo
@@ -105,6 +106,10 @@ class PaymentActivity : ToolbarSetting() {
                 // 결제완료시 호출, 아이템 지급 등 데이터 동기화 로직을 수행합니다
                 // 주문내역 서버에 입력
                 VolleyService.paymentReq(orderId,registerId, UserInfo.ID,registerPrice!!,paymentDate,type,registerTitle,this)
+                var handler=ChatActivity.HANDLER
+                var msg=handler!!.obtainMessage()
+                msg.what=0
+                handler.sendMessage(msg)
                 finish()
             }
             .onReady {

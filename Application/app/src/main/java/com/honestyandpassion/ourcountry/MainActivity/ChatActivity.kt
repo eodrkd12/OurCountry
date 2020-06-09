@@ -1,7 +1,10 @@
 package com.honestyandpassion.ourcountry.MainActivity
 
+import android.nfc.cardemulation.HostApduService
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.util.Log
 import com.google.firebase.database.*
 import com.google.firebase.messaging.FirebaseMessaging
@@ -16,6 +19,10 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 class ChatActivity : AppCompatActivity() {
+
+    companion object {
+        var HANDLER:Handler?=null
+    }
 
     var chatAdapter = ChatAdapter()
 
@@ -43,6 +50,50 @@ class ChatActivity : AppCompatActivity() {
             }
 
         setChatting()
+
+        HANDLER=object : Handler(){
+            override fun handleMessage(msg: Message?) {
+                when(msg!!.what){
+                    0 -> {
+                        var map = HashMap<String, Any>()
+
+                        val key: String? = ref!!.push().key
+
+                        ref!!.updateChildren(map)
+
+                        var root = ref!!.child(key!!)
+                        var objectMap = HashMap<String, Any>()
+
+                        val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
+                        val noon = current.format(DateTimeFormatter.ofPattern("a"))
+                        var formatter: DateTimeFormatter? = null
+
+                        if (noon == "PM")
+                            formatter = DateTimeFormatter.ofPattern("오후 hh:mm")
+                        else
+                            formatter = DateTimeFormatter.ofPattern("오전 hh:mm")
+                        val formatted = current.format(formatter)
+                        val fulltime =
+                            current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+
+                        objectMap.put("room_id", roomId!!)
+                        objectMap.put("speaker", "OUR_COUNTRY_OPERATOR")
+                        objectMap.put("content", "<우리 시골 알림>\n${UserInfo.NICKNAME}님의 결제가 완료되었습니다.")
+                        objectMap.put("time", formatted)
+                        objectMap.put("fulltime", fulltime)
+
+                        root.updateChildren(objectMap)
+
+                        VolleyService.sendFCMReq(
+                            roomId!!,
+                            title!!,
+                            "${UserInfo.NICKNAME} : ${edit_chat.text}",
+                            applicationContext
+                        )
+                    }
+                }
+            }
+        }
     }
 
     fun setChatting() {
