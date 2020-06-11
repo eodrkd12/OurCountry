@@ -7,11 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.honestyandpassion.ourcountry.IntroActivity.SelectCategoryActivity
 import com.honestyandpassion.ourcountry.IntroActivity.SelectSubCategoryActivity
+import com.honestyandpassion.ourcountry.IntroActivity.SelectUserTypeActivity
 import com.honestyandpassion.ourcountry.Item.Category
 import com.honestyandpassion.ourcountry.MainActivity.EditProfileActivity
+import com.honestyandpassion.ourcountry.MainActivity.PaymentActivity
 import com.honestyandpassion.ourcountry.MainActivity.RegisterActivity
 import com.honestyandpassion.ourcountry.MainActivity.SubCategoryActivity
 import com.honestyandpassion.ourcountry.R
@@ -31,8 +34,17 @@ class SelectUserTypeAdapter(val context: Context, val userTypeList:ArrayList<Str
     override fun onBindViewHolder(holder: SelectUserTypeAdapter.ViewHolder, position: Int) {
         holder.itemView.text_selectingcategory.text = userTypeList.get(position)
         holder.itemView.setOnClickListener{
+            if(holder.itemView.text_selectingcategory.text!="전문판매자"){
             (context as Activity).finish()
             EditProfileActivity.userTypeText!!.text = userTypeList.get(position)
+            }
+            else{
+                var intent = Intent(context, PaymentActivity::class.java)
+                intent.putExtra("registerTitle","전무판매자변경신청")
+                intent.putExtra("registerPrice","3000")
+                intent.putExtra("registerId","")
+                context.startActivity(intent)
+            }
         }
     }
 

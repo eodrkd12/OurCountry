@@ -21,6 +21,16 @@ module.exports=function(){
 		})
 	})
 },
+search_payment:function(search,callback){
+    pool.getConnection(function(err,con){
+      var sql=`select * from payment where user_id like '%${search}%'`
+      con.query(sql,function(err,result,fields){
+        con.release()
+        if(err) callback(err)
+        else callback(null,result)
+      })
+    })
+  },
         pool : pool
     }
 }

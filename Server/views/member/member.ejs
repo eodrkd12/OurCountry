@@ -10,6 +10,7 @@
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="/js/mdb.min.js"></script>
+
 <!DOCTYPE html>
 <html>
 
@@ -23,6 +24,13 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="/css/mdb.min.css" rel="stylesheet">
+      <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
 
 
 
@@ -31,46 +39,21 @@
     style="flex-flow: row wrap;">
     <div class="form-inline mr-auto my-1">
     
-       <input id="textSearch" class="text text-defalut text-sm-left" type="text" placeholder="아이디">
-      <a type="button"  id="btnSearch" class="fas fa-search ml-3 mt-1" ></a> 
-
-
-        <div>
-            <a type="button" class="btn-lg transparent" data-toggle="tooltip" data-placement="top"
-            title="추가" onclick="addModal()"><i class="fas fa-plus fa-large" aria-hidden="true"></i></a>
-            <a type="button" class="btn-lg transparent"  data-toggle="tooltip" data-placement="top"
-            title="수정" onclick="modifyModal()"><i class="fas fa-pencil-alt fa-large" aria-hidden="true"></i></a>    
-        </div>               
+        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group" style="padding-top: 10px;">
+              <input id="textSearch" type="text" class="form-control bg-light border-0 small" placeholder="아이디" aria-label="Search" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id="btnSearch">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div>
+            </div>
+          </form>       
         </div>
-       
     </div>
     <!--테이블-->
     <div id="tableDiv" class="table-responsive"></div>
 
-    <!-- Modal -->
-<div class="modal fade bd-example-modal-lg" id="modal" tabindex="-1" role="dialog" aria-labelledby="userInfoModal"
-aria-hidden="true" data-backdrop="false">
-<div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content card mb-4">
-        <div class="modal-header">
-            <h6 class="modal-title"></h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="form-row">
-                    </div>
-            </div>       
-        </div>
-        <div class="modal-footer">
-            <gb-button class="input-group-text purple white-text" ID="add" Text="추가" Icon="fas fa-plus" visibility="no" clickEvent="Add()"></gb-button>
-            <gb-button class="input-group-text purple white-text" ID="modify" Text="수정" Icon="fas fa-save" clickEvent="Modify()"></gb-button>
-            <gb-button ID="close" class="input-group-text purple white-text" Text="닫기" Icon="fas fa-times" clickEvent="Close()"></gb-button>
-        </div>
-    </div>
-</div>
-<!-- Modal -->
 
 <script>
     function htmlTable(data) {

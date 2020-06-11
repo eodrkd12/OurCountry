@@ -1,12 +1,21 @@
 package com.honestyandpassion.ourcountry.MainActivity
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.BaseExpandableListAdapter
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,12 +23,33 @@ import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.IntroActivity.SelectUserTypeActivity
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.R
+import com.kakao.usermgmt.response.model.User
 import kotlinx.android.synthetic.main.activity_profile_edit.*
 import kr.co.bootpay.Bootpay.finish
+import java.io.FileNotFoundException
+import java.io.IOException
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 class EditProfileActivity:AppCompatActivity() {
-    companion object{
-        var userTypeText : TextView?=null
+
+    val PICK_FROM_CAMERA = 0
+    val PICK_FROM_ALBUM = 1
+    val CROP_FROM_CAMERA = 2
+    val CROP_FROM_ALBUM = 3
+
+    var imageCaptureUri: Uri? = null
+
+    var dialog: Dialog? = null
+    var dialog_imageView: View? = null
+    var dialogBtnCancel: Button? = null
+    var dialogimagechange_phone: Button? = null
+    var dialogimagechange_cam: Button? = null
+
+    companion object {
+        var userTypeText: TextView? = null
+        var beforeTypeText:String?=null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,18 +63,48 @@ class EditProfileActivity:AppCompatActivity() {
         supportActionBar?.setTitle("프로필 편집")
 
         userTypeText = findViewById(R.id.text_selectusertype)
-
         userTypeText!!.setText(UserInfo.USERTYPE)
+        beforeTypeText=UserInfo.USERTYPE
         edit_nickname.setText(UserInfo.NICKNAME)
         edit_email.setText(UserInfo.ID)
         edit_phone.setText(UserInfo.PHONE)
         edit_address.setText(UserInfo.ADDRESS)
         edit_about.setText(UserInfo.ABOUT)
+
+
         //이미지 보여줌
-       // val imageByte= Base64.decode(UserInfo.IMAGE,0)
-        //Toast.makeText(this, "${UserInfo.IMAGE}",Toast.LENGTH_SHORT).show()
-        //val image = BitmapFactory.decodeByteArray(imageByte,0,imageByte.size)
-        //img_profile.setImageBitmap(image)
+//        val imageByte= Base64.decode(UserInfo.IMAGE,0)
+//        Toast.makeText(this, "${UserInfo.IMAGE}",Toast.LENGTH_SHORT).show()
+//        val image = BitmapFactory.decodeByteArray(imageByte,0,imageByte.size)
+//        img_profile.setImageBitmap(image)
+
+//        img_edit.setOnClickListener{
+//            dialog_imageView = layoutInflater.inflate(R.layout.dialog_imagechange, null)
+//            dialogBtnCancel =
+//                dialog_imageView!!.findViewById<Button>(R.id.btn_imagechangecancel)
+//            dialogimagechange_phone =
+//                dialog_imageView!!.findViewById<Button>(R.id.btn_changeimage_from_phone)
+//            dialogimagechange_cam =
+//                dialog_imageView!!.findViewById<Button>(R.id.btn_changeimage_from_cam)
+//
+//            dialogimagechange_phone!!.setOnClickListener({
+//                //이미지변경버튼
+//                var albumIntent = Intent(Intent.ACTION_PICK)
+//                albumIntent.setType(MediaStore.Images.Media.CONTENT_TYPE)
+//                startActivityForResult(albumIntent, PICK_FROM_ALBUM)
+//                dialog!!.dismiss()
+//            })
+//            dialogimagechange_cam!!.setOnClickListener({
+//                var cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//                startActivityForResult(cameraIntent, PICK_FROM_CAMERA)
+//                dialog!!.dismiss()
+//            })
+//            dialogBtnCancel!!.setOnClickListener({
+//                //취소버튼
+//            })
+//            dialog!!.setContentView(dialog_imageView)
+//            dialog!!.show()
+//        }
 
         layout_selectusertype.setOnClickListener {
             var intent = Intent(this, SelectUserTypeActivity::class.java)
@@ -54,54 +114,118 @@ class EditProfileActivity:AppCompatActivity() {
         btn_save.setOnClickListener {
             var id = edit_email.text.toString()
             var phone = edit_phone.text.toString()
-            var nickname=edit_nickname.text.toString()
-          //  var city= edit_city.text.toString()
-            var about =edit_about.text.toString()
+            var nickname = edit_nickname.text.toString()
+            //  var city= edit_city.text.toString()
+            var about = edit_about.text.toString()
             var address = edit_address.text.toString()
             var userType = text_selectusertype.text.toString()
-        VolleyService.editUserReq(id,nickname,phone,about,address,userType,this,{ success->
+            val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
+            var date=  current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
-            UserInfo.USERTYPE=userType
-            UserInfo.NICKNAME=nickname
-            UserInfo.PHONE=phone
-            UserInfo.ADDRESS=address
-            UserInfo.ABOUT=about
+            VolleyService.addUserTypeReq(
+                id,
+                beforeTypeText.toString(),
+                userType,
+                date,this
+            ,{success->
+                    Toast.makeText(this, "타입변경.", Toast.LENGTH_SHORT).show()
+                })
 
-            var pref=this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
-            var editor=pref.edit()
-            editor
-                .putString("NICKNAME", UserInfo.NICKNAME)
-                .putString("PHONE", UserInfo.PHONE)
-                .putString("ADDRESS", UserInfo.ADDRESS)
-                .putString("ABOUT", UserInfo.ABOUT)
-                .putString("USERTYPE", UserInfo.USERTYPE)
-                .apply()
 
-            edit_nickname.setText(UserInfo.NICKNAME)
-            edit_email.setText(UserInfo.ID)
-            edit_phone.setText(UserInfo.PHONE)
-            edit_address.setText(UserInfo.ADDRESS)
-            edit_about.setText(UserInfo.ABOUT)
+            VolleyService.editUserReq(
+                id,
+                nickname,
+                phone,
+                about,
+                address,
+                userType,
+                this,
+                { success ->
 
-            Toast.makeText(this, "내 정보가 변경되었습니다.",Toast.LENGTH_SHORT).show()
-            finish()
+                    UserInfo.USERTYPE = userType
+                    UserInfo.NICKNAME = nickname
+                    UserInfo.PHONE = phone
+                    UserInfo.ADDRESS = address
+                    UserInfo.ABOUT = about
 
-        })
+                    var pref = this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+                    var editor = pref.edit()
+                    editor
+                        .putString("NICKNAME", UserInfo.NICKNAME)
+                        .putString("PHONE", UserInfo.PHONE)
+                        .putString("ADDRESS", UserInfo.ADDRESS)
+                        .putString("ABOUT", UserInfo.ABOUT)
+                        .putString("USERTYPE", UserInfo.USERTYPE)
+                        .apply()
+
+                    edit_nickname.setText(UserInfo.NICKNAME)
+                    edit_email.setText(UserInfo.ID)
+                    edit_phone.setText(UserInfo.PHONE)
+                    edit_address.setText(UserInfo.ADDRESS)
+                    edit_about.setText(UserInfo.ABOUT)
+
+                    Toast.makeText(this, "내 정보가 변경되었습니다.", Toast.LENGTH_SHORT).show()
+                    finish()
+
+                })
 
         }
-        img_profile_edit.setOnClickListener {
 
-
-        }
-
-        }
-
-override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-    when (item!!.itemId) {
-        android.R.id.home -> {
-            finish()
-        }
     }
-    return super.onOptionsItemSelected(item)
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item!!.itemId) {
+            android.R.id.home -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data == null) {
+            return
+        }
+
+        Log.d("uniting", "onActivityResult")
+
+        when (requestCode) {
+            PICK_FROM_CAMERA -> {
+                Log.d("uniting", "CAMERA")
+                val imageBitmap = data!!.extras.get("data") as Bitmap
+                img_profile.setImageBitmap(imageBitmap)
+                var bitmap = ((img_profile.drawable as Drawable) as BitmapDrawable).bitmap
+                VolleyService.updateImageReq(UserInfo.ID, bitmap, this)
+
+            }
+            PICK_FROM_ALBUM -> {
+                Log.d("uniting", "ALBUM")
+                imageCaptureUri = data!!.data
+
+                try {
+                    val imageBitmap =
+                        MediaStore.Images.Media.getBitmap(this.contentResolver, imageCaptureUri)
+                    img_profile.setImageBitmap(imageBitmap)
+                    var bitmap = ((img_profile.drawable as Drawable) as BitmapDrawable).bitmap
+                    VolleyService.updateImageReq(UserInfo.ID, bitmap, this)
+
+                } catch (e: FileNotFoundException) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace()
+                } catch (e: IOException) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace()
+                }
+
+            }
+            CROP_FROM_CAMERA -> {
+
+            }
+            CROP_FROM_ALBUM -> {
+
+            }
+        }
     }
 }
+

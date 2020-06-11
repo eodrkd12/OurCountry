@@ -46,8 +46,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/img_user_blar" />
 
+
             <ImageView
-                android:id="@+id/img_profile_edit"
+                android:id="@+id/img_edit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/rounded_corner_shape"
@@ -55,7 +56,6 @@
                 app:layout_constraintEnd_toEndOf="@+id/img_profile"
                 app:layout_constraintTop_toTopOf="@+id/img_profile"
                 app:srcCompat="@android:drawable/ic_menu_edit" />
-
 
             <Button
                 android:id="@+id/btn_save"
@@ -302,9 +302,56 @@
                         android:textColor="@color/colorMdGrey_700"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_about"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <EditText
+                        android:id="@+id/edit_pay"
+                        android:layout_width="226dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/layout_border"
+                        android:hint="계좌 입력"
+                        android:imeOptions="actionDone"
+                        android:inputType="textMultiLine"
+                        android:paddingStart="10dp"
+                        android:paddingTop="8dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="8dp"
+                        android:text='@{user.userAboutMe.equals("") ? "-" : user.userAboutMe }'
+                        android:textColor="@color/colorMdGrey_700"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_about" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_pay" />
+
+                    <EditText
+                        android:id="@+id/edit_pay2"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/layout_border"
+                        android:hint="은행선택"
+                        android:imeOptions="actionDone"
+                        android:inputType="textMultiLine"
+                        android:paddingStart="10dp"
+                        android:paddingTop="8dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="8dp"
+                        android:text='@{user.userAboutMe.equals("") ? "-" : user.userAboutMe }'
+                        android:textColor="@color/colorMdGrey_700"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_pay" />
 
                     <TextView
                         android:id="@+id/text_phone"
@@ -339,6 +386,23 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/edit_city" />
+
+                    <TextView
+                        android:id="@+id/text_pay"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:text="계좌번호"
+                        android:textColor="@color/colorMdGrey_700"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/edit_about" />
 
                     <TextView
                         android:id="@+id/text_usertype"

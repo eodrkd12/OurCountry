@@ -19,7 +19,7 @@ class SelectUserTypeActivity : ToolbarSetting() {
         var toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar_selectusertype)
         toolbarBinding(toolbar, "회원등급을 설정해주세요.")
 
-        var userTypeList = arrayListOf("구매자", "판매자")
+        var userTypeList = arrayListOf("구매자", "판매자","전문판매자")
         rv_selectusertype.setHasFixedSize(true)
         rv_selectusertype.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rv_selectusertype.adapter = SelectUserTypeAdapter(this , userTypeList)

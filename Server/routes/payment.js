@@ -17,6 +17,14 @@ router.post('/', function(req, res, next) {
     object.result="success"
     res.send(object)
 });
-
+router.post('/search', function (req, res, next) {
+    var search = req.body.search
+    console.log(search)
+  
+    db_payment.search_payment(search, function (err, result) {
+      if (err) console.log(err)
+      else res.send(result)
+    })
+  })
 
 module.exports = router;
