@@ -237,6 +237,8 @@ object VolleyService {
         about: String,
         address: String,
         userType: String,
+        bank:String,
+        account:String,
         context: Context,
         success: (JSONObject?) -> Unit
     ) {

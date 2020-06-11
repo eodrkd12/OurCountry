@@ -149,6 +149,8 @@ class EditProfileActivity:AppCompatActivity() {
             var userType = text_selectusertype.text.toString()
             val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
             var date=  current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+            var bank=edit_pay2.text.toString()
+            var account= edit_pay.text.toString()
 
             VolleyService.addUserTypeReq(
                 id,
@@ -167,6 +169,8 @@ class EditProfileActivity:AppCompatActivity() {
                 about,
                 address,
                 userType,
+                bank,
+                account,
                 this,
                 { success ->
 
@@ -175,6 +179,8 @@ class EditProfileActivity:AppCompatActivity() {
                     UserInfo.PHONE = phone
                     UserInfo.ADDRESS = address
                     UserInfo.ABOUT = about
+                    UserInfo.BANK=bank
+                    UserInfo.ACCOUNT=account
 
                     var pref = this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
                     var editor = pref.edit()
@@ -184,6 +190,8 @@ class EditProfileActivity:AppCompatActivity() {
                         .putString("ADDRESS", UserInfo.ADDRESS)
                         .putString("ABOUT", UserInfo.ABOUT)
                         .putString("USERTYPE", UserInfo.USERTYPE)
+                        .putString("BANK",UserInfo.BANK)
+                        .putString("ACCOUNT",UserInfo.ACCOUNT)
                         .apply()
 
                     edit_nickname.setText(UserInfo.NICKNAME)
