@@ -280,7 +280,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_city" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_city"
+                        android:enabled="false"/>
 
                     <EditText
                         android:id="@+id/edit_about"
@@ -309,9 +310,9 @@
 
                     <EditText
                         android:id="@+id/edit_pay"
-                        android:layout_width="226dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="8dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
                         android:background="@drawable/layout_border"
@@ -326,8 +327,7 @@
                         android:textColor="@color/colorMdGrey_700"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/edit_pay2"
                         app:layout_constraintTop_toBottomOf="@+id/text_pay" />
 
                     <EditText
@@ -335,7 +335,6 @@
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
                         android:background="@drawable/layout_border"
                         android:hint="은행선택"
@@ -348,8 +347,6 @@
                         android:text='@{user.userAboutMe.equals("") ? "-" : user.userAboutMe }'
                         android:textColor="@color/colorMdGrey_700"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_pay" />
 

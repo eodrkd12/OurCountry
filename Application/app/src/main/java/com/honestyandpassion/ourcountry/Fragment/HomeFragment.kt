@@ -176,7 +176,7 @@ class HomeFragment : Fragment() {
         var fusedLocationClient= LocationServices.getFusedLocationProviderClient(activity!!)
         fusedLocationClient.lastLocation.addOnSuccessListener {location->
             if(location == null){
-                Toast.makeText(activity,"null", Toast.LENGTH_SHORT).show()
+               text_currentlocation.text="위치정보를 받아올수 없습니다."
             }else{
                 var geocoder = Geocoder(activity)
                 var list=geocoder.getFromLocation(location.latitude,location.longitude,10)
@@ -185,7 +185,7 @@ class HomeFragment : Fragment() {
             }
         }
             .addOnFailureListener{
-
+                text_currentlocation.text="위치정보를 받아올수 없습니다."
         }
 
     }

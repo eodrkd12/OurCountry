@@ -70,7 +70,9 @@ class EditProfileActivity:AppCompatActivity() {
         edit_phone.setText(UserInfo.PHONE)
         edit_address.setText(UserInfo.ADDRESS)
         edit_about.setText(UserInfo.ABOUT)
-
+        edit_pay2.setText(UserInfo.BANK)
+        edit_pay.setText(UserInfo.ACCOUNT)
+        edit_city.setText(UserInfo.ADDRESS.split(" ")[0])
 
         //이미지 보여줌
 //        val imageByte= Base64.decode(UserInfo.IMAGE,0)
