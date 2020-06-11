@@ -1,5 +1,6 @@
 package com.honestyandpassion.ourcountry.MainActivity
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -14,11 +15,9 @@ import android.util.Base64
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.BaseExpandableListAdapter
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.honestyandpassion.ourcountry.Adapter.BankAdapter
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.IntroActivity.SelectUserTypeActivity
 import com.honestyandpassion.ourcountry.Object.VolleyService
@@ -46,6 +45,8 @@ class EditProfileActivity:AppCompatActivity() {
     var dialogBtnCancel: Button? = null
     var dialogimagechange_phone: Button? = null
     var dialogimagechange_cam: Button? = null
+    var dialogGrid:GridView?=null
+    var dialog_Grid:View?=null
 
     companion object {
         var userTypeText: TextView? = null
@@ -108,10 +109,30 @@ class EditProfileActivity:AppCompatActivity() {
 //            dialog!!.show()
 //        }
 
+
+        edit_pay2.setOnClickListener {
+            val dialog = Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar)
+            val dialogView=layoutInflater.inflate(R.layout.dialog_bank,null)
+            val dialogGrid=dialogView.findViewById<GridView>(R.id.grid_bank)
+            var bankList=resources.getStringArray(R.array.array_bank)
+
+            var bankAdapter= BankAdapter(this,bankList)
+            dialogGrid.adapter=bankAdapter
+
+            dialog.setContentView(dialogView)
+            dialog.show()
+
+            dialogGrid.setOnItemClickListener { parent, view, position, id ->
+                var name=bankAdapter.getItem(position).toString()
+                edit_pay2.setText(name)
+            }
+
+        }
         layout_selectusertype.setOnClickListener {
             var intent = Intent(this, SelectUserTypeActivity::class.java)
             startActivity(intent)
         }
+
 
         btn_save.setOnClickListener {
             var id = edit_email.text.toString()
