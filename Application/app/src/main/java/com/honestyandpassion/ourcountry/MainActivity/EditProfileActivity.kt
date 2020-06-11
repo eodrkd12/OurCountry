@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -17,6 +18,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.honestyandpassion.ourcountry.Adapter.BankAdapter
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.IntroActivity.SelectUserTypeActivity
@@ -119,12 +121,15 @@ class EditProfileActivity:AppCompatActivity() {
             var bankAdapter= BankAdapter(this,bankList)
             dialogGrid.adapter=bankAdapter
 
-            dialog.setContentView(dialogView)
+            //dialog.getWindow().statusBarColor = Color.TRANSPARENT
+            dialog.getWindow().getAttributes().windowAnimations = R.style.AnimationPopupStyle
+            dialog.addContentView(dialogView, ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT))
             dialog.show()
 
             dialogGrid.setOnItemClickListener { parent, view, position, id ->
                 var name=bankAdapter.getItem(position).toString()
                 edit_pay2.setText(name)
+                dialog.dismiss()
             }
 
         }

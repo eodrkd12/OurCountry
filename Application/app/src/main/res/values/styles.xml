@@ -9,6 +9,11 @@
         <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
+    <style name="AnimationPopupStyle">
+        <item name="android:windowEnterAnimation">@anim/anim_slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/anim_notwork</item>
+    </style>
+
     <style name="loading_dialog_style" parent="@android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowTitleStyle">@null</item>
