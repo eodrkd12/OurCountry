@@ -268,6 +268,33 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
+    fun editPasswordReq(
+        id: String,
+        password:String,
+        context: Context,
+        success: (JSONObject?) -> Unit
+    ) {
+        var url = "${ip}/user/update/password"
+
+        var jsonObject = JSONObject()
+        jsonObject.put("id", id)
+        jsonObject.put("password",password)
+
+        var request = object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+
     fun myInfoReq(id: String, context: Context, success: (JSONObject?) -> Unit){
         var url="${ip}/user/my"
 
