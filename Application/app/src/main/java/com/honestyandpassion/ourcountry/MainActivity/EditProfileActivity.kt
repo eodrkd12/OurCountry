@@ -66,7 +66,7 @@ class EditProfileActivity:AppCompatActivity() {
         supportActionBar?.setTitle("프로필 편집")
 
         userTypeText = findViewById(R.id.text_selectusertype)
-        userTypeText!!.setText(UserInfo.USERTYPE)
+        text_selectusertype.setText(UserInfo.USERTYPE)
         beforeTypeText=UserInfo.USERTYPE
         edit_nickname.setText(UserInfo.NICKNAME)
         edit_email.setText(UserInfo.ID)
@@ -76,6 +76,7 @@ class EditProfileActivity:AppCompatActivity() {
         edit_pay2.setText(UserInfo.BANK)
         edit_pay.setText(UserInfo.ACCOUNT)
         edit_city.setText(UserInfo.ADDRESS.split(" ")[0])
+
 
         //이미지 보여줌
 //        val imageByte= Base64.decode(UserInfo.IMAGE,0)
