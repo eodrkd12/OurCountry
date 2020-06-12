@@ -40,7 +40,7 @@ class SelectUserTypeAdapter(val context: Context, val userTypeList:ArrayList<Str
             }
             else{
                 var intent = Intent(context, PaymentActivity::class.java)
-                intent.putExtra("registerTitle","전무판매자변경신청")
+                intent.putExtra("registerTitle","전문판매자변경신청")
                 intent.putExtra("registerPrice","3000")
                 intent.putExtra("registerId","")
                 context.startActivity(intent)
