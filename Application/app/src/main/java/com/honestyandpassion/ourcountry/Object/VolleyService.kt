@@ -251,6 +251,8 @@ object VolleyService {
         jsonObject.put("about", about)
         jsonObject.put("address", address)
         jsonObject.put("user_type", userType)
+        jsonObject.put("bank",bank)
+        jsonObject.put("account",account)
 
         var request = object : JsonObjectRequest(
             Method.POST,

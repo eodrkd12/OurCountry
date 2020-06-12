@@ -138,6 +138,10 @@ class EditProfileActivity:AppCompatActivity() {
             startActivity(intent)
         }
 
+        btn_password_change.setOnClickListener {
+            var intent = Intent(this, ChangePasswordActivity::class.java)
+            startActivity(intent)
+        }
 
         btn_save.setOnClickListener {
             var id = edit_email.text.toString()
@@ -152,14 +156,16 @@ class EditProfileActivity:AppCompatActivity() {
             var bank=edit_pay2.text.toString()
             var account= edit_pay.text.toString()
 
-            VolleyService.addUserTypeReq(
-                id,
-                beforeTypeText.toString(),
-                userType,
-                date,this
-            ,{success->
-                    Toast.makeText(this, "타입변경.", Toast.LENGTH_SHORT).show()
-                })
+            if(beforeTypeText.toString()!=userType) {
+                VolleyService.addUserTypeReq(
+                    id,
+                    beforeTypeText.toString(),
+                    userType,
+                    date, this
+                    , { success ->
+                        Toast.makeText(this, "타입변경.", Toast.LENGTH_SHORT).show()
+                    })
+            }
 
 
             VolleyService.editUserReq(
@@ -199,6 +205,8 @@ class EditProfileActivity:AppCompatActivity() {
                     edit_phone.setText(UserInfo.PHONE)
                     edit_address.setText(UserInfo.ADDRESS)
                     edit_about.setText(UserInfo.ABOUT)
+                    edit_pay2.setText(UserInfo.BANK)
+                    edit_pay.setText(UserInfo.ACCOUNT)
 
                     Toast.makeText(this, "내 정보가 변경되었습니다.", Toast.LENGTH_SHORT).show()
                     finish()
