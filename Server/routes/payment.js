@@ -3,8 +3,8 @@ var router = express.Router();
 var db_payment = require('../public/SQL/payment_sql')()
 var db_user = require('../public/SQL/user_sql')()
 
-router.get('/', function(req,res,next){
-    db_payment.get_payment(function(err,result){
+router.get('/', function (req, res, next) {
+    db_payment.get_payment(function (err, result) {
         res.send(result)
     })
 })

@@ -8,7 +8,7 @@ module.exports=function(){
                 con.query(sql, function(err, result, fields){
                     con.release()
                     if(err) console.log(err)
-                    else console.log("위시리스트 등록 완료")
+                    else callback(null,result)
                 })
             })
         },
@@ -18,13 +18,13 @@ module.exports=function(){
                 con.query(sql, function(err, result, fields){
                     con.release()
                     if(err) console.log(err)
-                    else console.log("위시리스트 삭제 완료")
+                    else callback(null,result)
                 })
             })
         },
         check_wishlist : function(registerId, userId, callback){
             pool.getConnection(function(err, con){
-                var sql=`select * from Wishlist where register_id=${registerId} and user_id='${userId}'`
+                var sql=`select count(*) as count from Wishlist where register_id=${registerId} and user_id='${userId}'`
                 con.query(sql, function(err, result, fields){
                     con.release()
                     if(err) console.log(err)
@@ -32,10 +32,10 @@ module.exports=function(){
                 })
             })
         },
-        get_wishlist : function(userId, callback) {
+	get_wishlist : function(userId, callback) {
             pool.getConnection(function(err, con){
-                var sql=`select Register.register_id, Register.user_id, register_title, product_category, product_subcategory, product_type, product_status, product_brand, product_price, seller_store, register_content, trade_option, seller_address, register_date, register_like, register_view, user_nickname from Register, Wishlist where Register.register_id=Wishlist.register_id and Wishlist.user_id='${userId}'`
-                con.query(sql, function(err, result, fields){
+                var sql=`select Register.register_id, register_title, product_price, product_status from Register, Wishlist where Register.register_id=Wishlist.register_id and Wishlist.user_id='${userId}'`
+		    con.query(sql, function(err, result, fields){
                     con.release()
                     if(err) console.log(err)
                     else callback(null, result)
@@ -45,3 +45,4 @@ module.exports=function(){
         pool: pool
     }
 };
+

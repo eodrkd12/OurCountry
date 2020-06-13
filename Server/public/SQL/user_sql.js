@@ -72,27 +72,27 @@ module.exports = function () {
         })
       })
     },
-    remove_token: function (nickname) {
+    remove_token: function (id) {
       pool.getConnection(function (err, con) {
-        var sql = "update user set token='' where user_nickname='" + nickname + "'"
+        var sql = "update user set user_token='' where user_id='" + id + "'"
         con.query(sql, function (err, result, fields) {
           con.release()
           if (err) console.log(err)
         })
       })
     },
-    insert_token: function (nickname, token) {
+    insert_token: function (id, token) {
       pool.getConnection(function (err, con) {
-        var sql = "update user set token='" + token + "' where user_nickname='" + nickname + "'"
+        var sql = "update user set user_token='" + token + "' where user_id='" + id + "'"
         con.query(sql, function (err, result, fields) {
           con.release()
           if (err) console.log(err)
         })
       })
     },
-    get_token:function(nickname,callback){
+    get_token:function(id,callback){
       pool.getConnection(function(err,con){
-              var sql=`select token from user where user_nickname='${nickname}'`
+              var sql=`select user_token from user where user_id='${id}'`
               con.query(sql,function(err,result,fields){
                       con.release()
                       if(err) console.log(err)
@@ -110,6 +110,7 @@ module.exports = function () {
               })
       })
     },
+
     pool: pool
   }
 }

@@ -8,6 +8,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout"
             android:layout_width="match_parent"
@@ -15,6 +16,9 @@
             android:background="@color/colorMdGrey_200"
             android:paddingBottom="16dp"
             tools:context="com.marketcountry.psbuyandsell.ui.user.ProfileFragment">
+
+
+
 
             <ImageView
                 android:id="@+id/img_userback"
@@ -46,8 +50,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/img_user_blar" />
 
+
             <ImageView
-                android:id="@+id/img_profile_edit"
+                android:id="@+id/img_edit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/rounded_corner_shape"
@@ -55,7 +60,6 @@
                 app:layout_constraintEnd_toEndOf="@+id/img_profile"
                 app:layout_constraintTop_toTopOf="@+id/img_profile"
                 app:srcCompat="@android:drawable/ic_menu_edit" />
-
 
             <Button
                 android:id="@+id/btn_save"
@@ -140,7 +144,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_name" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_name"
+                        android:cursorVisible="false"/>
 
                     <TextView
                         android:id="@+id/text-email"
@@ -180,7 +185,8 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text-email"
-                        android:enabled="false"/>
+                        android:enabled="false"
+                        android:cursorVisible="false"/>
 
                     <EditText
                         android:id="@+id/edit_phone"
@@ -201,7 +207,9 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_phone" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_phone"
+                        android:cursorVisible="false"
+                        />
 
 
                     <TextView
@@ -280,7 +288,9 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_city" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_city"
+                        android:enabled="false"
+                        android:cursorVisible="false"/>
 
                     <EditText
                         android:id="@+id/edit_about"
@@ -302,9 +312,57 @@
                         android:textColor="@color/colorMdGrey_700"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_about" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_about"
+                        app:layout_constraintVertical_bias="0.0"
+                        android:cursorVisible="false" />
+
+                    <EditText
+                        android:id="@+id/edit_pay"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/layout_border"
+                        android:hint="계좌 입력"
+                        android:imeOptions="actionDone"
+                        android:inputType="textMultiLine"
+                        android:paddingStart="10dp"
+                        android:paddingTop="8dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="8dp"
+                        android:textColor="@color/colorMdGrey_700"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/edit_pay2"
+                        app:layout_constraintTop_toBottomOf="@+id/text_pay"
+                        android:cursorVisible="false"
+                        android:enabled="false"/>
+
+                    <EditText
+                        android:id="@+id/edit_pay2"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/layout_border"
+                        android:hint="은행선택"
+                        android:imeOptions="actionDone"
+                        android:inputType="textMultiLine"
+                        android:paddingStart="10dp"
+                        android:paddingTop="8dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="8dp"
+                        android:textColor="@color/colorMdGrey_700"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_pay"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                       />
 
                     <TextView
                         android:id="@+id/text_phone"
@@ -321,7 +379,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/edit_email" />
+                        app:layout_constraintTop_toBottomOf="@+id/edit_email"
+                        />
 
                     <TextView
                         android:id="@+id/text_about"
@@ -339,6 +398,23 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/edit_city" />
+
+                    <TextView
+                        android:id="@+id/text_pay"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:text="계좌번호"
+                        android:textColor="@color/colorMdGrey_700"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/edit_about" />
 
                     <TextView
                         android:id="@+id/text_usertype"

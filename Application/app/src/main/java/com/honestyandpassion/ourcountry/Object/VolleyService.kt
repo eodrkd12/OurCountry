@@ -199,6 +199,36 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
+    fun addUserTypeReq(
+        user_id:String,
+        cur_type:String,
+        change_type:String,
+        date:String,
+        context: Context,
+        success: (JSONObject?) -> Unit
+    ){
+        var url="${ip}/usertypechange"
+
+        var jsonObject=JSONObject()
+        jsonObject.put("user_id",user_id)
+        jsonObject.put("cur_type",cur_type)
+        jsonObject.put("change_type",change_type)
+        jsonObject.put("date",date)
+
+        var request = object : JsonObjectRequest(Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+                success(null)
+            },
+            Response.ErrorListener {
+            }) {
+        }
+
+        Volley.newRequestQueue(context).add(request)
+
+
+    }
     //요청을 보내는 부분
     fun editUserReq(
         id: String,
@@ -207,6 +237,8 @@ object VolleyService {
         about: String,
         address: String,
         userType: String,
+        bank:String,
+        account:String,
         context: Context,
         success: (JSONObject?) -> Unit
     ) {
@@ -219,6 +251,8 @@ object VolleyService {
         jsonObject.put("about", about)
         jsonObject.put("address", address)
         jsonObject.put("user_type", userType)
+        jsonObject.put("bank",bank)
+        jsonObject.put("account",account)
 
         var request = object : JsonObjectRequest(
             Method.POST,
@@ -233,6 +267,33 @@ object VolleyService {
         }
         Volley.newRequestQueue(context).add(request)
     }
+
+    fun editPasswordReq(
+        id: String,
+        password:String,
+        context: Context,
+        success: (JSONObject?) -> Unit
+    ) {
+        var url = "${ip}/user/update/password"
+
+        var jsonObject = JSONObject()
+        jsonObject.put("id", id)
+        jsonObject.put("password",password)
+
+        var request = object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
 
     fun myInfoReq(id: String, context: Context, success: (JSONObject?) -> Unit){
         var url="${ip}/user/my"
@@ -445,6 +506,28 @@ object VolleyService {
             Response.ErrorListener {
             }) {
 
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+    fun updateImageReq(id:String, bitmap: Bitmap, context:Context) {
+        var url = "${ip}/user/update/image"
+
+        var stringImage = ImageManager.BitmapToString(bitmap)
+
+        var jsonObject = JSONObject()
+        jsonObject.put("id", id)
+        jsonObject.put("bitmap", stringImage)
+
+        var request = object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+
+            },
+            Response.ErrorListener {
+            }) {
         }
         Volley.newRequestQueue(context).add(request)
     }

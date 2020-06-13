@@ -257,9 +257,6 @@ class MainActivity : AppCompatActivity(){
                 startActivity(intent)
                 drawerLayout.closeDrawers()
             }
-
-
-
         }
         false
     }

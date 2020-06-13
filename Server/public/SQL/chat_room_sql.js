@@ -15,11 +15,11 @@ module.exports=function(){
                 }
             })
         },
-        get_room_info: function(maker,partner,roomDate,callback){
+        get_room_info: function(maker,partner,roomTitle,callback){
             pool.getConnection(function(err,con){
                 if(err) console.log(err)
                 else{
-                    var sql=`select * from ChatRoom where maker='${maker}' and partner='${partner}' and room_date='${roomDate}'`
+                    var sql=`select * from ChatRoom where maker='${maker}' and partner='${partner}' and room_title='${roomTitle}'`
                     con.query(sql,function(err,result,field){
                         con.release()
                         if(err) callback(err)

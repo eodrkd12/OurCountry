@@ -9,8 +9,10 @@
 
     <EditText
         android:id="@+id/edit_chat"
-        android:layout_width="343dp"
-        android:layout_height="40dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/edit1"
         android:ems="10"
@@ -22,9 +24,9 @@
 
     <ImageView
         android:id="@+id/btn_send"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
         android:background="@drawable/button3"
         android:cropToPadding="false"
         android:paddingStart="13dp"
@@ -35,7 +37,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/edit_chat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/edit_chat"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.652"
         app:srcCompat="@drawable/send_icon" />
 
     <TextView

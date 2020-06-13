@@ -64,7 +64,7 @@ module.exports=function(){
 	},
         get_register_recent:function(callback){
             pool.getConnection(function(err,con){
-                var sql=`select * from Register order by register_date desc`
+                var sql=`select register_id, register_title, product_price, product_status from Register order by register_date desc`
                 con.query(sql, function(err,result,fields){
                     con.release()
                     if(err) callback(err)
@@ -74,7 +74,7 @@ module.exports=function(){
         },
         get_register_popular:function(callback){
             pool.getConnection(function(err,con){
-                var sql=`select * from Register order by register_like desc`
+                var sql=`select register_id, register_title, product_price, product_status from Register order by register_like desc`
                 con.query(sql, function(err,result,fields){
                     con.release()
                     if(err) callback(err)
@@ -84,7 +84,7 @@ module.exports=function(){
         },
 	get_register_search:function(searchText, callback){
             pool.getConnection(function(err, con){
-                var sql=`select * from Register where register_title like '%${searchText}%'`
+                var sql=`select register_id, register_title, product_price, product_status from Register where register_title like '%${searchText}%'`
                 con.query(sql, function(err, result, fields){
                     con.release()
                     if(err) callback(err)
@@ -114,7 +114,7 @@ module.exports=function(){
         },
 	get_subcategory:function(productSubCategory, callback){
             pool.getConnection(function(err, con){
-                var sql=`select * from Register where product_subcategory='${productSubCategory}'`
+                var sql=`select register_id, register_title, product_price, product_status from Register where product_subcategory='${productSubCategory}'`
                 con.query(sql, function(err, result, fields){
                     con.release()
                     if(err) callback(err)
@@ -122,9 +122,9 @@ module.exports=function(){
                 })
             })  
         },
-	update_product:function(userId, registerTitle, productCategory, productSubCategory, productType, productStatus, productBrand, productPrice, sellerStore, registerContent, tradeOption, sellerAddress, registerDate, callback) {
+	update_product:function(registerId, userId, registerTitle, productCategory, productSubCategory, productType, productStatus, productBrand, productPrice, sellerStore, registerContent, tradeOption, sellerAddress, registerDate, callback) {
             pool.getConnection(function(err, con){
-                var sql=`update Register set register_title='${registerTitle}', product_category='${productCategory}', product_subcategory='${productSubCategory}', product_type='${productType}', product_status='${productStatus}', product_brand='${productBrand}', product_price='${productPrice}', seller_store=${sellerStore}, register_content='${registerContent}', trade_option='${tradeOption}', seller_address='${sellerAddress}', register_date='${registerDate}' where user_id='${userId}'`
+                var sql=`update Register set register_title='${registerTitle}', product_category='${productCategory}', product_subcategory='${productSubCategory}', product_type='${productType}', product_status='${productStatus}', product_brand='${productBrand}', product_price='${productPrice}', seller_store=${sellerStore}, register_content='${registerContent}', trade_option='${tradeOption}', seller_address='${sellerAddress}', register_date='${registerDate}' where register_id=${registerId}`
                 con.query(sql, function(err, result, fields){
                     con.release()
                     if(err) callback(err)
