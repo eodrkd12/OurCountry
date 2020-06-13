@@ -29,7 +29,7 @@ class ProductImagePagerAdapter(var context:Context, var imageList:ArrayList<Bitm
 
         image.setImageBitmap(imageList[position])
         val vp = container as ViewPager
-        vp.addView(view , position)
+        vp.addView(view)
 
         return view
     }

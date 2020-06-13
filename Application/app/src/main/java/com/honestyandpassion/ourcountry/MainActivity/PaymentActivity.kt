@@ -24,6 +24,7 @@ class PaymentActivity : ToolbarSetting() {
     var registerTitle:String?=null
     var registerPrice:String?=null
     var registerId:Int?=null
+    var seller:String?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +38,7 @@ class PaymentActivity : ToolbarSetting() {
         registerTitle= intent.getStringExtra("registerTitle")
         registerPrice= intent.getStringExtra("registerPrice")
         registerId=intent.getIntExtra("registerId",0)
+        seller=intent.getStringExtra("seller")
 
         text_paymentprice.text = registerPrice
         text_paymentprice1.text = registerPrice
@@ -105,7 +107,7 @@ class PaymentActivity : ToolbarSetting() {
             .onDone {
                 // 결제완료시 호출, 아이템 지급 등 데이터 동기화 로직을 수행합니다
                 // 주문내역 서버에 입력
-                VolleyService.paymentReq(orderId,registerId, UserInfo.ID,registerPrice!!,paymentDate,type,registerTitle,this)
+                VolleyService.paymentReq(orderId,registerId, UserInfo.ID,registerPrice!!,paymentDate,type,registerTitle,seller!!,this)
                 var handler=ChatActivity.HANDLER
                 var msg=handler!!.obtainMessage()
                 msg.what=0

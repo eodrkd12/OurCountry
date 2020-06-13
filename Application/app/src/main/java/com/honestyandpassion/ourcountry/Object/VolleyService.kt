@@ -600,6 +600,7 @@ object VolleyService {
         paymentDate: String?,
         type: String,
         registerTitle: String?,
+        seller: String,
         context: Context
     ) {
         var url="${ip}/payment"
@@ -612,6 +613,7 @@ object VolleyService {
             .put("payment_date",paymentDate)
             .put("type",type)
             .put("register_title",registerTitle)
+            .put("seller",seller)
 
         var request=object : JsonObjectRequest(
             Method.POST,

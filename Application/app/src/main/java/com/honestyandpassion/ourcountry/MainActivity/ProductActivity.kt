@@ -150,6 +150,7 @@ class ProductActivity : AppCompatActivity() {
                             var intent = Intent(this, PaymentActivity::class.java)
                             intent.putExtra("registerTitle", registerTitle)
                             intent.putExtra("registerPrice", productPrice)
+                            intent.putExtra("seller",userId)
                             startActivity(intent)
                         }
                     }

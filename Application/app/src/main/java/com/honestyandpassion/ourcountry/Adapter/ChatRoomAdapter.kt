@@ -29,7 +29,6 @@ class ChatRoomAdapter(val context: Context, val chatRoomList: ArrayList<ChatRoom
     override fun onBindViewHolder(holder: ChatRoomAdapter.ViewHolder, position: Int) {
         var chatRoom = chatRoomList[position]
         holder.itemView.text_title.setText(chatRoom.roomTitle)
-
         holder.itemView.text_last_chat.text = "${chatRoom.lastChat}"
         holder.itemView.text_last_chat_time.text = "${chatRoom.lastChatTime}"
 
