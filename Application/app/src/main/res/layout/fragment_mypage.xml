@@ -288,7 +288,7 @@
                             android:layout_marginTop="8dp"
                             android:layout_marginEnd="3dp"
                             android:layout_marginBottom="8dp"
-                            android:tint="@color/colorMdGrey_700"
+                            android:tint="#FF0303"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/text_fav"
                             app:layout_constraintHorizontal_bias="1.0"
@@ -398,15 +398,13 @@
                         app:layout_constraintStart_toEndOf="@+id/img_profile"
                         app:layout_constraintTop_toBottomOf="@+id/text_allrating" />
 
-                    <TextView
-                        android:id="@+id/text_refund"
-                        android:layout_width="wrap_content"
+                    <ImageView
+                        android:id="@+id/img_refund"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="환급신청"
-                        android:textColor="#F8F00707"
                         app:layout_constraintStart_toEndOf="@+id/text_point"
-                        app:layout_constraintTop_toBottomOf="@+id/ratingstar" />
+                        app:layout_constraintTop_toBottomOf="@+id/ratingstar"
+                        app:srcCompat="@drawable/cash_icon" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

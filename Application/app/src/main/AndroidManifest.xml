@@ -39,6 +39,7 @@
         <activity android:name=".MainActivity.ChangePasswordActivity"/>
         <activity android:name=".IntroActivity.LoginActivity" />
         <activity android:name=".MainActivity.EditProfileActivity" />
+        <activity android:name=".MainActivity.RefundActivity"/>
         <activity android:name=".IntroActivity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
