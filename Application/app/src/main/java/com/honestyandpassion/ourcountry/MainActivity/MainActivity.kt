@@ -14,6 +14,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -51,10 +52,21 @@ class MainActivity : AppCompatActivity(){
 
     private  val PermissinCode =100
 
+
     private val requiredPermission = arrayOf(
         android.Manifest.permission.ACCESS_FINE_LOCATION
     )
 
+    fun CloseKeyboard()
+    {
+        var view = this.currentFocus
+
+        if(view != null)
+        {
+            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -73,6 +85,7 @@ class MainActivity : AppCompatActivity(){
         test = getResources().getDrawable(R.drawable.baseline_menu_grey_24)
         supportActionBar?.setHomeAsUpIndicator(test)
 
+        CloseKeyboard()
 
         if (savedInstanceState == null) {
             homeFragment = HomeFragment()
