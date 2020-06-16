@@ -9,6 +9,7 @@ import android.os.Message
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import com.google.firebase.database.*
@@ -204,10 +205,14 @@ class ChatActivity : AppCompatActivity()  {
                 R.id.nav_rating ->{
                     val dialog = Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar)
                     val dialogView=layoutInflater.inflate(R.layout.dialog_rating,null)
+                    val dialogConfirmBtn=dialogView.findViewById<Button>(R.id.btn_dialogaccept)
+                    val dialogCancelBtn=dialogView.findViewById<Button>(R.id.btn_dialogcancel)
 
                     dialog.getWindow().getAttributes().windowAnimations = R.style.AnimationPopupStyle
                     dialog.addContentView(dialogView, ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT))
                     dialog.show()
+
+                    return true
 
                 }
             }
