@@ -143,9 +143,7 @@
     }
 
     $(document).ready(function(){
-
-        
-
+    
         $.ajax({
             url: "/point",
             dataType: "json",
@@ -164,7 +162,7 @@
             }
 
         })
-        $(documnet).on('click', '.confirm', function(event){
+        $(document).on('click', '.confirm', function(event){
             var tr = $(this).parent().parent()
             var td = tr.children()
 
