@@ -23,7 +23,7 @@
 
 
             <View
-                android:id="@+id/dialogTitleView"
+                android:id="@+id/dialogTitleView1"
                 android:layout_width="wrap_content"
                 android:layout_height="65dp"
                 android:background="@color/colorMdOrange_400"
@@ -48,7 +48,7 @@
                 android:textColor="@color/colorMdGrey_700"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dialogTitleView" />
+                app:layout_constraintTop_toBottomOf="@+id/dialogTitleView1" />
 
             <TextView
                 android:id="@+id/text_dialogsubcontent"
@@ -97,8 +97,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/dialogTitleView"
-                app:layout_constraintStart_toStartOf="@+id/dialogTitleView"
+                app:layout_constraintBottom_toBottomOf="@+id/dialogTitleView1"
+                app:layout_constraintStart_toStartOf="@+id/dialogTitleView1"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/baseline_info_white_24" />
 
