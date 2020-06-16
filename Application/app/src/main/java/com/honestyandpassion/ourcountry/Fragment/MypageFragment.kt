@@ -28,6 +28,7 @@ class MypageFragment : Fragment() {
 
     companion object{
         var productArrayList=ArrayList<PreviewItem>()
+        var pointText:TextView?=null
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,10 +43,18 @@ class MypageFragment : Fragment() {
         var followerText : TextView = rootView.findViewById(R.id.text_follower)
         var followingText : TextView = rootView.findViewById(R.id.text_following)
         var wishlistBtn : ConstraintLayout = rootView.findViewById(R.id.layout_wishlist)
-        var pointText:TextView=rootView.findViewById(R.id.text_point)
+        pointText=rootView.findViewById(R.id.text_point)
         var refundImg:ImageView=rootView.findViewById(R.id.img_refund)
 
-        pointText.setText(UserInfo.POINT.toString())
+        pointText!!.setText("포인트 ${UserInfo.POINT}")
+
+        VolleyService.getPoint(UserInfo.ID,activity!!,{success ->
+            var json=success
+            if(UserInfo.POINT!=json.getInt("user_point")){
+                UserInfo.POINT=json.getInt("user_point")
+                pointText!!.setText("포인트 ${UserInfo.POINT}")
+            }
+        })
 
         refundImg.setOnClickListener {
             var intent = Intent(activity, RefundActivity::class.java)
@@ -114,5 +123,4 @@ class MypageFragment : Fragment() {
         return rootView
 
     }
-
 }
