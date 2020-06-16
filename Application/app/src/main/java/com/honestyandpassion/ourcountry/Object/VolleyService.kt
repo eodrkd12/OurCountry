@@ -1051,4 +1051,36 @@ object VolleyService {
 
     }
 
+    fun refundReq(
+        id: String,
+        refundDate: String?,
+        point: Int,
+        bank: String,
+        account: String,
+        context: Context,
+        success: (JSONObject) -> Unit
+    ) {
+        var url="${ip}/point/insert/refund"
+
+        var json=JSONObject()
+            .put("id",id)
+            .put("refund_date",refundDate)
+            .put("point",point)
+            .put("bank",bank)
+            .put("account",account)
+
+        var request=object : JsonObjectRequest(
+            Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+            }
+        ){}
+
+        Volley.newRequestQueue(context).add(request)
+    }
+
 }
