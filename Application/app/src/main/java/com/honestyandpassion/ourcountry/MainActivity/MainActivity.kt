@@ -300,6 +300,8 @@ class MainActivity : AppCompatActivity(){
                 test!!.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
               //  image_notification.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
 
+
+
                 checkUserType(UserInfo.TYPE)
                 layout_swipe.setEnabled(true)
                 return@OnNavigationItemSelectedListener true
@@ -315,6 +317,8 @@ class MainActivity : AppCompatActivity(){
                 if(mypageFragment != null) supportFragmentManager.beginTransaction().hide(mypageFragment!!).commit()
                 if(messageFragment != null) supportFragmentManager.beginTransaction().hide(messageFragment!!).commit()
                 if(historyFragment != null) supportFragmentManager.beginTransaction().hide(historyFragment!!).commit()
+
+
 
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
