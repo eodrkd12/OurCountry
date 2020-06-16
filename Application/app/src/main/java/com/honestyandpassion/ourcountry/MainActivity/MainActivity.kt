@@ -139,7 +139,7 @@ class MainActivity : AppCompatActivity(){
 
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
                 test!!.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
-                image_notification.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
+            //    image_notification.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
 
                 bottomNavigationView!!.menu.findItem(R.id.bnv_main_home).setChecked(true)
 
@@ -161,7 +161,7 @@ class MainActivity : AppCompatActivity(){
 
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
-                image_notification.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+              //  image_notification.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 supportActionBar?.setTitle("카테고리")
                 toolbar_main.setTitleTextColor(Color.WHITE)
                 bnv_main.visibility = View.VISIBLE
@@ -199,7 +199,7 @@ class MainActivity : AppCompatActivity(){
 
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
-                image_notification.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+            //    image_notification.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 bottomNavigationView!!.menu.findItem(R.id.bnv_main_mypage).setChecked(true)
                 bnv_main.visibility = View.INVISIBLE
                 btn_register.visibility = View.INVISIBLE
@@ -285,7 +285,7 @@ class MainActivity : AppCompatActivity(){
 
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FFFFFF")))
                 test!!.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
-                image_notification.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
+              //  image_notification.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP)
 
                 checkUserType(UserInfo.TYPE)
                 layout_swipe.setEnabled(true)
@@ -305,7 +305,7 @@ class MainActivity : AppCompatActivity(){
 
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
-                image_notification.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+              //  image_notification.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 supportActionBar?.setTitle("카테고리")
                 toolbar_main.setTitleTextColor(Color.WHITE)
 
@@ -328,7 +328,7 @@ class MainActivity : AppCompatActivity(){
                 btn_register.visibility = View.INVISIBLE
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
-                image_notification.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+            //    image_notification.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 layout_swipe.setEnabled(true)
                 return@OnNavigationItemSelectedListener true
             }
@@ -347,7 +347,7 @@ class MainActivity : AppCompatActivity(){
                 layout_swipe.setEnabled(true)
                 supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#D2232A")))
                 test!!.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
-                image_notification.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+              //  image_notification.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -357,17 +357,17 @@ class MainActivity : AppCompatActivity(){
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        var inflater = getMenuInflater()
-        inflater.inflate(R.menu.menu_alart, menu)
+      //  var inflater = getMenuInflater()
+       // inflater.inflate(R.menu.menu_alart, menu)
         //색변경
-        if (menu != null) {
-            for (i in 0 until menu.size()) {
-                val notiImageView = menu.getItem(i).actionView.findViewById<ImageView>(R.id.image_notification)
-                if (notiImageView != null) {
-                    notiImageView!!.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
-                }
-            }
-        }
+      //  if (menu != null) {
+           // for (i in 0 until menu.size()) {
+            //    val notiImageView = menu.getItem(i).actionView.findViewById<ImageView>(R.id.image_notification)
+             //   if (notiImageView != null) {
+             //       notiImageView!!.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
+            //    }
+          //  }
+     //   }
         return super.onCreateOptionsMenu(menu)
     }
 
