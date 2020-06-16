@@ -1,6 +1,7 @@
 package com.honestyandpassion.ourcountry.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -71,11 +72,14 @@ class MessageFragment : Fragment() {
                     json.getString("room_date"),
                     json.getString("room_title"),
                     lastChat,
-                    lastChatTime))
+                    lastChatTime,
+                ""))
             }
 
+
+
             chatRoomRV.setHasFixedSize(true)
-            chatRoomRV.layoutManager = LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
+            chatRoomRV.layoutManager = LinearLayoutManager(activity!!, RecyclerView.VERTICAL, false)
             chatRoomAdapter=ChatRoomAdapter(activity!!, chatRoomList!!)
             chatRoomRV.adapter = chatRoomAdapter
         })

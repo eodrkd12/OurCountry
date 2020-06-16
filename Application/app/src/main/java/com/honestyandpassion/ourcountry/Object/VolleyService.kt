@@ -476,7 +476,6 @@ object VolleyService {
             url,
             array,
             Response.Listener {
-                Log.d("test",it.toString())
                 success(it)
             },
             Response.ErrorListener {
@@ -1030,6 +1029,26 @@ object VolleyService {
         ){}
 
         Volley.newRequestQueue(context).add(request)
+    }
+
+    fun getPoint(id: String, context: Context, success: (JSONObject) -> Unit) {
+        var url="${ip}/user/get/point"
+
+        var json=JSONObject().put("id",id)
+
+        var request=object : JsonObjectRequest(
+            Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+            }
+        ){}
+
+        Volley.newRequestQueue(context).add(request)
+
     }
 
 }

@@ -11,18 +11,14 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.honestyandpassion.ourcountry.Adapter.ProductAdapter
 import com.honestyandpassion.ourcountry.Adapter.ProductPreviewAdapter
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.IntroActivity.SettingActivity
 import com.honestyandpassion.ourcountry.Item.PreviewItem
-import com.honestyandpassion.ourcountry.Item.Product
 import com.honestyandpassion.ourcountry.MainActivity.EditProfileActivity
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.MainActivity.ProductAllViewActivity
 import com.honestyandpassion.ourcountry.R
-import kotlinx.android.synthetic.main.activity_product.*
-import kotlinx.android.synthetic.main.fragment_mypage.*
 import org.json.JSONObject
 
 
@@ -36,7 +32,7 @@ class MypageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_mypage, container, false)
-        var btnEdit : TextView = rootView.findViewById(R.id.text_edit)
+        var editBtn : TextView = rootView.findViewById(R.id.text_edit)
         var nameText:TextView= rootView.findViewById((R.id.text_name))
         var joinText:TextView = rootView.findViewById(R.id.text_joindate)
         var settingBtn : ConstraintLayout = rootView.findViewById(R.id.layout_setting)
@@ -44,6 +40,7 @@ class MypageFragment : Fragment() {
         var followerText : TextView = rootView.findViewById(R.id.text_follower)
         var followingText : TextView = rootView.findViewById(R.id.text_following)
         var wishlistBtn : ConstraintLayout = rootView.findViewById(R.id.layout_wishlist)
+        
 
         VolleyService.getCountFollowerReq(UserInfo.ID, activity!!, {success->
             followerText.setText("팔로워(${success!!.getInt("count").toString()})")
@@ -87,7 +84,7 @@ class MypageFragment : Fragment() {
             }
         }
 
-        btnEdit.setOnClickListener {
+        editBtn.setOnClickListener {
             var intent = Intent(activity, EditProfileActivity::class.java)
             startActivity(intent)
         }

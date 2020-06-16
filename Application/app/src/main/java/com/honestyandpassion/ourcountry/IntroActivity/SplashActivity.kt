@@ -5,12 +5,16 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.StrictMode
+import android.util.Base64
+import android.util.Log
 import android.widget.Toast
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.Fragment.HomeFragment
@@ -18,12 +22,17 @@ import com.honestyandpassion.ourcountry.MainActivity.MainActivity
 import com.honestyandpassion.ourcountry.MainActivity.RegisterActivity
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.R
+import com.kakao.util.helper.Utility
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
+        Log.d("test",getKeyHash(this))
 
         //스마트폰 인터넷 사용 권한 허가
         StrictMode.setThreadPolicy(
@@ -137,4 +146,21 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
+    fun getKeyHash(context : Context) : String {
+        var packageInfo =  Utility.getPackageInfo(context, PackageManager.GET_SIGNATURES);
+        if (packageInfo == null)
+            return "";
+
+        for (i in 0..packageInfo.signatures.size-1) {
+            try {
+                var md = MessageDigest.getInstance("SHA");
+                md.update(packageInfo.signatures.get(i).toByteArray());
+
+                return Base64.encodeToString(md.digest(), Base64.NO_WRAP);
+            } catch (e : NoSuchAlgorithmException){
+                Log.w("test", "디버그 keyHash" + packageInfo.signatures.get(i), e);
+            }
+        }
+        return "";
+    }
 }

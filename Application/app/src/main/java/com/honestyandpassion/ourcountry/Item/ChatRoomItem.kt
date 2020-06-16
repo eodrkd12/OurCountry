@@ -10,5 +10,5 @@ data class ChatRoomItem (
     var roomTitle:String,
     var lastChat:String?,
     var lastChatFullTime:String?,
-    var lastChatTime:String?=null
+    var lastChatTime:String?
 ) : Serializable

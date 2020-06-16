@@ -125,6 +125,7 @@ class KakaoSignUpActivity : AppCompatActivity() {
             }
 
             override fun onSessionClosed(errorResult: ErrorResult?) {
+                Toast.makeText(this@KakaoSignUpActivity,"${errorResult}",Toast.LENGTH_LONG).show()
                 redirectLoginActivity()
             }
 

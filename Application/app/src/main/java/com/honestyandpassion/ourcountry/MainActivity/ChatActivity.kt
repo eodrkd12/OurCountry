@@ -143,6 +143,7 @@ class ChatActivity : AppCompatActivity() {
                     formatter = DateTimeFormatter.ofPattern("오후 hh:mm")
                 else
                     formatter = DateTimeFormatter.ofPattern("오전 hh:mm")
+
                 val formatted = current.format(formatter)
                 val fulltime =
                     current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
@@ -171,6 +172,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     fun chatConversation(dataSnapshot: DataSnapshot) {
+        Log.d("test","chatConversation")
         var i = dataSnapshot.children.iterator()
         while (i.hasNext()) {
 
