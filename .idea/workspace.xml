@@ -27,8 +27,6 @@
       <change beforePath="$PROJECT_DIR$/Application/app/src/main/java/com/honestyandpassion/ourcountry/Object/VolleyService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/src/main/java/com/honestyandpassion/ourcountry/Object/VolleyService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Application/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/src/main/res/layout/activity_main.xml" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/build/classes/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,7 +35,6 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_5X_API_29" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -49,9 +46,6 @@
         <projects_view />
       </state>
     </system>
-  </component>
-  <component name="FileEditorManager">
-    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -76,64 +70,19 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/IntroActivity/LoginActivity.kt" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/IntroActivity/MainActivity.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/toolbar_layout.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_bnv_main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/Fragment/MessageFragment.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/Fragment/MypageFragment.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/MainActivity/SubCategoryActivity.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/custom_progress_bar_horizontal.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/Item/CategoryItem.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/Adapter/CategoryAdapter.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_category.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/IntroActivity/ProductActivity.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/Fragment/HomeFragment.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/rounded_corner_shape_button.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/rounded_corner_grey_fav_shape.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_product.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/Object/VolleyService.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_setting.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main_drawerlayout.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/IntroActivity/SettingActivity.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/spinner.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/MainActivity/RegisterActivity.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/IntroActivity/SplashActivity.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/Fragment/CategoryFragment.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/rounded_corner_shape.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/rounded_corner_shape_view_with_border.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_chat.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/MainActivity/MainActivity.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-      </list>
-    </option>
-  </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="39" />
     <option name="width" value="1890" />
     <option name="height" value="960" />
   </component>
-  <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane" />
-    </panes>
+  <component name="ProjectId" id="1dSN66cs7x54fZMiPf8cdYYreSv" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="not.eligible.for.single.variant.sync" value="true" />
@@ -147,18 +96,6 @@
       <recent name="com.honestyandpassion.ourcountry.MainActivity" />
       <recent name="com.honestyandpassion.ourcountry.IntroActivity" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
@@ -183,8 +120,6 @@
       <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
       <option name="FORCE_STOP_RUNNING_APP" value="true" />
       <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
       <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
       <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
       <option name="DEBUGGER_TYPE" value="Auto" />
@@ -244,87 +179,10 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
-  <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
-    <layout>
-      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.23131956" />
-      <window_info id="Structure" order="2" side_tool="true" />
-      <window_info id="Favorites" order="3" side_tool="true" />
-      <window_info id="Build Variants" order="4" side_tool="true" />
-      <window_info id="Image Layers" order="5" />
-      <window_info id="Designer" order="6" />
-      <window_info id="Resources Explorer" order="7" />
-      <window_info id="Capture Tool" order="8" />
-      <window_info anchor="bottom" id="Version Control" order="0" />
-      <window_info anchor="bottom" id="Logcat" order="1" weight="0.3291815" />
-      <window_info anchor="bottom" id="TODO" order="2" weight="0.3291815" />
-      <window_info anchor="bottom" id="Terminal" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" weight="0.3291815" />
-      <window_info anchor="bottom" id="Build" order="5" visible="true" weight="0.294849" />
-      <window_info anchor="bottom" id="Android Profiler" order="6" />
-      <window_info anchor="bottom" id="Run" order="7" weight="0.3291815" />
-      <window_info anchor="bottom" id="Debug" order="8" />
-      <window_info anchor="bottom" id="Find" order="9" />
-      <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
-      <window_info anchor="right" id="Capture Analysis" order="1" />
-      <window_info anchor="right" id="Gradle" order="2" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="right" id="Palette&#9;" order="4" />
-      <window_info anchor="right" id="Preview" order="5" weight="0.32955465" />
-    </layout>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/chat_receiver_bubble.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/notification_menu.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/chat_sender_bubble.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/button_color_border.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/arrays.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/attrs.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/Artboard 3.png" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/Artboard 3-100.jpg" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/Artboard 2-100.jpg" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/Artboard 33 copy 11-100.jpg" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_bnv_main.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_category.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_message.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/Fragment/MessageFragment.kt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_sub_category.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/MainActivity/SubCategoryActivity.kt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_category.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/Fragment/HomeFragment.kt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/Item/CategoryItem.kt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/rounded_corner_shape_button.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/rounded_corner_grey_fav_shape.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/MainActivity/ProductActivity.kt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/nav_header.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/toolbar_layout.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/Adapter/CategoryAdapter.kt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/IntroActivity/LoginActivity.kt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main_drawerlayout.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_mypage.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_product.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/custom_progress_bar_horizontal.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/spinner.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/IntroActivity/SettingActivity.kt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_setting.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/MainActivity/RegisterActivity.kt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/IntroActivity/SplashActivity.kt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/Object/VolleyService.kt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/Fragment/MypageFragment.kt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_profile_edit.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/Fragment/CategoryFragment.kt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/rounded_corner_shape.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/rounded_corner_shape_view_with_border.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_chat.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/honestyandpassion/ourcountry/MainActivity/MainActivity.kt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
+  <component name="WindowStateProjectService">
+    <state x="369" y="255" key="com.intellij.ide.util.TipDialog" timestamp="1592414396849">
+      <screen x="0" y="23" width="1440" height="800" />
+    </state>
+    <state x="369" y="255" key="com.intellij.ide.util.TipDialog/0.23.1440.800@0.23.1440.800" timestamp="1592414396849" />
   </component>
 </project>
