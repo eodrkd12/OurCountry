@@ -294,6 +294,35 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
+    fun editRatingReq(
+        id: String,
+        rating:Float,
+        rating_count:Int,
+        context: Context,
+        success: (JSONObject?) -> Unit
+    ) {
+        var url = "${ip}/user/update/rating"
+
+        var jsonObject = JSONObject()
+        jsonObject.put("id", id)
+        jsonObject.put("rating",rating)
+        jsonObject.put("rating_count",rating_count)
+
+        var request = object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+
 
     fun myInfoReq(id: String, context: Context, success: (JSONObject?) -> Unit){
         var url="${ip}/user/my"

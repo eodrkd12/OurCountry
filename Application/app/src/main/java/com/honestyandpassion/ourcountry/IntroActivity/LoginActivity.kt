@@ -1,20 +1,14 @@
 package com.honestyandpassion.ourcountry.IntroActivity
 
 import android.content.Context
-import android.content.pm.PackageInstaller
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 import com.kakao.auth.ISessionCallback;
-import com.kakao.auth.KakaoSDK;
 import com.kakao.auth.Session;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.content.Intent
-import android.util.Log
 import android.widget.Toast
 import com.google.firebase.iid.FirebaseInstanceId
 import com.honestyandpassion.ourcountry.Class.UserInfo
@@ -47,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
 
         btn_login.setOnClickListener {
             var id=edit_id.text.toString()
-            var pw=edit_password.text.toString()
+            var pw=edit_review.text.toString()
             VolleyService.loginReq(id,pw,this, {success ->
                 when(success.getInt("code")){
                     0 -> {

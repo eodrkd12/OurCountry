@@ -41,8 +41,8 @@ class DialogMsg(activity: Activity) {
         dialog!!.setContentView(R.layout.dialog_standard)
         dialogTitle = dialog!!.findViewById(R.id.text_dialogtitle)
         dialogContent = dialog!!.findViewById(R.id.text_dialogcontent)
-        dialogAccept = dialog!!.findViewById(R.id.btn_dialogaccept)
-        dialogCancel = dialog!!.findViewById(R.id.btn_dialogcancel)
+        dialogAccept = dialog!!.findViewById(R.id.btn_accept)
+        dialogCancel = dialog!!.findViewById(R.id.btn_cancel)
 
         dialogTitle!!.text = title
         dialogContent!!.text = content

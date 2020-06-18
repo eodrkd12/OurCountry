@@ -1,7 +1,7 @@
 package com.honestyandpassion.ourcountry.MainActivity
 
 import android.app.Dialog
-import android.nfc.cardemulation.HostApduService
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -10,19 +10,18 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.EditText
+import android.widget.RatingBar
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.GravityCompat
 import com.google.firebase.database.*
 import com.google.firebase.messaging.FirebaseMessaging
 import com.honestyandpassion.ourcountry.Adapter.ChatAdapter
-import com.honestyandpassion.ourcountry.Class.ToolbarSetting
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.Item.ChatRoomItem
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.activity_chat.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main_drawerlayout.*
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -40,10 +39,12 @@ class ChatActivity : AppCompatActivity()  {
     var title: String? = null
     var ref: DatabaseReference? = null
     var query: Query? = null
+  //  var dialogMsg: DialogMsg? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+       // dialogMsg = DialogMsg(this)
        // var toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar_chat)
 
 
@@ -204,13 +205,46 @@ class ChatActivity : AppCompatActivity()  {
                 }
                 R.id.nav_rating ->{
                     val dialog = Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar)
+                    val dialog2 = Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar)
                     val dialogView=layoutInflater.inflate(R.layout.dialog_rating,null)
-                    val dialogConfirmBtn=dialogView.findViewById<Button>(R.id.btn_dialogaccept)
-                    val dialogCancelBtn=dialogView.findViewById<Button>(R.id.btn_dialogcancel)
+                    val dialogReview=layoutInflater.inflate(R.layout.dialog_review_confirm,null)
+                    val dialogConfirmBtn=dialogView.findViewById<Button>(R.id.btn_ratingaccept)
+                    val dialogCancelBtn=dialogView.findViewById<Button>(R.id.btn_ratingcancel)
+                    val ratingBar=dialogView.findViewById<RatingBar>(R.id.ratingBar)
+                    var rating_value=0f
+                    var reviewEdit=dialogReview.findViewById<EditText>(R.id.edit_review)
+                    var reviewConfirmBtn=dialogReview.findViewById<Button>(R.id.btn_reviewaccept)
+                    var reviewCancelBtn=dialogReview.findViewById<Button>(R.id.btn_reviewcancel)
 
                     dialog.getWindow().getAttributes().windowAnimations = R.style.AnimationPopupStyle
                     dialog.addContentView(dialogView, ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT))
                     dialog.show()
+
+                    ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+                        rating_value=rating
+                        Toast.makeText(this, rating_value.toString(), Toast.LENGTH_SHORT).show()
+                    }
+
+                    dialogCancelBtn.setOnClickListener{
+                        dialog.dismiss()
+                    }
+                    dialogConfirmBtn.setOnClickListener {
+                       //volley값보내기
+                        dialog.dismiss()
+                        dialog2.getWindow().getAttributes().windowAnimations = R.style.AnimationPopupStyle
+                        dialog2.addContentView(dialogReview, ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT))
+                        dialog2.show()
+                        reviewCancelBtn.setOnClickListener {
+                            dialog2.dismiss()
+                        }
+                        reviewConfirmBtn.setOnClickListener {
+                            var intent = Intent(this, ReviewActivity::class.java)
+                            startActivity(intent)
+                        }
+
+
+                    }
+
 
                     return true
 

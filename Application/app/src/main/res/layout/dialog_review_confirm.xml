@@ -42,29 +42,13 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 android:lineSpacingExtra="8sp"
-                tools:text="TextView"
-                android:textSize="16sp"
                 android:scrollbars="vertical"
+                android:text="리뷰를 등록하시겠습니까?"
                 android:textColor="@color/colorMdGrey_700"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dialogTitleView1" />
-
-            <TextView
-                android:id="@+id/text_dialogsubcontent"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:ellipsize="end"
-                android:maxLines="5"
-                android:textSize="14sp"
-                android:textColor="@color/colorMdGreen_600"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_dialogcontent"
-                tools:text="TextView" />
 
             <View
                 android:id="@+id/view18"
@@ -75,19 +59,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_dialogsubcontent" />
+                app:layout_constraintTop_toBottomOf="@+id/text_dialogcontent" />
 
             <Button
-                android:id="@+id/btn_accept"
+                android:id="@+id/btn_reviewaccept"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:background="@color/colorMdWhite_1000"
-                tools:text="Button"
+                android:text="확인"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/btn_cancel"
+                app:layout_constraintStart_toEndOf="@+id/btn_reviewcancel"
                 app:layout_constraintTop_toBottomOf="@+id/view18" />
 
             <ImageView
@@ -107,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                tools:text="TextView"
+                android:text="리뷰등록"
                 android:textColor="@color/colorMdWhite_1000"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -116,14 +100,14 @@
                 app:layout_constraintTop_toTopOf="@+id/dialogIconImageView" />
 
             <Button
-                android:id="@+id/btn_cancel"
+                android:id="@+id/btn_reviewcancel"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:background="@color/colorMdWhite_1000"
-                tools:text="Button"
+                android:text="취소"
                 android:textColor="@color/colorMdGrey_600"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_accept"
+                app:layout_constraintEnd_toStartOf="@+id/btn_reviewaccept"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view18" />

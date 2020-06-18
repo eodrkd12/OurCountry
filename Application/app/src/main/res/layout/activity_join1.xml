@@ -46,14 +46,14 @@
         android:text=""
         android:textColor="#000000"
         android:textSize="15dp"
-        app:layout_constraintBottom_toTopOf="@id/edit_password"
+        app:layout_constraintBottom_toTopOf="@id/edit_review"
         app:layout_constraintEnd_toEndOf="@+id/edit_email"
         app:layout_constraintStart_toStartOf="@+id/edit_email"
         app:layout_constraintTop_toBottomOf="@id/edit_email"
         tools:layout_editor_absoluteY="140dp" />
 
     <EditText
-        android:id="@+id/edit_password"
+        android:id="@+id/edit_review"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:background="@drawable/border"
@@ -77,9 +77,9 @@
         android:text="다음 단계"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="@+id/edit_password"
+        app:layout_constraintEnd_toEndOf="@+id/edit_review"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/edit_password"
+        app:layout_constraintStart_toStartOf="@+id/edit_review"
         app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <androidx.constraintlayout.widget.Guideline

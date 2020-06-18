@@ -18,7 +18,7 @@ class Join1Activity : AppCompatActivity() {
 
             var email=edit_email.text.toString()
             var nickname=edit_nickname.text.toString()
-            var password=edit_password.text.toString()
+            var password=edit_review.text.toString()
 
             VolleyService.emailCheckReq(email,this,{success ->
                 when(success){
