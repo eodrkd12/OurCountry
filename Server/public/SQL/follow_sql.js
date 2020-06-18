@@ -62,6 +62,16 @@ module.exports = function () {
             })
         })
     },
+    delete_user_follow: function(id){
+        pool.getConnection(function(err,con){
+            var sql="delete from follow where follower='"+id+"' or following='"+id+"'"
+            con.query(sql,function(err,result){
+                con.release()
+                if(err) console.log(err)
+                else console.log("팔로우 삭제 완료")
+            })
+        })
+    },
     pool: pool
   }
 }

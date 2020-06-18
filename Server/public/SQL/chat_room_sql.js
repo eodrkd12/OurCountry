@@ -53,6 +53,32 @@ module.exports=function(){
                 }   
             })
         },
+        delete_user_maker:function(id){
+            pool.getConnection(function(err,con){
+                if(err) console.log(err)
+                else{
+                    var sql="update ChatRoom set maker='탈퇴한 유저' where maker='"+id+"'"
+                    con.query(sql,function(err,result,field){
+                        con.release()
+                        if(err) console.log(err)
+                        else console.log("maker -> 탈퇴한 유저 변경 완료")
+                    })
+                }
+            })
+        },
+        delete_user_partner:function(id){
+            pool.getConnection(function(err,con){
+                if(err) console.log(err)
+                else{
+                    var sql="update ChatRoom set partner='탈퇴한 유저' where partner='"+id+"'"
+                    con.query(sql,function(err,result,field){
+                        con.release()
+                        if(err) console.log(err)
+                        else console.log("partner -> 탈퇴한 유저 변경 완료")
+                    })
+                }
+            })
+        },
         pool:pool
     }
 }

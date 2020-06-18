@@ -16,6 +16,7 @@ import android.os.StrictMode
 import android.util.Base64
 import android.util.Log
 import android.widget.Toast
+import com.honestyandpassion.ourcountry.Class.AlarmSetting
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.Fragment.HomeFragment
 import com.honestyandpassion.ourcountry.MainActivity.MainActivity
@@ -64,6 +65,11 @@ class SplashActivity : AppCompatActivity() {
                 notificationManager.createNotificationChannel(notificationChannel)
             }
         }
+
+        var alarmPref=this.getSharedPreferences("Alarm",Context.MODE_PRIVATE)
+        var alarm=alarmPref.getBoolean("alarm",true)
+        if(alarm) AlarmSetting.alarm=true
+        else AlarmSetting.alarm=false
 
         //프리퍼런스 검사 있으면 Main으로 startActivity 호출하고 return
         var userPref=this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)

@@ -1083,4 +1083,25 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
+    fun deleteAccountReq(id: String, context: Context, success: (String) -> Unit) {
+        var url="${ip}/user/delete"
+
+        var json=JSONObject()
+            .put("id",id)
+
+        var request=object : JsonObjectRequest(
+            Method.POST,
+            url,
+            json,
+            Response.Listener {
+                success(it.getString("result"))
+            },
+            Response.ErrorListener {
+
+            }
+        ){}
+
+        Volley.newRequestQueue(context).add(request)
+    }
+
 }

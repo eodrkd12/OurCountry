@@ -17,6 +17,9 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.MenuItem
 import androidx.core.view.GravityCompat
 import com.honestyandpassion.ourcountry.Class.ToolbarSetting
+import com.honestyandpassion.ourcountry.Class.UserInfo
+import com.honestyandpassion.ourcountry.MainActivity.AlarmSettingActivity
+import com.honestyandpassion.ourcountry.Object.VolleyService
 import kotlinx.android.synthetic.main.activity_setting.*
 
 
@@ -29,6 +32,11 @@ class SettingActivity : ToolbarSetting() {
         var toolbar: androidx.appcompat.widget.Toolbar = findViewById(com.honestyandpassion.ourcountry.R.id.toolbar_setting)
         toolbarBinding(toolbar, "설정")
 
+        text_alarmsetting.setOnClickListener {
+            var intent=Intent(this,AlarmSettingActivity::class.java)
+            startActivity(intent)
+        }
+
         text_logout.setOnClickListener {
             //VolleyService.removeToken(UserInfo.NICKNAME,context!!)
 
@@ -40,6 +48,21 @@ class SettingActivity : ToolbarSetting() {
 
             var intent= Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finish()
+        }
+
+        text_deleteaccount.setOnClickListener {
+            VolleyService.deleteAccountReq(UserInfo.ID,this,{ success ->
+                var pref=getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+                var editor=pref.edit()
+
+                editor.clear()
+                editor.commit()
+
+                var intent= Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            })
         }
     }
 
