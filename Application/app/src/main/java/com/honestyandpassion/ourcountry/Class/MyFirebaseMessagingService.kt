@@ -20,11 +20,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
 
     override fun onMessageReceived(p0: RemoteMessage) {
-        if(p0.notification!=null){
-            if(!isAppOnForeground(applicationContext)) {
-                sendNotification(p0.to, p0.notification?.title, p0.notification?.body)
-            }
-            else{
+        if(AlarmSetting.alarm) {
+            if (p0.notification != null) {
+                if (!isAppOnForeground(applicationContext) && UserInfo.ID != "") {
+                    sendNotification(p0.to, p0.notification?.title, p0.notification?.body)
+                } else {
+                }
             }
         }
     }

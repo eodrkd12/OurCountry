@@ -16,10 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".IntroActivity.SelectUserTypeActivity"></activity>
+        <activity android:name=".MainActivity.AlarmSettingActivity"></activity>
+        <activity android:name=".IntroActivity.SelectUserTypeActivity" />
         <activity android:name=".MainActivity.PaymentActivity" />
         <activity android:name=".MainActivity.CategoryActivity" />
-        <activity android:name=".MainActivity.PopularRegisterActivity" />
         <activity android:name=".MainActivity.ProductAllViewActivity" />
         <activity android:name=".MainActivity.SearchActivity" />
         <activity android:name=".MainActivity.ProductListActivity" />
@@ -36,7 +36,7 @@
         <activity android:name=".MainActivity.ProductActivity" />
         <activity android:name=".MainActivity.SubCategoryActivity" />
         <activity android:name=".MainActivity.MainActivity" />
-        <activity android:name=".MainActivity.ChangePasswordActivity"/>
+        <activity android:name=".MainActivity.ChangePasswordActivity" />
         <activity android:name=".IntroActivity.LoginActivity" />
         <activity android:name=".MainActivity.EditProfileActivity" />
         <activity android:name=".MainActivity.RefundActivity"/>

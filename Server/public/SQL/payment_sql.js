@@ -31,15 +31,6 @@ module.exports = function () {
                 })
             })
         },
-        get_info: function (callback) {
-            pool.getConnection(function (err, con) {
-                var sql = `select * from payment`
-                con.query(sql, function (err, result, fields) {
-                    if (err) callback(err)
-                    else callback(null, result)
-                })
-            })
-        },
         pool: pool
     }
 }
