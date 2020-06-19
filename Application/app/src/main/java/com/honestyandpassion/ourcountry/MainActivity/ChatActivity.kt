@@ -39,6 +39,7 @@ class ChatActivity : AppCompatActivity()  {
     var title: String? = null
     var ref: DatabaseReference? = null
     var query: Query? = null
+    var partner:String? = null
   //  var dialogMsg: DialogMsg? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -229,7 +230,14 @@ class ChatActivity : AppCompatActivity()  {
                         dialog.dismiss()
                     }
                     dialogConfirmBtn.setOnClickListener {
-                       //volley값보내기
+
+                        if(UserInfo.ID!=room!!.maker){
+                             partner = room!!.maker
+                        }
+                        else {
+                            partner = room!!.partner
+                        }
+                        VolleyService.editRatingReq(partner!!,rating_value,this,{success-> })
                         dialog.dismiss()
                         dialog2.getWindow().getAttributes().windowAnimations = R.style.AnimationPopupStyle
                         dialog2.addContentView(dialogReview, ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT))

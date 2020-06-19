@@ -297,7 +297,6 @@ object VolleyService {
     fun editRatingReq(
         id: String,
         rating:Float,
-        rating_count:Int,
         context: Context,
         success: (JSONObject?) -> Unit
     ) {
@@ -306,7 +305,6 @@ object VolleyService {
         var jsonObject = JSONObject()
         jsonObject.put("id", id)
         jsonObject.put("rating",rating)
-        jsonObject.put("rating_count",rating_count)
 
         var request = object : JsonObjectRequest(
             Method.POST,
