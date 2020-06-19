@@ -321,6 +321,37 @@ object VolleyService {
     }
 
 
+    fun editReviewReq(
+        user_id: String,
+        register_id:Int,
+        review_content:String,
+        date:String,
+        context: Context,
+        success: (JSONObject?) -> Unit
+    ) {
+        var url = "${ip}/user/update/review"
+
+        var jsonObject = JSONObject()
+        jsonObject.put("user_id", user_id)
+        jsonObject.put("register_id",register_id)
+        jsonObject.put("review_content",review_content)
+        jsonObject.put("date",date)
+
+        var request = object : JsonObjectRequest(
+            Method.POST,
+            url,
+            jsonObject,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+
 
     fun myInfoReq(id: String, context: Context, success: (JSONObject?) -> Unit){
         var url="${ip}/user/my"
@@ -466,7 +497,7 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
-    fun createRoomReq(maker: String, partner: String?, roomDate: String?,registerTitle: String, context: Context, success:(JSONObject?) -> Unit) {
+    fun createRoomReq(maker: String, partner: String?, roomDate: String?,registerTitle: String, registerId: Int,context: Context, success:(JSONObject?) -> Unit) {
         var url="${ip}/chat_room"
 
         var json=JSONObject()
@@ -474,6 +505,7 @@ object VolleyService {
         json.put("partner",partner)
         json.put("room_date",roomDate)
         json.put("room_title",registerTitle)
+        json.put("registerId",registerId)
 
         var request = object : JsonObjectRequest(Method.POST,
             url,
@@ -1034,13 +1066,14 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
-    fun getRoomInfoReq(maker: String, partner: String?, registerTitle: String, context: Context, success: (JSONObject?)->Unit) {
+    fun getRoomInfoReq(maker: String, partner: String?, registerTitle: String, registerId: Int,context: Context, success: (JSONObject?)->Unit) {
         var url="${ip}/chat_room/get_room_info"
 
         var json=JSONObject()
         json.put("maker",maker)
         json.put("partner",partner)
         json.put("room_title",registerTitle)
+        json.put("registerId",registerId)
 
         var request=object : JsonObjectRequest(
             Method.POST,

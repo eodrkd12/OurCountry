@@ -30,6 +30,7 @@ class ChatActivity : AppCompatActivity()  {
 
     companion object {
         var HANDLER:Handler?=null
+        var registerId:Int?=null
     }
 
     var chatAdapter = ChatAdapter()
@@ -40,7 +41,8 @@ class ChatActivity : AppCompatActivity()  {
     var ref: DatabaseReference? = null
     var query: Query? = null
     var partner:String? = null
-  //  var dialogMsg: DialogMsg? = null
+    //var registerId:String?=null
+        //  var dialogMsg: DialogMsg? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +56,9 @@ class ChatActivity : AppCompatActivity()  {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         room=intent.getSerializableExtra("room") as ChatRoomItem
+        registerId= intent.getIntExtra("register_id",0)
+
+        Toast.makeText(this, registerId.toString(), Toast.LENGTH_SHORT).show()
 
         roomId = room!!.roomId.toString()
         title = room!!.roomTitle
@@ -247,6 +252,7 @@ class ChatActivity : AppCompatActivity()  {
                         }
                         reviewConfirmBtn.setOnClickListener {
                             var intent = Intent(this, ReviewActivity::class.java)
+                            intent.putExtra("registerId",registerId)
                             startActivity(intent)
                         }
 

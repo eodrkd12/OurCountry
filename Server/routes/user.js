@@ -7,6 +7,20 @@ var db_register = require('../public/SQL/register_sql')()
 var db_follow = require('../public/SQL/follow_sql')()
 var db_wishlist = require('../public/SQL/wishlist_sql')()
 var db_view=require('../public/SQL/view_sql')()
+var db_review=require('../public/SQL/review_sql')()
+
+
+router.post('/update/review', function (req, res, next) {
+  var user_id = req.body.user_id
+  var register_id = req.body.register_id
+  var review_content=req.body.review_content
+  var date= req.body.date 
+
+  db_user.update_review(user_id,register_id,review_content,date, function (err, result) {
+    if (err) console.log(err)
+    else res.send(result[0])
+  })
+});
 
 
 /* GET users listing. */
@@ -123,6 +137,20 @@ router.post('/update/password', function (req, res, next) {
       res.send(result)
     }
   })
+})
+
+router.post('/update/rating',function (req,res,next){
+ var id=req.body.id
+ var rating=req.body.rating
+
+db_user.edit_rating(id,rating,function (err,result){
+ if(err) console.log(err)
+else{
+  var object = new Object()
+  object.result="success"
+ res.send(result)
+   }
+ })
 })
 
 router.post('/my', function (req, res, next) {

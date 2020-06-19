@@ -50,6 +50,8 @@ class ProductActivity : AppCompatActivity() {
 
         var registerId = intent.getIntExtra("register_id", 0)
 
+        Toast.makeText(this, registerId.toString(), Toast.LENGTH_SHORT).show()
+
         btn_backpress.bringToFront()
         btn_backpress.setOnClickListener {
             finish()
@@ -215,7 +217,7 @@ class ProductActivity : AppCompatActivity() {
                 VolleyService.checkChatRoomReq(maker,partner,registerTitle!!,this,{success ->
                     when(success){
                         0 -> {
-                            VolleyService.createRoomReq(maker,partner,roomDate, registerTitle!!,this,{success ->
+                            VolleyService.createRoomReq(maker,partner,roomDate, registerTitle!!,registerId,this,{success ->
                                 var intent= Intent(this,ChatActivity::class.java)
                                 var room=ChatRoomItem(
                                     success!!.getInt("room_id"),
@@ -225,12 +227,13 @@ class ProductActivity : AppCompatActivity() {
                                     success!!.getString("room_title"),
                                     null,null,null)
                                 intent.putExtra("room",room)
+                                intent.putExtra("register_id",registerId)
                                 startActivity(intent)
                                 finish()
                             })
                         }
                         1 -> {
-                            VolleyService.getRoomInfoReq(maker,partner,registerTitle!!, this,{success ->
+                            VolleyService.getRoomInfoReq(maker,partner,registerTitle!!,registerId,this,{success ->
                                 var intent=Intent(this,ChatActivity::class.java)
                                 var room=ChatRoomItem(
                                     success!!.getInt("room_id"),
@@ -240,6 +243,7 @@ class ProductActivity : AppCompatActivity() {
                                     success!!.getString("room_title"),
                                     null,null,null)
                                 intent.putExtra("room",room)
+                                intent.putExtra("register_id",registerId)
                                 startActivity(intent)
                                 finish()
                             })
