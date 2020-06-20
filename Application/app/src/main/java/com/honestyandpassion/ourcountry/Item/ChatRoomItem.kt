@@ -6,6 +6,7 @@ data class ChatRoomItem (
     var roomId:Int,
     var maker:String,
     var partner:String,
+    var registerId:Int,
     var roomDate:String,
     var roomTitle:String,
     var lastChat:String?,

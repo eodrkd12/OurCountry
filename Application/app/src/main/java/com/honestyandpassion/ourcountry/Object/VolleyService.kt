@@ -1066,7 +1066,7 @@ object VolleyService {
         Volley.newRequestQueue(context).add(request)
     }
 
-    fun getRoomInfoReq(maker: String, partner: String?, registerTitle: String, registerId: Int,context: Context, success: (JSONObject?)->Unit) {
+    fun getRoomInfoReq(maker: String, partner: String?, registerTitle: String,registerId: Int,context: Context, success: (JSONObject?)->Unit) {
         var url="${ip}/chat_room/get_room_info"
 
         var json=JSONObject()

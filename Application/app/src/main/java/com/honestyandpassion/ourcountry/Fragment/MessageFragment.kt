@@ -69,6 +69,7 @@ class MessageFragment : Fragment() {
                     json.getInt("room_id"),
                     json.getString("maker"),
                     json.getString("partner"),
+                    json.getInt("register_id"),
                     json.getString("room_date"),
                     json.getString("room_title"),
                     lastChat,

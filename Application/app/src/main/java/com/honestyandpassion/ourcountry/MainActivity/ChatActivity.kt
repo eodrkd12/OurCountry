@@ -57,6 +57,7 @@ class ChatActivity : AppCompatActivity()  {
 
         room=intent.getSerializableExtra("room") as ChatRoomItem
         registerId= intent.getIntExtra("register_id",0)
+        if(registerId==0) registerId=room!!.registerId
 
         Toast.makeText(this, registerId.toString(), Toast.LENGTH_SHORT).show()
 
@@ -254,6 +255,7 @@ class ChatActivity : AppCompatActivity()  {
                             var intent = Intent(this, ReviewActivity::class.java)
                             intent.putExtra("registerId",registerId)
                             startActivity(intent)
+                            dialog2.dismiss()
                         }
 
 

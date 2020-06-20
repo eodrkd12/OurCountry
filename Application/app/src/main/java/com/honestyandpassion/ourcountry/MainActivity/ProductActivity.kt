@@ -223,6 +223,7 @@ class ProductActivity : AppCompatActivity() {
                                     success!!.getInt("room_id"),
                                     success!!.getString("maker"),
                                     success!!.getString("partner"),
+                                    success!!.getInt("register_id"),
                                     success!!.getString("room_date"),
                                     success!!.getString("room_title"),
                                     null,null,null)
@@ -233,12 +234,13 @@ class ProductActivity : AppCompatActivity() {
                             })
                         }
                         1 -> {
-                            VolleyService.getRoomInfoReq(maker,partner,registerTitle!!,registerId,this,{success ->
+                            VolleyService.getRoomInfoReq(maker,partner,registerTitle!!,registerId, this,{success ->
                                 var intent=Intent(this,ChatActivity::class.java)
                                 var room=ChatRoomItem(
                                     success!!.getInt("room_id"),
                                     success!!.getString("maker"),
                                     success!!.getString("partner"),
+                                    success!!.getInt("register_id"),
                                     success!!.getString("room_date"),
                                     success!!.getString("room_title"),
                                     null,null,null)
