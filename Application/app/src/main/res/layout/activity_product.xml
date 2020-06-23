@@ -16,6 +16,81 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_review"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_sellerinfo">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/image_review"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:tint="@color/colorPrimary"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/baseline_highlight_green_24" />
+
+                    <TextView
+                        android:id="@+id/text_review"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="상품리뷰보기 "
+                        android:textColor="@color/colorMdGrey_900"
+                        android:textSize="16dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/image_review"
+                        app:layout_constraintStart_toEndOf="@+id/image_review"
+                        app:layout_constraintTop_toTopOf="@+id/image_review"
+                        tools:text="상품리뷰보기" />
+
+                    <ImageView
+                        android:id="@+id/btn_review"
+                        android:layout_width="50dp"
+                        android:layout_height="36dp"
+                        android:layout_marginEnd="8dp"
+                        android:scaleType="center"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_review"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/text_review"
+                        app:srcCompat="@drawable/baseline_down_arrow_black_24" />
+
+                    <View
+                        android:id="@+id/view_review"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/colorMdGrey_200"
+                        app:layout_constraintTop_toBottomOf="@+id/text_review"
+                        tools:layout_editor_absoluteX="-90dp" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_review"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/view_review">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_review"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
             <ImageView
                 android:id="@+id/btn_menu"
                 android:layout_width="40dp"
@@ -433,7 +508,7 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/card_sellerinfo">
+                app:layout_constraintTop_toBottomOf="@+id/card_review">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -496,10 +571,10 @@
                             android:layout_marginTop="16dp"
                             android:layout_marginEnd="16dp"
                             android:layout_marginBottom="16dp"
-                            android:text="View On Map"
-                            android:textSize="14dp"
-                            android:textColor="@color/colorMdBlue_600"
                             android:gravity="center"
+                            android:text="View On Map"
+                            android:textColor="@color/colorMdBlue_600"
+                            android:textSize="14dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

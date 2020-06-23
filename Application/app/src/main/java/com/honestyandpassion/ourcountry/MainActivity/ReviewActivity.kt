@@ -27,7 +27,7 @@ class ReviewActivity:ToolbarSetting() {
             val current = ZonedDateTime.now(ZoneId.of("Asia/Seoul"))
             var date =current.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
-            VolleyService.editReviewReq(UserInfo.ID,registerId,review_content,date,this ,{success->
+            VolleyService.editReviewReq(UserInfo.NICKNAME,registerId,review_content,date,this ,{success->
             })
             finish()
           }

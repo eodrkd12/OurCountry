@@ -30,14 +30,22 @@ import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.honestyandpassion.ourcountry.Adapter.ProductPreviewAdapter
+import com.honestyandpassion.ourcountry.Adapter.ReviewAdapter
 import com.honestyandpassion.ourcountry.Class.DialogMsg
+import com.honestyandpassion.ourcountry.Fragment.HomeFragment
 import com.honestyandpassion.ourcountry.Item.ChatRoomItem
+import com.honestyandpassion.ourcountry.Item.PreviewItem
+import com.honestyandpassion.ourcountry.Item.ReviewItem
 
 
 class ProductActivity : AppCompatActivity() {
 
     companion object{
         var imageList=ArrayList<Bitmap>()
+        var reviewList=ArrayList<ReviewItem>()
     }
 
     var dialogMsg: DialogMsg? = null
@@ -254,6 +262,29 @@ class ProductActivity : AppCompatActivity() {
 
                 })
             }
+
+
+            VolleyService.getReviewReq(UserInfo.ID,registerId,this,{success->
+                reviewList.clear()
+                var array = success
+                for(i in 0..array!!.length()-1) {
+                    var json = array[i] as JSONObject
+                    var reviewitem = ReviewItem(
+                        json.getInt("review_id"),
+                        json.getString("user_id"),
+                        json.getString("review_content"),
+                        json.getString("review_date"),
+                        json.getInt("register_id")
+                        )
+                    reviewList.add(reviewitem)
+                }
+                rv_review.setHasFixedSize(true)
+                rv_review.layoutManager=
+                    LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+                rv_review.adapter= ReviewAdapter(this,reviewList!! )
+
+            })
+
 
 
             VolleyService.checkWishlistReq(registerId!!, UserInfo.ID, this, {success->

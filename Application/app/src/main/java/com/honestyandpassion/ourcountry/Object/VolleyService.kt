@@ -352,6 +352,35 @@ object VolleyService {
     }
 
 
+    fun getReviewReq(
+        user_id: String,
+        register_id:Int,
+        context: Context,
+        success: (JSONArray?) -> Unit
+    ) {
+        var url = "${ip}/user/get/review"
+
+        var jsonObject = JSONObject()
+        jsonObject.put("user_id", user_id)
+        jsonObject.put("register_id",register_id)
+
+        var array = JSONArray()
+        array.put(jsonObject)
+
+        var request = object : JsonArrayRequest(
+            Method.POST,
+            url,
+            array,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
 
     fun myInfoReq(id: String, context: Context, success: (JSONObject?) -> Unit){
         var url="${ip}/user/my"
