@@ -264,7 +264,7 @@ class ProductActivity : AppCompatActivity() {
             }
 
 
-            VolleyService.getReviewReq(UserInfo.ID,registerId,this,{success->
+            VolleyService.getReviewReq(registerId,this,{success->
                 reviewList.clear()
                 var array = success
                 for(i in 0..array!!.length()-1) {
