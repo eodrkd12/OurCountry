@@ -39,6 +39,7 @@ class BankAdapter(val context: Context, val bankList: Array<String>) : BaseAdapt
         var item=bankList[position].split(" ")
         var intent = Intent(context, AccountActivity::class.java)
         intent.putExtra("bankcode",item[1])
+        intent.putExtra("bankname",item[0])
 
         context.startActivity(intent)
 

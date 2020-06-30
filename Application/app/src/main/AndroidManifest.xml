@@ -41,6 +41,7 @@
         <activity android:name=".MainActivity.EditProfileActivity" />
         <activity android:name=".MainActivity.RefundActivity"/>
         <activity android:name=".MainActivity.ReviewActivity"/>
+        <activity android:name=".MainActivity.AccountActivity"/>
         <activity android:name=".IntroActivity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
