@@ -6,37 +6,39 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string-array name="account_confirm">
+        <item>주민등록번호</item>
+        <item>사업자등록번호</item>
+
+    </string-array>
     <!-- Bank -->
     <string-array name="array_bank">
-        <item>농협</item>
-        <item>신한</item>
-        <item>IBK기업</item>
-        <item>하나은행</item>
-        <item>우리</item>
-        <item>국민</item>
-        <item>SC제일</item>
-        <item>부산</item>
-        <item>광주</item>
-        <item>새마을</item>
-        <item>대구</item>
-        <item>경남</item>
-        <item>전북</item>
-        <item>제주</item>
-        <item>산업</item>
-        <item>카카오뱅크</item>
-        <item>신협</item>
-        <item>수협</item>
-        <item>씨티</item>
-        <item>케이뱅크</item>
-        <item>도이치</item>
-        <item>BOA</item>
-        <item>BNP</item>
-        <item>우체국</item>
-        <item>중국공상</item>
-        <item>HSBC</item>
-        <item>JP모간</item>
-        <item>산림조합</item>
-        <item>저축은행</item>
+        <item>농협 011</item>
+        <item>신한 088</item>
+        <item>IBK기업 003</item>
+        <item>하나은행 081</item>
+        <item>우리 020</item>
+        <item>국민 004</item>
+        <item>SC제일 023</item>
+        <item>부산 032</item>
+        <item>광주 034</item>
+        <item>새마을 045</item>
+        <item>대구 031</item>
+        <item>경남 039</item>
+        <item>전북 037</item>
+        <item>제주 035</item>
+        <item>산업 002</item>
+        <item>카카오뱅크 090</item>
+        <item>신협 048</item>
+        <item>수협 007</item>
+        <item>씨티 027</item>
+        <item>케이뱅크 089</item>
+        <item>도이치 055</item>
+        <item>BOA 060</item>
+        <item>우체국 071</item>
+        <item>HSBC 054</item>
+        <item>JP모간 057</item>
+        <item>저축은행 050</item>
     </string-array>
 
     <!-- Menu -->

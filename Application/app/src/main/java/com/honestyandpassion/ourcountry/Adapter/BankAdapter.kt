@@ -1,6 +1,7 @@
 package com.honestyandpassion.ourcountry.Adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
@@ -10,6 +11,10 @@ import com.honestyandpassion.ourcountry.MainActivity.MainActivity
 import android.widget.ImageView.ScaleType
 import android.widget.GridView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
+import com.honestyandpassion.ourcountry.MainActivity.AccountActivity
+import com.honestyandpassion.ourcountry.MainActivity.ChangePasswordActivity
 
 
 class BankAdapter(val context: Context, val bankList: Array<String>) : BaseAdapter() {
@@ -23,13 +28,21 @@ class BankAdapter(val context: Context, val bankList: Array<String>) : BaseAdapt
             view = inflater.inflate(R.layout.item_bank, parent, false)
         }
         var textView=view?.findViewById(R.id.text_bank) as TextView
-        var item=bankList[position]
-        textView.setText(item)
+        var item=bankList[position].split(" ")
+        textView.setText(item[0])
+
+
         return view
     }
 
     override fun getItem(position: Int): Any {
-        return bankList[position]
+        var item=bankList[position].split(" ")
+        var intent = Intent(context, AccountActivity::class.java)
+        intent.putExtra("bankcode",item[1])
+
+        context.startActivity(intent)
+
+        return item[0]
     }
 
     override fun getItemId(position: Int): Long {
