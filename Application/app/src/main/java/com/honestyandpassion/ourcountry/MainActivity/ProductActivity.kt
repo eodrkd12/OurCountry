@@ -36,9 +36,11 @@ import com.honestyandpassion.ourcountry.Adapter.ProductPreviewAdapter
 import com.honestyandpassion.ourcountry.Adapter.ReviewAdapter
 import com.honestyandpassion.ourcountry.Class.DialogMsg
 import com.honestyandpassion.ourcountry.Fragment.HomeFragment
+import com.honestyandpassion.ourcountry.Fragment.MypageFragment
 import com.honestyandpassion.ourcountry.Item.ChatRoomItem
 import com.honestyandpassion.ourcountry.Item.PreviewItem
 import com.honestyandpassion.ourcountry.Item.ReviewItem
+import kotlinx.android.synthetic.main.activity_profile_edit.*
 
 
 class ProductActivity : AppCompatActivity() {
@@ -64,6 +66,7 @@ class ProductActivity : AppCompatActivity() {
         btn_backpress.setOnClickListener {
             finish()
         }
+
 
         VolleyService.getRegisterReq(registerId, this, {success->
             var json = success
@@ -93,6 +96,7 @@ class ProductActivity : AppCompatActivity() {
                     btn_following.setBackgroundResource(R.drawable.rounded_following_button)
                     btn_following.setTextColor(Color.parseColor("#212121"))
                 }
+
 
                 btn_following.setOnClickListener {
                     when(btn_following.text) {
@@ -213,6 +217,18 @@ class ProductActivity : AppCompatActivity() {
                     "phone" -> {
                         text_sellercertification.setText("휴대폰 인증 계정")
                     }
+                }
+                var sellercertification =text_sellercertification.text
+                layout_sellerinfo.setOnClickListener {
+                    var intent=Intent(this,PageActivity::class.java)
+                    intent.putExtra("name",userNickname)
+                    intent.putExtra("user_rating_average",user.getDouble("user_rating_average").toString())
+                    intent.putExtra("user_rating",user.getDouble("user_rating_average").toFloat())
+                    intent.putExtra("user_rating_count","(${user.getInt("user_rating_count")})")
+                    intent.putExtra("user_join_date",joinDate.split('T')[0])
+                    intent.putExtra("sellercertification",sellercertification)
+                    startActivity(intent)
+
                 }
             })
 
