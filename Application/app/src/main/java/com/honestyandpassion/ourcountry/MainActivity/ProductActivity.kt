@@ -32,6 +32,8 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonParser
 import com.honestyandpassion.ourcountry.Adapter.ProductPreviewAdapter
 import com.honestyandpassion.ourcountry.Adapter.ReviewAdapter
 import com.honestyandpassion.ourcountry.Class.DialogMsg
@@ -41,6 +43,8 @@ import com.honestyandpassion.ourcountry.Item.ChatRoomItem
 import com.honestyandpassion.ourcountry.Item.PreviewItem
 import com.honestyandpassion.ourcountry.Item.ReviewItem
 import kotlinx.android.synthetic.main.activity_profile_edit.*
+import okhttp3.*
+import java.io.IOException
 
 
 class ProductActivity : AppCompatActivity() {
@@ -221,6 +225,46 @@ class ProductActivity : AppCompatActivity() {
                 var sellercertification =text_sellercertification.text
                 layout_sellerinfo.setOnClickListener {
                     var intent=Intent(this,PageActivity::class.java)
+
+                    val client_id = "NH1R0JVZDIFqbeMaT5jNxRUxt3MO7QgK35PfCzW6"
+                    var client_secret = "R6u7SWjON7KSh4VrmgVWfOanyNzmeWtwoVDs5Rym"
+                    /* val url =
+                         "https://openapi.openbanking.or.kr/oauth/2.0/token?scope=oob&client_id=" + client_id + "&client_secret=" + client_secret + "&grant_type=client_credentials"
+         */
+                    var url="https://openapi.openbanking.or.kr/oauth/2.0/token"
+                    val request = Request.Builder().url(url)
+                        .addHeader("scope","oob")
+                        .addHeader("client_id",client_id)
+                        .addHeader("client_secret",client_secret)
+                        .addHeader("grant_type","client_credentials")
+                        .method("POST",null).build()
+
+                    val client = OkHttpClient()
+                    client.newCall(request).enqueue(object : Callback {
+                        override fun onResponse(call: Call, response: Response) {
+
+                                val body = response?.body?.string()
+                                println("Success to execute request : $body")
+                           // Log.d("test","${body}")
+
+                                val gson = GsonBuilder().create()
+                                val parser = JsonParser()
+
+                                val rootObj = parser.parse(body.toString())
+                                    .getAsJsonObject().get("access_token")
+
+                            runOnUiThread{
+
+                                // val homefeed = gson.fromJson(body, Homefeed::class.java)
+                            }
+
+                        }
+
+                        override fun onFailure(call: Call, e: IOException) {
+                            println("리퀘스트 실패")
+                        }
+                    })
+
                     intent.putExtra("name",userNickname)
                     intent.putExtra("id",userId)
                     intent.putExtra("user_rating_average",user.getDouble("user_rating_average").toString())
