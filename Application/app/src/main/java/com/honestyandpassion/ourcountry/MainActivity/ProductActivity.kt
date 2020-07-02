@@ -222,6 +222,7 @@ class ProductActivity : AppCompatActivity() {
                 layout_sellerinfo.setOnClickListener {
                     var intent=Intent(this,PageActivity::class.java)
                     intent.putExtra("name",userNickname)
+                    intent.putExtra("id",userId)
                     intent.putExtra("user_rating_average",user.getDouble("user_rating_average").toString())
                     intent.putExtra("user_rating",user.getDouble("user_rating_average").toFloat())
                     intent.putExtra("user_rating_count","(${user.getInt("user_rating_count")})")

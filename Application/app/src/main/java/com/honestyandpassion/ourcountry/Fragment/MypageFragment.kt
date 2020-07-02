@@ -83,7 +83,7 @@ class MypageFragment : Fragment() {
                 productArrayList.add(recentProduct)
             }
             myProductRV.setHasFixedSize(true)
-            myProductRV.layoutManager=LinearLayoutManager(activity!!, RecyclerView.HORIZONTAL, false)
+            myProductRV.layoutManager=LinearLayoutManager(activity!!, RecyclerView.VERTICAL, false)
             myProductRV.adapter= ProductPreviewAdapter(activity!!, productArrayList)
         })
 
