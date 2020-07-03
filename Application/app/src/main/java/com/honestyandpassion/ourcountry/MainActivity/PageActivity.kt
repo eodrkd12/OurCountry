@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.honestyandpassion.ourcountry.Adapter.ProductPreviewAdapter
@@ -71,7 +72,7 @@ class PageActivity:AppCompatActivity() {
             }
             myProductRV.setHasFixedSize(true)
             myProductRV.layoutManager=
-                LinearLayoutManager(this!!, RecyclerView.VERTICAL, false)
+                GridLayoutManager(this!!, 2)
             myProductRV.adapter= ProductPreviewAdapter(this!!, MypageFragment.productArrayList)
         })
     }

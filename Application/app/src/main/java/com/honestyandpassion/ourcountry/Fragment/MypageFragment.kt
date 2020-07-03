@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.honestyandpassion.ourcountry.Adapter.ProductPreviewAdapter
@@ -83,7 +84,7 @@ class MypageFragment : Fragment() {
                 productArrayList.add(recentProduct)
             }
             myProductRV.setHasFixedSize(true)
-            myProductRV.layoutManager=LinearLayoutManager(activity!!, RecyclerView.VERTICAL, false)
+            myProductRV.layoutManager= GridLayoutManager(activity!!, 2)
             myProductRV.adapter= ProductPreviewAdapter(activity!!, productArrayList)
         })
 

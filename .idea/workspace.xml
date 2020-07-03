@@ -21,12 +21,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="test" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b39ce438-8e6b-4c11-bf6a-cd672ad78dda" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Application/app/src/main/java/com/honestyandpassion/ourcountry/MainActivity/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/src/main/java/com/honestyandpassion/ourcountry/MainActivity/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/app/src/main/java/com/honestyandpassion/ourcountry/MainActivity/RegisterActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/src/main/java/com/honestyandpassion/ourcountry/MainActivity/RegisterActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/app/src/main/java/com/honestyandpassion/ourcountry/Object/VolleyService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/src/main/java/com/honestyandpassion/ourcountry/Object/VolleyService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Application/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-    </list>
+    <list default="true" id="b39ce438-8e6b-4c11-bf6a-cd672ad78dda" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

@@ -72,7 +72,7 @@ class AccountActivity:AppCompatActivity() {
 
         btn_confirm.setOnClickListener {
 
-            var clientNum="2020163807"
+            var clientNum="T991589220"
             var uniqueNum= SimpleDateFormat("HHmmssSSS", Locale.KOREA).format(Date())
             var confirmText=spinner_confirm.selectedItem.toString()
 
@@ -99,7 +99,7 @@ class AccountActivity:AppCompatActivity() {
                 .add("tran_dtime",time)
                 .build()
             val request = Request.Builder().url(url)
-                .addHeader("Authorization","Bearer<"+accessToken+">")
+                .addHeader("Authorization","Bearer ${accessToken}")
                 .post(requestBody)
                 .build()
 
@@ -107,6 +107,7 @@ class AccountActivity:AppCompatActivity() {
             client.newCall(request).enqueue(object : Callback {
                 override fun onResponse(call: Call, response: Response) {
                     val body = response?.body?.string()
+                    Log.d("test","token:${accessToken}")
                  Log.d("test","${body}")
                     runOnUiThread{
 
