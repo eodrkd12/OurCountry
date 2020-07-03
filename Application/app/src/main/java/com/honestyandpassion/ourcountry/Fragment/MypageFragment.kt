@@ -88,8 +88,9 @@ class MypageFragment : Fragment() {
         })
 
         nameText.text=UserInfo.NICKNAME
-        joinText.text=UserInfo.JOINDATE.substring(0,10)
-
+        if(UserInfo.JOINDATE.length>=10) {
+            joinText.text = UserInfo.JOINDATE.substring(0, 10)
+        }
         var textVerified=rootView.findViewById<TextView>(R.id.text_verified)
 
         when(UserInfo.LOGIN_TYPE){
