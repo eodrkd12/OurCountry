@@ -18,6 +18,7 @@ import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.IntroActivity.SettingActivity
 import com.honestyandpassion.ourcountry.Item.PreviewItem
 import com.honestyandpassion.ourcountry.MainActivity.EditProfileActivity
+import com.honestyandpassion.ourcountry.MainActivity.FollowerFollowActivity
 import com.honestyandpassion.ourcountry.Object.VolleyService
 import com.honestyandpassion.ourcountry.MainActivity.ProductAllViewActivity
 import com.honestyandpassion.ourcountry.MainActivity.RefundActivity
@@ -48,6 +49,15 @@ class MypageFragment : Fragment() {
         var refundImg:ImageView=rootView.findViewById(R.id.img_refund)
 
         pointText!!.setText("포인트 ${UserInfo.POINT}")
+
+        followerText.setOnClickListener {
+            var intent = Intent(activity, FollowerFollowActivity::class.java)
+            startActivity(intent)
+        }
+        followingText.setOnClickListener {
+            var intent = Intent(activity, FollowerFollowActivity::class.java)
+            startActivity(intent)
+        }
 
         VolleyService.getPoint(UserInfo.ID,activity!!,{success ->
             var json=success

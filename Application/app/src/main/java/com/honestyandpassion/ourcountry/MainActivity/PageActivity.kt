@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.honestyandpassion.ourcountry.Adapter.ProductPreviewAdapter
+import com.honestyandpassion.ourcountry.Class.ToolbarSetting
 import com.honestyandpassion.ourcountry.Class.UserInfo
 import com.honestyandpassion.ourcountry.Fragment.MypageFragment
 import com.honestyandpassion.ourcountry.Item.PreviewItem
@@ -16,7 +17,7 @@ import com.honestyandpassion.ourcountry.R
 import kotlinx.android.synthetic.main.fragment_mypage.*
 import org.json.JSONObject
 
-class PageActivity:AppCompatActivity() {
+class PageActivity:ToolbarSetting(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +33,7 @@ class PageActivity:AppCompatActivity() {
 
         var myProductRV : RecyclerView =findViewById(R.id.rv_list)
 
+        var toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar_recent_register)
 
         text_name.setText(name)
         ratingstar.rating=user_rating
