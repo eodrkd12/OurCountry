@@ -47,15 +47,18 @@ class MypageFragment : Fragment() {
         var wishlistBtn : ConstraintLayout = rootView.findViewById(R.id.layout_wishlist)
         pointText=rootView.findViewById(R.id.text_point)
         var refundImg:ImageView=rootView.findViewById(R.id.img_refund)
+        var followList:List<String>
 
         pointText!!.setText("포인트 ${UserInfo.POINT}")
 
         followerText.setOnClickListener {
             var intent = Intent(activity, FollowerFollowActivity::class.java)
+            intent.putExtra("res","follower")
             startActivity(intent)
         }
         followingText.setOnClickListener {
             var intent = Intent(activity, FollowerFollowActivity::class.java)
+            intent.putExtra("res","following")
             startActivity(intent)
         }
 
@@ -75,6 +78,7 @@ class MypageFragment : Fragment() {
 
         VolleyService.getCountFollowerReq(UserInfo.ID, activity!!, {success->
             followerText.setText("팔로워(${success!!.getInt("count").toString()})")
+
         })
 
         VolleyService.getCountFollowingReq(UserInfo.ID, activity!!, {success->

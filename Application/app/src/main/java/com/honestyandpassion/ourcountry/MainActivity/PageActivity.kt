@@ -33,7 +33,7 @@ class PageActivity:ToolbarSetting(){
 
         var myProductRV : RecyclerView =findViewById(R.id.rv_list)
 
-        var toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar_recent_register)
+//        var toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar_recent_register)
 
         text_name.setText(name)
         ratingstar.rating=user_rating

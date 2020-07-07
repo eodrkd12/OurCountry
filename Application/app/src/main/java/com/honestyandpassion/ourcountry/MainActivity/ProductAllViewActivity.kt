@@ -39,7 +39,8 @@ class ProductAllViewActivity : ToolbarSetting() {
                     var array = success
                     for(i in 0..array!!.length()-1) {
                         var json = array[i] as JSONObject
-                        var recentProduct = PreviewItem(json.getInt("register_id"),
+                        var recentProduct = PreviewItem(
+                            json.getInt("register_id"),
                             json.getString("register_title"),
                             json.getString("product_price"),
                             json.getString("product_status"),

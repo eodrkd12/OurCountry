@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".MainActivity.FollowerFollowActivity"/>
         <activity android:name=".MainActivity.AlarmSettingActivity"></activity>
         <activity android:name=".IntroActivity.SelectUserTypeActivity" />
         <activity android:name=".MainActivity.PaymentActivity" />

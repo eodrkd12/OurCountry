@@ -9,6 +9,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.google.gson.JsonArray
 import org.json.JSONArray
 import org.json.JSONObject
 import java.lang.reflect.Method
@@ -1057,6 +1058,30 @@ object VolleyService {
 
         Volley.newRequestQueue(context).add(request)
     }
+
+    fun getFollow(checkfollow:String ,userid:String ,context: Context, success: (JSONArray?)->Unit) {
+        var url = "${ip}/follow/get/followlist"
+
+        var json = JSONObject()
+        json.put("checkfollow", checkfollow)
+        json.put("userid", userid)
+
+        var jsonArray=JSONArray()
+        jsonArray.put(json)
+
+        var request = object : JsonArrayRequest(Method.POST,
+            url,
+            jsonArray,
+            Response.Listener {
+                success(it)
+            },
+            Response.ErrorListener {
+            }) {
+        }
+        Volley.newRequestQueue(context).add(request)
+    }
+
+
     fun getCountFollowerReq(following:String , context: Context, success: (JSONObject?)->Unit) {
         var url = "${ip}/follow/get/count/follower"
 
